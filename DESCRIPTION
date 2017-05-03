@@ -1,0 +1,38 @@
+Package: joineRmeta
+Type: Package
+Title: Joint modelling for meta-analytic (multi-study) data
+Version: 0.1.0
+Author: c(
+    person("Maria", "Sudell", email = "mesudell@liverpool.ac.uk", 
+    role = c("aut","cre")), 
+    person("Ruwanthi", "Kolamunnage-Dona", email = "mesudell@liverpool.ac.uk", 
+    role = c("aut")),
+    person("Catrin", "Tudur Smith", email = "mesudell@liverpool.ac.uk", 
+    role = c("aut")))
+Description: Functions for meta-analysis of a single longitudinal and a single 
+    time-to-event outcome from multiple studies using joint models.  Options to 
+    produce plots for multi study joint data, to pool joint model fits from JM
+    and joineR packages in a two stage meta-analysis, and to model multi-study 
+    joint data in a one stage meta-analysis.
+License: GPL-3 + file
+Encoding: 
+LazyData: true
+Depends: lme4,
+    survival
+Imports: ggplot2,
+    grid,
+    gridExtra,
+    gtools,
+    JM,
+    joineR,
+    lme4,
+    MASS,
+    meta,
+    msm,
+    nlme,
+    statmod,
+    survival
+RoxygenNote: 6.0.1
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr
