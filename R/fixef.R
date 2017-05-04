@@ -46,7 +46,7 @@
 
 
 fixef.jointmeta1 <- function(fitted,
-                             type=c("Longitudinal", "Survival", "Latent")) {
+                             type = c("Longitudinal", "Survival", "Latent")) {
   if(class(fitted) != "jointmeta1") {
     stop("Variable fitted should be of class jointmeta1")
   }

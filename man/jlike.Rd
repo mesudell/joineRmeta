@@ -5,10 +5,9 @@
 \title{Function to calculate joint likelihood used in the jointmeta1 function}
 \usage{
 jlike(data, longdat, survdat, q, likeests, lgpt, studies, p1, p2, long.rand.ind,
-  randstart.ind = paraests$randstart.ind,
-  randstart.ind.cov = paraests$randstart.ind.cov, r = NULL,
-  long.rand.stud = NULL, randstart.stud = NULL, randstart.stud.cov = NULL,
-  strat, study.name, id.name)
+  randstart.ind, randstart.ind.cov, r = NULL, long.rand.stud = NULL,
+  randstart.stud = NULL, randstart.stud.cov = NULL, strat, study.name,
+  id.name)
 }
 \arguments{
 \item{data}{an object of class jointdata containing the variables named in

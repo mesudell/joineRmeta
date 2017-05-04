@@ -14,8 +14,6 @@ knitr::opts_chunk$set(
 
 # joineRmeta
 
-[![License](https://img.shields.io/badge/License-GPL%20%28%3E=%203%29-brightgreen.svg)](http://www.gnu.org/licenses/gpl-3.0.html)
-
 The `joineRmeta` package implements methods to analyse multi-study joint data consisting of a single continuous longitudinal outcome, and a single possible censored time-to-event outcome.  The modelling framework for the longitudinal data is a linear mixed effects model (Laird and Ware, 1982).  The modelling framework for the time-to-event outcome is a Cox proportional hazards model with an unspecified baseline hazard (Cox, 1972).  The longitudinal and time-to-event sub-model are linked through an association structure.  Currently only the random effects only proportional association is available (see Gould et al, 2015).  The methodology used to fit the model is described in Henderson et al (2000) and Wulfsohn and Tsiatis (1997).
 
 The `joineRmeta` package contains methods to perform the second stage of a two stage meta-analysis (MA) of study specific joint modelling fits, and one stage MA of multi-study joint data where between study heterogeneity can be accounted for using interaction terms with study membership variables, study level random effects, or baseline hazard stratified by study.  The package also contains plotting and simulation functions.
@@ -24,7 +22,7 @@ The `joineRmeta` package contains methods to perform the second stage of a two s
 
 The `joineRmeta` package contains several simulated datasets.  One of these is `simdat` which contains data from 5 studies, each containing 500 simulated individuals. This data first must be transformed into a joint data object 
 
-```{r joint_data}
+```{r joint_data, eval=FALSE}
 library(joineRmeta)
 data(simdat)
 jointdat<-tojointdata(longitudinal = simdat$longitudinal, 
@@ -46,7 +44,7 @@ Using the data held in the `jointdata` object `jointdat` we can then fit a one s
 - `study.name`: character string denoting the variable name of the study membership variable.
 - `strat`: logical value denoting whether or not the baseline hazard is to be stratified by study.
 
-```{r joint_model, results='hide'}
+```{r joint_model, eval=FALSE}
 fit <- jointmeta1(data = jointdat, 
                   long.formula = Y ~ 1 + time + treat, 
                   long.rand.ind = c("int", "time"), 
@@ -56,7 +54,7 @@ fit <- jointmeta1(data = jointdat,
                   study.name = "study", 
                   strat = T)
 ```
-```{r summary}
+```{r summary, eval=FALSE}
 summary(fit)
 ```
 
@@ -79,7 +77,7 @@ install_github('mesudell/joineRmeta', build_vignettes = FALSE)
 
 1. Cox DR. Regression models and life-tables. *J R Stat Soc Ser B Stat Methodol.* 1972; **34(2)**: 187-220.
 
-2. Gould LA, Boye M, Bois F, et al. Joint modeling of survival and longitudinal non-survival data: current methods and issues. Report of the DIA Bayesian joint modeling working group. *Statistics In Medicine.* June 30, 2015;**34(14)**:2181-2195.
+2. Gould LA, Boye M, Bois F, et al. Joint modeling of survival and longitudinal non-survival data: current methods and issues. Report of the DIA Bayesian joint modeling working group. *Stat Med.* 2015; **34(14)**: 2181-2195.
 
 3. Henderson R, Diggle PJ, Dobson A. Joint modelling of longitudinal measurements and event time data. *Biostatistics.* 2000; **1(4)**: 465-480.
 

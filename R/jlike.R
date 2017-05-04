@@ -106,8 +106,8 @@
 #'
 #' @keywords internal
 jlike <- function(data, longdat, survdat, q, likeests, lgpt, studies, p1, p2,
-                  long.rand.ind, randstart.ind = paraests$randstart.ind,
-                  randstart.ind.cov = paraests$randstart.ind.cov, r = NULL,
+                  long.rand.ind, randstart.ind,
+                  randstart.ind.cov, r = NULL,
                   long.rand.stud = NULL, randstart.stud = NULL,
                   randstart.stud.cov = NULL, strat, study.name, id.name) {
   numstudies <- length(studies)
