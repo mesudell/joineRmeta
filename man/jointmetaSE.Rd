@@ -14,8 +14,8 @@ jointmetaSE(fitted, n.boot, gpt, max.it, tol, print.detail = FALSE,
 intervals will only be calculated if \code{n.boot} is greater than 100.}
 
 \item{gpt}{the number of quadrature points over which the integration with
-respect to the random effects will be performed.  Will default to
-\code{gpt = 5}.}
+respect to the random effects will be performed.  Will default to \code{gpt
+= 5}.}
 
 \item{max.it}{the maximum number of iterations that the EM algorithm will
 perform for each bootstrap fit. Will default to 350.}
@@ -24,70 +24,67 @@ perform for each bootstrap fit. Will default to 350.}
 considered to have occurred. Default value is tol = 0.001.}
 
 \item{print.detail}{this argument determines the level of printing that is
-done during the bootstrapping. If \code{TRUE} then the parameter
-estimates from each bootstrap sample are output.  Otherwise a progress
-bar is printed to indicated the proportion of bootstraps currently
-completed.}
+done during the bootstrapping. If \code{TRUE} then the parameter estimates
+from each bootstrap sample are output.  Otherwise a progress bar is printed
+to indicated the proportion of bootstraps currently completed.}
 
 \item{overalleffects}{this argument indicates what if any overall effects
-will have their standard errors and confidence intervals calculated
-during the bootstrap procedure. An example of an overall effect would be
-the combined value of a treatment effect, and a treatment by study
-membership interaction.  The overall treatment effect (the sum of these
-two values) could be of interest in an investigation.  This argument is a
-list containing two elements, \code{long} and \code{surv}.  Each of these
+will have their standard errors and confidence intervals calculated during
+the bootstrap procedure. An example of an overall effect would be the
+combined value of a treatment effect, and a treatment by study membership
+interaction.  The overall treatment effect (the sum of these two values)
+could be of interest in an investigation.  This argument is a list
+containing two elements, \code{long} and \code{surv}.  Each of these
 elements contains a list of vectors, each of which contains the names of
 the parameters that make up the required overall effects}
 }
 \value{
 a list containing three elements: \describe{
 
-    \item{\code{results}}{a data frame containing the estimates, standard
-    errors and 95% confidence intervals for the parameters from the model
-    and any overall effects requested.}
+  \item{\code{results}}{a data frame containing the estimates, standard
+  errors and 95% confidence intervals for the parameters from the model and
+  any overall effects requested.}
 
-    \item{\code{covmat}}{the covariance matrix for the model parameters}
+  \item{\code{covmat}}{the covariance matrix for the model parameters}
 
-    \item{\code{bootstraps}}{a data frame containing the results of each
-    bootstrap}
-}
+  \item{\code{bootstraps}}{a data frame containing the results of each
+  bootstrap} }
 }
 \description{
-This function takes the results of a \code{jointmeta1} fit and bootstraps
-    it to find the standard errors of the parameter estimates.
+This function takes the results of a \code{jointmeta1} fit and bootstraps it
+to find the standard errors of the parameter estimates.
 }
 \details{
 This function takes the results of a one stage joint model fit to
-    data from multiple studies using the function \code{jointmeta1} and
-    performs \code{n.boot} bootstraps to determine the standard errors of the
-    parameter estimates, and their confidence intervals if
-    \code{n.boot > 100}.
+  data from multiple studies using the function \code{jointmeta1} and
+  performs \code{n.boot} bootstraps to determine the standard errors of the
+  parameter estimates, and their confidence intervals if \code{n.boot > 100}.
 
-    The parameter \code{overalleffects} is designed for use in cases where
-    interaction terms are included in the model specification, for example
-    a model fitted using \code{jointmeta1} which includes both \code{treat}
-    and \code{treat:study} where \code{treat} is a binary treatment indicator
-    variable and \code{study} is a study indicator. In this case it may be of
-    interest to calculate the confidence interval for the value of
-    \code{treat + treat:study} for a given study. This is done by calculating
-    the value of the expression for each bootstrap, and calculating the
-    standard errors for the expression in the same way as for the other
-    parameters.  Any overall effects to be calculated for the longitudinal
-    sub-model are supplied as a list named \code{long} in the list
-    \code{overalleffects}, with each element of this list containing a vector
-    of the character names of the fixed effects to be summed to form an
-    overall effect.  Overall effects from the survival model are specified in
-    a similar way to an element named \code{surv}
+  The parameter \code{overalleffects} is designed for use in cases where
+  interaction terms are included in the model specification, for example a
+  model fitted using \code{jointmeta1} which includes both \code{treat} and
+  \code{treat:study} where \code{treat} is a binary treatment indicator
+  variable and \code{study} is a study indicator. In this case it may be of
+  interest to calculate the confidence interval for the value of \code{treat
+  + treat:study} for a given study. This is done by calculating the value of
+  the expression for each bootstrap, and calculating the standard errors for
+  the expression in the same way as for the other parameters.  Any overall
+  effects to be calculated for the longitudinal sub-model are supplied as a
+  list named \code{long} in the list \code{overalleffects}, with each element
+  of this list containing a vector of the character names of the fixed
+  effects to be summed to form an overall effect.  Overall effects from the
+  survival model are specified in a similar way to an element named
+  \code{surv}
 }
 \examples{
 
     #change data to jointdata format
     jointdat<-tojointdata(longitudinal = simdat$longitudinal,
-                          survival = simdat$survival, id = "id",
-                          longoutcome = "Y",
-                          timevarying = c("time","ltime"),
-                          survtime = "survtime", cens = "cens",
-                          time = "time")
+                          survival = simdat$survival, id = 'id',
+                          longoutcome = 'Y',
+                          timevarying = c('time','ltime'),
+                          survtime = 'survtime', cens = 'cens',
+                          time = 'time')
 
     #ensure variables are correctly formatted
     jointdat$baseline$study <- as.factor(jointdat$baseline$study)
@@ -96,11 +93,11 @@ This function takes the results of a one stage joint model fit to
     #example without interaction terms
     #fit multi-study joint model
     onestagefit<-jointmeta1(data = jointdat, long.formula = Y ~ 1 + time +
-                           treat + study, long.rand.ind = c("int", "time"),
-                           long.rand.stud = c("treat"),
-                           sharingstrct = "randprop",
+                           treat + study, long.rand.ind = c('int', 'time'),
+                           long.rand.stud = c('treat'),
+                           sharingstrct = 'randprop',
                            surv.formula = Surv(survtime, cens) ~ treat,
-                           study.name = "study", strat = T)
+                           study.name = 'study', strat = T)
 
     #calculate the SE
     onestagefitSE <- jointmetaSE(fitted = onestagefit, n.boot = 200)
@@ -108,22 +105,22 @@ This function takes the results of a one stage joint model fit to
     #example with interaction terms
     #fit multi-study joint model
     onestagefit2<-jointmeta1(data = jointdat, long.formula = Y ~ 1 + time +
-                           treat*study, long.rand.ind = c("int", "time"),
-                           sharingstrct = "randprop",
+                           treat*study, long.rand.ind = c('int', 'time'),
+                           sharingstrct = 'randprop',
                            surv.formula = Surv(survtime, cens) ~ treat*study,
-                           study.name = "study",
+                           study.name = 'study',
                            strat = F)
 
     #calculate the SE
     onestagefit2SE <- jointmetaSE(fitted = onestagefit2, n.boot = 125,
-          overalleffects = list(long = list(c("treat1", "treat1:study2"),
-                                            c("treat1", "treat1:study3"),
-                                            c("treat1", "treat1:study4"),
-                                            c("treat1", "treat1:study5")),
-                                surv = list(c("treat1", "treat1:study2"),
-                                            c("treat1", "treat1:study3"),
-                                            c("treat1", "treat1:study4"),
-                                            c("treat1", "treat1:study5"))))
+          overalleffects = list(long = list(c('treat1', 'treat1:study2'),
+                                            c('treat1', 'treat1:study3'),
+                                            c('treat1', 'treat1:study4'),
+                                            c('treat1', 'treat1:study5')),
+                                surv = list(c('treat1', 'treat1:study2'),
+                                            c('treat1', 'treat1:study3'),
+                                            c('treat1', 'treat1:study4'),
+                                            c('treat1', 'treat1:study5'))))
 
 
 }

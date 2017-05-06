@@ -3,7 +3,7 @@
 \name{rancov}
 \alias{rancov}
 \title{Function to extract the estimated covariance matrices for the random effects
-    specified in the model}
+specified in the model}
 \usage{
 rancov(fitted, type = c("individual", "study"))
 }
@@ -12,20 +12,20 @@ rancov(fitted, type = c("individual", "study"))
 
 \item{type}{a character string indicating what level the random effects
 covariance matrix should be returned for.  If the individual level random
-effects covariance matrix is required then \code{type = "individual"}.
-If the study level random effects covariance matrix is required then
+effects covariance matrix is required then \code{type = "individual"}. If
+the study level random effects covariance matrix is required then
 \code{type = "study"}.  Note that if study level random effects are not
 included in the model, then attempting to extract them will result in an
 error message.}
 }
 \value{
 a matrix of dimensions equal to the number of random effects at the
-    level specified by the \code{type} parameter.
+  level specified by the \code{type} parameter.
 }
 \description{
 A function to allow the random effects covariance matrix for a particular
-    level of random effects specified in the sub-model to be extracted from
-    the \code{jointmeta1} model fit.
+level of random effects specified in the sub-model to be extracted from the
+\code{jointmeta1} model fit.
 }
 \examples{
     #change data to jointdata format

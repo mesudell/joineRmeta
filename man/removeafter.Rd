@@ -26,29 +26,28 @@ a jointdata object, see \code{\link[joineR]{jointdata}}
 }
 \description{
 This function is designed to remove any longitudinal information recorded
-    after the survival time for each individual.  If the survival event is
-    not terminal, it is possible that longitudinal information is available
-    in the data after the survival time, but it should not contribute to the
-    joint analysis.  This function takes and returns a \code{jointdata}
-    object.
+after the survival time for each individual.  If the survival event is not
+terminal, it is possible that longitudinal information is available in the
+data after the survival time, but it should not contribute to the joint
+analysis.  This function takes and returns a \code{jointdata} object.
 }
 \details{
 This function removes any longitudinal information recorded for an
-    individual after their survival time. A joint data object should have the
-    id column as the first column in each of the \code{survival},
-    \code{longitudinal} and \code{baseline} datasets.  In the \code{survival}
-    dataset the second column should be the survival time and the third
-    should be the censoring variable.  In the \code{longitudinal} dataset,
-    the second column should be longitudinal outcome, the third the
-    longitudinal time variable and the remaining columns any other time
-    varying covariates.  The baseline dataset should have columns 2 and
-    onwards containing time stationary covariates such as treatment group
-    assignment or study membership.
+  individual after their survival time. A joint data object should have the
+  id column as the first column in each of the \code{survival},
+  \code{longitudinal} and \code{baseline} datasets.  In the \code{survival}
+  dataset the second column should be the survival time and the third should
+  be the censoring variable.  In the \code{longitudinal} dataset, the second
+  column should be longitudinal outcome, the third the longitudinal time
+  variable and the remaining columns any other time varying covariates.  The
+  baseline dataset should have columns 2 and onwards containing time
+  stationary covariates such as treatment group assignment or study
+  membership.
 
-    This function does not need to be run on the results of the multi-study
-    data simulation function \code{\link{simjointmeta}}, because the
-    longitudinal data simulated under this function is already capped at the
-    individual's survival time.
+  This function does not need to be run on the results of the multi-study
+  data simulation function \code{\link{simjointmeta}}, because the
+  longitudinal data simulated under this function is already capped at the
+  individual's survival time.
 }
 \examples{
 
@@ -58,13 +57,13 @@ This function removes any longitudinal information recorded for an
 
  #first this data needs to be changed to a jointdata object
  jointdat3<-tojointdata(longitudinal = simdat3$longitudinal,
-                  survival = simdat3$survival, id = "id", longoutcome = "Y",
-                  timevarying = c("time","ltime"), survtime = "survtime",
-                  cens = "cens",time = "time")
+                  survival = simdat3$survival, id = 'id', longoutcome = 'Y',
+                  timevarying = c('time','ltime'), survtime = 'survtime',
+                  cens = 'cens',time = 'time')
 
  #then additional data recorded after the survival time can be removed
- jointdat3.1<-removeafter(data = jointdat3, longitudinal = "Y",
-                  survival = "survtime", id = "id", time = "time")
+ jointdat3.1<-removeafter(data = jointdat3, longitudinal = 'Y',
+                  survival = 'survtime', id = 'id', time = 'time')
 
  #we can compare the two datasets to see the removed data
  str(jointdat3)

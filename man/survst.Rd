@@ -7,8 +7,8 @@
 survst(survdat, surv.formula, survdat2, strat, study.name = NULL)
 }
 \arguments{
-\item{survdat}{the survival data with factors and interaction terms
-expanded,  ordered by increasing survival time}
+\item{survdat}{the survival data with factors and interaction terms expanded,
+ordered by increasing survival time}
 
 \item{surv.formula}{a formula object with the survival time, censoring
 indicator and the covariates to include in the survival sub-model.  The
@@ -24,55 +24,54 @@ unstratified}
 
 \item{study.name}{a character string denoting the name of the variable in the
 baseline dataset in \code{data} holding study membership, for example
-\code{study.name = "study"}.}
+\code{study.name = 'study'}.}
 }
 \value{
-A list of the results from the initial survival fit is returned.
-    This list contains the following elements: \describe{
+A list of the results from the initial survival fit is returned. This
+  list contains the following elements: \describe{
 
-    \item{\code{beta2}}{a vector of the estimated coefficients for fixed
-    effects included in the survival sub-model. If there are no fixed effects
-    included in the survival sub-model then this returns \code{NULL}}.
+  \item{\code{beta2}}{a vector of the estimated coefficients for fixed
+  effects included in the survival sub-model. If there are no fixed effects
+  included in the survival sub-model then this returns \code{NULL}}.
 
-    \item{\code{haz}}{the estimate of the baseline hazard estimated from the
-    separate survival model.  If \code{strat = TRUE} then this is a list of
-    length equal to the number of studies in the dataset, each element of
-    which is a vector of length equal to the number of events in each study.
-    If \code{strat = FALSE} then this is a vector of length equal to the
-    number of events in the entire dataset.}
+  \item{\code{haz}}{the estimate of the baseline hazard estimated from the
+  separate survival model.  If \code{strat = TRUE} then this is a list of
+  length equal to the number of studies in the dataset, each element of which
+  is a vector of length equal to the number of events in each study. If
+  \code{strat = FALSE} then this is a vector of length equal to the number of
+  events in the entire dataset.}
 
-    \item{\code{rs}}{the number of events that have occured by the individual
-    in question's survival time. If \code{strat = TRUE} then this is a list
-    of length equal to the number of studies in the dataset, each element of
-    which is a vector of length equal to the number of individuals in each
-    study. If \code{strat = FALSE} then this is a vector of length equal to
-    the number of individuals in the entire dataset.}
+  \item{\code{rs}}{the number of events that have occured by the individual
+  in question's survival time. If \code{strat = TRUE} then this is a list of
+  length equal to the number of studies in the dataset, each element of which
+  is a vector of length equal to the number of individuals in each study. If
+  \code{strat = FALSE} then this is a vector of length equal to the number of
+  individuals in the entire dataset.}
 
-    \item{\code{sf}}{the survival times where at least one event was
-    observed. If \code{strat = TRUE} then this is a list of
-    length equal to the number of studies in the dataset, each element of
-    which is a vector of length equal to the number of events in each study.
-    If \code{strat = FALSE} then this is a vector of length equal to the
-    number of events in the entire dataset.}
+  \item{\code{sf}}{the survival times where at least one event was observed.
+  If \code{strat = TRUE} then this is a list of length equal to the number of
+  studies in the dataset, each element of which is a vector of length equal
+  to the number of events in each study. If \code{strat = FALSE} then this is
+  a vector of length equal to the number of events in the entire dataset.}
 
-    \item{\code{nev}}{the number of events that occur at each unique event
-    time.  If \code{strat = TRUE} then this is a list of
-    length equal to the number of studies in the dataset, each element of
-    which is a vector of length equal to the number of events in each study.
-    If \code{strat = FALSE} then this is a vector of length equal to the
-    number of events in the entire dataset.}
+  \item{\code{nev}}{the number of events that occur at each unique event
+  time.  If \code{strat = TRUE} then this is a list of length equal to the
+  number of studies in the dataset, each element of which is a vector of
+  length equal to the number of events in each study. If \code{strat = FALSE}
+  then this is a vector of length equal to the number of events in the entire
+  dataset.}
 
-    \item{\code{log.like.surv}}{the value of the log-likelihood from the
-    separate survival analysis}
+  \item{\code{log.like.surv}}{the value of the log-likelihood from the
+  separate survival analysis}
 
-    \item{\code{modelfit}}{the initial survival model fit, fitted using
-    the \code{\link[survival]{coxph}} function from the
-    \code{\link[survival]{survival}} package.}
+  \item{\code{modelfit}}{the initial survival model fit, fitted using the
+  \code{\link[survival]{coxph}} function from the
+  \code{\link[survival]{survival}} package.}
 
-    }
+  }
 }
 \description{
 Internal function to estimate the starting values for the EM algorithm for
-    the survival sub-model
+the survival sub-model
 }
 \keyword{internal}

@@ -10,22 +10,22 @@ sortDat(longdat, survdat, longdat2, survdat2)
 \item{longdat}{longitudinal dataset with factor variables and interaction
 terms expanded out}
 
-\item{survdat}{survival dataset with factor variables and interaction
-terms expanded out}
+\item{survdat}{survival dataset with factor variables and interaction terms
+expanded out}
 
 \item{longdat2}{longitudinal dataset with original variables}
 
 \item{survdat2}{survival dataset with original variables}
 }
 \value{
-a list containing four ordered versions of the inputted datasets.
-    In the output \code{long.s} is the the ordered version of \code{longdat},
-    \code{surv.s} is the ordered version of \code{survdat}, \code{long.s2} is
-    the ordered version of longdat2, and \code{surv.s2} is the ordered
-    version of survdat2.
+a list containing four ordered versions of the inputted datasets. In
+  the output \code{long.s} is the the ordered version of \code{longdat},
+  \code{surv.s} is the ordered version of \code{survdat}, \code{long.s2} is
+  the ordered version of longdat2, and \code{surv.s2} is the ordered version
+  of survdat2.
 }
 \description{
 This function is used internally in \code{jointmeta1}.  It takes longitudinal
-    and survival datasets, and orders them by increasing survival time.
+and survival datasets, and orders them by increasing survival time.
 }
 \keyword{internal}

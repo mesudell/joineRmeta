@@ -19,99 +19,96 @@ simjointmeta(k = 5, n = rep(500, 5), sepassoc = FALSE, ntms = 5,
 simulate per study}
 
 \item{sepassoc}{a logical taking value \code{FALSE} if proportional
-association is required, \code{TRUE} if a separate association parameter
-is required for each random effect shared between the sub-models}
+association is required, \code{TRUE} if a separate association parameter is
+required for each random effect shared between the sub-models}
 
 \item{ntms}{the maximum possible number of longitudinal measurements - should
 equal the length of the supplied \code{longmeasuretimes}}
 
 \item{longmeasuretimes}{a vector giving the exact times of the longitudinal
-measurement times.  If this is not specified in the function call then
-the measurement times of the longitudinal outcome are set to start at 0
-then take integer values up to and including \code{ntms - 1}.}
+measurement times.  If this is not specified in the function call then the
+measurement times of the longitudinal outcome are set to start at 0 then
+take integer values up to and including \code{ntms - 1}.}
 
 \item{beta1}{a vector of the fixed effects for the longitudinal sub-model.
 Here the first element gives the coefficient for a fixed or population
 intercept, the second gives the coefficient for the binary treatment
-assignment covariate and the third element gives the covariate for the
-time (slope) covariate}
+assignment covariate and the third element gives the covariate for the time
+(slope) covariate}
 
 \item{beta2}{the coefficient for the binary treatment assignment covariate}
 
 \item{rand_ind}{a character string specifying the individual level random
-effects structure.  If \code{rand_ind = "intslope"} then there is an
-individual specific random intercept and random time (slope) term
-included in the model.  If \code{rand_ind = "int"} then the model
-includes only a individual specific random intercept.}
+effects structure.  If \code{rand_ind = 'intslope'} then there is an
+individual specific random intercept and random time (slope) term included
+in the model.  If \code{rand_ind = 'int'} then the model includes only a
+individual specific random intercept.}
 
 \item{rand_stud}{a character string specifying the study level random effects
-structure.  If this is set to \code{NULL} or not specified in the
-function call then no study level random effects are included in the
-model that the data is simulated from.  There are three options if data
-is to be simulated with random effects at the study level.  If a study
-level random intercept only is to be included, then set
-\code{rand_stud = "int"}.  Else if a study level random treatment
-assignment term only is to be included then set
-\code{rand_stud = "treat"}.  Finally if both a study level random
-intercept and a study level random treatment effect is to be included,
-then set \code{rand_stud = "inttreat"}.}
+structure.  If this is set to \code{NULL} or not specified in the function
+call then no study level random effects are included in the model that the
+data is simulated from.  There are three options if data is to be simulated
+with random effects at the study level.  If a study level random intercept
+only is to be included, then set \code{rand_stud = 'int'}.  Else if a study
+level random treatment assignment term only is to be included then set
+\code{rand_stud = 'treat'}.  Finally if both a study level random intercept
+and a study level random treatment effect is to be included, then set
+\code{rand_stud = 'inttreat'}.}
 
 \item{gamma_ind}{parameter specifying the level of association between the
-longitudinal and survival outcomes attributable to the individual
-deviation from the population longitudinal trajectory. If different
-association parameters are required for each
-study then a list of length equal to the number of studies should be
-supplied to \code{gamma_ind}.  If \code{sepassoc = TRUE} then
-\code{gamma_ind} should be either a vector of values of length equal to
-the number of individual level random effects, or a list of vectors each
-of length equal to the number of individual level random effects.
-However if \code{sepassoc = FALSE} then \code{gamma_ind} should be
-supplied as a single value, or a list of single values.}
+longitudinal and survival outcomes attributable to the individual deviation
+from the population longitudinal trajectory. If different association
+parameters are required for each study then a list of length equal to the
+number of studies should be supplied to \code{gamma_ind}.  If
+\code{sepassoc = TRUE} then \code{gamma_ind} should be either a vector of
+values of length equal to the number of individual level random effects, or
+a list of vectors each of length equal to the number of individual level
+random effects. However if \code{sepassoc = FALSE} then \code{gamma_ind}
+should be supplied as a single value, or a list of single values.}
 
 \item{gamma_stud}{parameter specifying the level of association between the
 longitudinal and survival outcomes attributable to the study level
-deviation from the overall population longitudinal trajectory. If
-different association parameters are required for each
-study then a list of length equal to the number of studies should be
-supplied to \code{gamma_stud}.  If \code{sepassoc = TRUE} then
-\code{gamma_stud} should be either a vector of values of length equal to
-the number of study level random effects, or a list of vectors each
-of length equal to the number of study level random effects.
-However if \code{sepassoc = FALSE} then \code{gamma_stud} should be
-supplied as a single value, or a list of single values.  This parameter
+deviation from the overall population longitudinal trajectory. If different
+association parameters are required for each study then a list of length
+equal to the number of studies should be supplied to \code{gamma_stud}.  If
+\code{sepassoc = TRUE} then \code{gamma_stud} should be either a vector of
+values of length equal to the number of study level random effects, or a
+list of vectors each of length equal to the number of study level random
+effects. However if \code{sepassoc = FALSE} then \code{gamma_stud} should
+be supplied as a single value, or a list of single values.  This parameter
 should only be present if \code{rand_stud} is specified in the function
 call.}
 
 \item{sigb_ind}{the covariance matrix for the individual level random
-effects. This should have number of rows and columns equal to the
-number of individual level random effects.}
+effects. This should have number of rows and columns equal to the number of
+individual level random effects.}
 
-\item{sigb_stud}{the covariance matrix for the study level random
-effects. This should have number of rows and columns equal to the
-number of study level random effects.  This should only be specified if
-\code{rand_stud} is specified in the function call.}
+\item{sigb_stud}{the covariance matrix for the study level random effects.
+This should have number of rows and columns equal to the number of study
+level random effects.  This should only be specified if \code{rand_stud} is
+specified in the function call.}
 
 \item{vare}{the variance of the measurement error term}
 
-\item{theta0}{parameter defining the distribution of the survival times.
-A separate parameter can be defined per study or a common parameter
-across all studies.  See Bender et al 2005 for advice on approximating
-appropriate values for \code{theta0} and \code{theta1} the using extreme
-value distribution.}
+\item{theta0}{parameter defining the distribution of the survival times. A
+separate parameter can be defined per study or a common parameter across
+all studies.  See Bender et al 2005 for advice on approximating appropriate
+values for \code{theta0} and \code{theta1} the using extreme value
+distribution.}
 
-\item{theta1}{parameter defining the distribution of the survival times.
-A separate parameter can be defined per study or a common parameter
-across all studies.  See Bender et al 2005 for advice on approximating
-appropriate values for \code{theta0} and \code{theta1} the using extreme
-value distribution.}
+\item{theta1}{parameter defining the distribution of the survival times. A
+separate parameter can be defined per study or a common parameter across
+all studies.  See Bender et al 2005 for advice on approximating appropriate
+values for \code{theta0} and \code{theta1} the using extreme value
+distribution.}
 
 \item{censoring}{a logical indicating whether the simulated survival times
 should be censored or not}
 
 \item{censlam}{the lambda parameter controlling the simulated exponentially
-distributed censoring times.  This can either be supplied as one value
-for all studies simulated, or a vector of length equal to the number of
-studies in the dataset.}
+distributed censoring times.  This can either be supplied as one value for
+all studies simulated, or a vector of length equal to the number of studies
+in the dataset.}
 
 \item{truncation}{a logical value to specify whether the simulated survival
 times should be truncated at a specified time or not.}
@@ -121,93 +118,91 @@ truncated at the specified \code{trunctime}}
 }
 \value{
 This function returns a list with three named elements.  The first
-    element is named \code{"longdat"}, the second \code{"survdat"}, the third
-    \code{"percentevent"}.  Each of these elements is a list of length equal
-    to the number of studies specified to simulate in the function call.
+  element is named \code{'longdat'}, the second \code{'survdat'}, the third
+  \code{'percentevent'}.  Each of these elements is a list of length equal to
+  the number of studies specified to simulate in the function call.
 
-    The element \code{"longdat"} is a list of the simulated longitudinal data
-    sets.  Each longitudinal dataset contains the following variables:
-    \describe{
+  The element \code{'longdat'} is a list of the simulated longitudinal data
+  sets.  Each longitudinal dataset contains the following variables:
+  \describe{
 
-    \item{\code{id}}{a numeric id variable}
+  \item{\code{id}}{a numeric id variable}
 
-    \item{\code{Y}}{the continuous longitudinal outcome}
+  \item{\code{Y}}{the continuous longitudinal outcome}
 
-    \item{\code{time}}{the numeric longitudinal time variable}
+  \item{\code{time}}{the numeric longitudinal time variable}
 
-    \item{\code{study}}{a study membership variable}
+  \item{\code{study}}{a study membership variable}
 
-    \item{\code{intercept}}{an intercept term}
+  \item{\code{intercept}}{an intercept term}
 
-    \item{\code{treat}}{a treatment assignment variable to one of two
-        treatment groups}
+  \item{\code{treat}}{a treatment assignment variable to one of two treatment
+  groups}
 
-    \item{\code{ltime}}{a duplicate of the longitudinal time variable}
+  \item{\code{ltime}}{a duplicate of the longitudinal time variable}
 
-    }
+  }
 
-    The element \code{"survdat"} is a list of the simulated survival data
-    sets.  Each survival dataset contains the following variables:
-    \describe{
+  The element \code{'survdat'} is a list of the simulated survival data sets.
+  Each survival dataset contains the following variables: \describe{
 
-    \item{\code{id}}{a numeric id variable}
+  \item{\code{id}}{a numeric id variable}
 
-    \item{\code{survtime}}{the numeric survival times}
+  \item{\code{survtime}}{the numeric survival times}
 
-    \item{\code{cens}}{the censoring indicator}
+  \item{\code{cens}}{the censoring indicator}
 
-    \item{\code{study}}{a study membership variable}
+  \item{\code{study}}{a study membership variable}
 
-    \item{\code{treat}}{a treatment assignment variable to one of two
-        treatment groups}
+  \item{\code{treat}}{a treatment assignment variable to one of two treatment
+  groups}
 
-    }
+  }
 
-    The element \code{"percentevent"} is a list of the percentage of events
-    over censorings seen in the simulated survival data.
+  The element \code{'percentevent'} is a list of the percentage of events
+  over censorings seen in the simulated survival data.
 }
 \description{
 Function to allow the simulation of a correlated single continuous
-    longitudinal outcome and a single survival outcome for data from multiple
-    studies.  The longitudinal sub-model contains a fixed intercept, time
-    (slope) term and a binary treatment assignment covariate, whilst the
-    survival sub-model contains only a binary treatment assignment covariate.
+longitudinal outcome and a single survival outcome for data from multiple
+studies.  The longitudinal sub-model contains a fixed intercept, time (slope)
+term and a binary treatment assignment covariate, whilst the survival
+sub-model contains only a binary treatment assignment covariate.
 }
 \details{
 This function allows the simulation of a single continuous
-    longitudinal and a single survival outcome which are potentially
-    correlated.  The model simulates data under a joint model with a zero
-    mean random effects only sharing structure.  The longitudinal sub-model
-    is adjusted by a fixed or population intercept, time (slope) term and a
-    binary treatment assignment covariate.  The survival sub-model is
-    adjusted by only the fixed or population binary treatment assignment
-    covariate.
+  longitudinal and a single survival outcome which are potentially
+  correlated.  The model simulates data under a joint model with a zero mean
+  random effects only sharing structure.  The longitudinal sub-model is
+  adjusted by a fixed or population intercept, time (slope) term and a binary
+  treatment assignment covariate.  The survival sub-model is adjusted by only
+  the fixed or population binary treatment assignment covariate.
 
-    Random effects can be specified at either just the individual level,
-    or at both the individual and study level.  For the options for the
-    random effects see the above parameter definitions.
+  Random effects can be specified at either just the individual level, or at
+  both the individual and study level.  For the options for the random
+  effects see the above parameter definitions.
 
-    The parameters controlling the distributions for the survival times and
-    the censoring times can be identical across the studies, or separate
-    values can be supplied for each study.  Similarly the association
-    parameters can be identical across studies, or unique to each study.
+  The parameters controlling the distributions for the survival times and the
+  censoring times can be identical across the studies, or separate values can
+  be supplied for each study.  Similarly the association parameters can be
+  identical across studies, or unique to each study.
 
-    The simulated longitudinal information is capped at each individual's
-    survival time.  If \code{truncation= TRUE} then the survival times are
-    truncated at the specified \code{trunctime}.
+  The simulated longitudinal information is capped at each individual's
+  survival time.  If \code{truncation= TRUE} then the survival times are
+  truncated at the specified \code{trunctime}.
 
-    For description of the methodology of simulating this data see Bender et
-    al 2005, and Austin 2012.
+  For description of the methodology of simulating this data see Bender et al
+  2005, and Austin 2012.
 
-    Note that this function does not return data in a \code{jointdata}
-    format.  Function \code{\link{tojointdata}} can help to reformat this
-    data into a \code{jointdata} format.
+  Note that this function does not return data in a \code{jointdata} format.
+  Function \code{\link{tojointdata}} can help to reformat this data into a
+  \code{jointdata} format.
 }
 \examples{
  #simulated data without study level variation specified
  exampledat1<-simjointmeta(k = 5, n = rep(500, 5), sepassoc = FALSE,
               ntms = 5, longmeasuretimes = c(0, 1, 2, 3, 4),
-              beta1 = c(1, 2, 3), beta2 = 1, rand_ind = "intslope",
+              beta1 = c(1, 2, 3), beta2 = 1, rand_ind = 'intslope',
               rand_stud = NULL, gamma_ind = 1,
               sigb_ind = matrix(c(1,0.5,0.5,1.5),nrow=2), vare = 0.01,
               theta0 = -3, theta1 = 1, censoring = TRUE, censlam = exp(-3),
@@ -227,7 +222,7 @@ This function allows the simulation of a single continuous
  exampledat2<-simjointmeta(k = 5, n = rep(500, 5), sepassoc = TRUE, ntms = 5,
                            longmeasuretimes = c(0, 1, 2, 3, 4),
                            beta1 = c(1, 2, 3), beta2 = 1,
-                           rand_ind = "intslope", rand_stud = "inttreat",
+                           rand_ind = 'intslope', rand_stud = 'inttreat',
                            gamma_ind = gamma_ind_set,
                            gamma_stud = gamma_stud_set,
                            sigb_ind = matrix(c(1, 0.5, 0.5, 1.5), nrow = 2),
@@ -241,11 +236,11 @@ This function allows the simulation of a single continuous
 }
 \references{
 Bender et al (2005) Generating survival times to simulate Cox
-    proportional hazards models. Statistics in Medicine 24:1713–1723
+  proportional hazards models. Statistics in Medicine 24:1713–1723
 
-    Austin (2012) Generating survival times to simulate Cox proportional
-    hazards models with time-varying covariates. Statistics in Medicine
-    31: 3946–3958
+  Austin (2012) Generating survival times to simulate Cox proportional
+  hazards models with time-varying covariates. Statistics in Medicine 31:
+  3946–3958
 }
 \seealso{
 \code{\link{tojointdata}}

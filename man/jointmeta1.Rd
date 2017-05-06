@@ -16,28 +16,28 @@ the model formulae}
 \item{long.formula}{a formula object with the response varaible, and the
 covariates to include in the longitudinal sub-model}
 
-\item{long.rand.ind}{a vector of character strings to indicate what
-variables to assign individual level random effects to.  A maximum of
-three individual level random effects can be assigned.  To assign a
-random intercept include "int" in the vector.  To not include an
-individual level random intercept include "noint" in the vector.  For
-example to fit a model with individual level random intercept and random
-slope set \code{long.rand.ind = c("int", "time")}, where
-\code{"time"} is the longitudinal time variable in the \code{data}.}
+\item{long.rand.ind}{a vector of character strings to indicate what variables
+to assign individual level random effects to.  A maximum of three
+individual level random effects can be assigned.  To assign a random
+intercept include 'int' in the vector.  To not include an individual level
+random intercept include 'noint' in the vector.  For example to fit a model
+with individual level random intercept and random slope set
+\code{long.rand.ind = c('int', 'time')}, where \code{'time'} is the
+longitudinal time variable in the \code{data}.}
 
 \item{long.rand.stud}{a vector of character strings to indicate what
 variables to assign study level random effects to.  If no study level
 random effects then this either not specified in function call or set to
 \code{NULL}.  If a study level random intercept is required, include the
 name of the study membership variable for example \code{long.rand.stud =
-"study"}.}
+'study'}.}
 
-\item{sharingstrct}{currently must be set to \code{"randprop"}.  This gives a
+\item{sharingstrct}{currently must be set to \code{'randprop'}.  This gives a
 model that shares the zero mean random effects (at both individual and
 study level if specified) between the sub-models.  Separate association
-parameters are calculated for the linear combination of random effects
-at each level.  There are plans to expand to more sharing structures in
-the future.}
+parameters are calculated for the linear combination of random effects at
+each level.  There are plans to expand to more sharing structures in the
+future.}
 
 \item{surv.formula}{a formula object with the survival time, censoring
 indicator and the covariates to include in the survival sub-model.  The
@@ -61,21 +61,21 @@ algorithm.  Defaults to \code{tol = 0.001}.}
 
 \item{study.name}{a character string denoting the name of the variable in the
 baseline dataset in \code{data} holding study membership, for example
-\code{study.name = "study"}.}
+\code{study.name = 'study'}.}
 
 \item{strat}{logical value: if \code{TRUE} then the survival sub-model is
 calculated with a baseline stratified by study.  Otherwise baseline is
 unstratified}
 
 \item{longsep}{logical value: if \code{TRUE} then parameter estimates, model
-fit and the log-likelihood from a separate linear mixed model analysis
-of the longitudinal data are returned (see the \code{\link[lme4]{lmer}}
-function).  The separate longitudinal model fit has the same
-specification as the longitudinal sub-model of the joint model.}
+fit and the log-likelihood from a separate linear mixed model analysis of
+the longitudinal data are returned (see the \code{\link[lme4]{lmer}}
+function).  The separate longitudinal model fit has the same specification
+as the longitudinal sub-model of the joint model.}
 
 \item{survsep}{logical value: if \code{TRUE} then parameter estimates, model
-fit and log-likelihood from a separate analysis of the survival data
-using the Cox Proportional Hazards model are returned (see
+fit and log-likelihood from a separate analysis of the survival data using
+the Cox Proportional Hazards model are returned (see
 \code{\link[survival]{coxph}} function for more details).  This survival
 fit has the same specification (apart from the association structure) as
 the survival sub-model in the joint model.}
@@ -93,96 +93,93 @@ the console.}
 An object of class jointmeta1 See \code{\link{jointmeta1.object}}
 }
 \description{
-Function to allow a one stage joint model (data from all studies analysed
-    in one model)  to be fitted to data from multiple studies.  The function
-    allows one longitudinal and one time-to-event outcome, and can
-    accommodate baseline hazard stratified or not stratified
-    by study, as well as random effects at the individual level and the study
-    level.  Currently only zero mean random effects only proportional
-    association supported - see Wulfsohn and Tsiatis 1997
+Function to allow a one stage joint model (data from all studies analysed in
+one model)  to be fitted to data from multiple studies.  The function allows
+one longitudinal and one time-to-event outcome, and can accommodate baseline
+hazard stratified or not stratified by study, as well as random effects at
+the individual level and the study level.  Currently only zero mean random
+effects only proportional association supported - see Wulfsohn and Tsiatis
+1997
 }
 \section{Details}{
  The \code{jointmeta1} function fits a one stage joint model
-    to survival and longitudinal data from multiple studies. This model is
-    an extension of the model proposed by Wulfsohn and Tsiatis (1997).  The
-    model must contain at least one individual level random effect (specified
-    using the \code{long.rand.ind} argument).  The model can also contain
-    study level random effects (specified using the  \code{long.rand.stud}
-    argument), which can differ from the individual level random effects.
-    The maximum number of random effects that can be specified at each level
-    is three. Note that the fitting and bootstrapping time increases as the
-    number of included random effects increases.  The model can also include
-    a baseline hazard stratified by study, or can utilise a common baseline
-    across the studies in the dataset.  Interaction terms can be specified in
-    either the longitudinal or the survival sub-model.
+  to survival and longitudinal data from multiple studies. This model is an
+  extension of the model proposed by Wulfsohn and Tsiatis (1997).  The model
+  must contain at least one individual level random effect (specified using
+  the \code{long.rand.ind} argument).  The model can also contain study level
+  random effects (specified using the  \code{long.rand.stud} argument), which
+  can differ from the individual level random effects. The maximum number of
+  random effects that can be specified at each level is three. Note that the
+  fitting and bootstrapping time increases as the number of included random
+  effects increases.  The model can also include a baseline hazard stratified
+  by study, or can utilise a common baseline across the studies in the
+  dataset.  Interaction terms can be specified in either the longitudinal or
+  the survival sub-model.
 
-    The longitudinal sub-model is a mixed effects model.  If both individual
-    level and study level random effects are included in the function call,
-    then the sub-model has the following format:
+  The longitudinal sub-model is a mixed effects model.  If both individual
+  level and study level random effects are included in the function call,
+  then the sub-model has the following format:
 
-    \deqn{Y_{kij} = X_{1kij}\beta_{1} + Z^{(2)}_{1kij}b^{(2)}_{ki} +
-    Z^{(3)}_{1kij}b^{(3)}_{k} + \epsilon_{kij}}
+  \deqn{Y_{kij} = X_{1kij}\beta_{1} + Z^{(2)}_{1kij}b^{(2)}_{ki} +
+  Z^{(3)}_{1kij}b^{(3)}_{k} + \epsilon_{kij}}
 
-    Otherwise, if only individual level random effects are included in the
-    function call, then the longitudinal sub-model has the following format:
+  Otherwise, if only individual level random effects are included in the
+  function call, then the longitudinal sub-model has the following format:
 
-    \deqn{Y_{kij} = X_{1kij}\beta_{1} + Z^{(2)}_{1kij}b^{(2)}_{ki} +
-    \epsilon_{kij}}
+  \deqn{Y_{kij} = X_{1kij}\beta_{1} + Z^{(2)}_{1kij}b^{(2)}_{ki} +
+  \epsilon_{kij}}
 
-    In the above equation, \eqn{Y} represents the longitudinal outcome and
-    \eqn{X_1} represents the design matrix for the longitudinal fixed
-    effects.  The subscript 1 is used to distinguish between items from the
-    longitudinal sub-model and items from the survival sub-model (which
-    contain a subscript 2).  The design matrices for random effects are
-    represented using \eqn{Z}, fixed effect coefficients are represented by
-    \eqn{\beta}, random effects by \eqn{b} and the measurement error by
-    \eqn{\epsilon}.  Study membership is represented by the subscript \eqn{k}
-    whilst individuals are identified by \eqn{i} and time points at which
-    they are measured by \eqn{j}.  The longitudinal outcome is assumed
-    continuous.
+  In the above equation, \eqn{Y} represents the longitudinal outcome and
+  \eqn{X_1} represents the design matrix for the longitudinal fixed effects.
+  The subscript 1 is used to distinguish between items from the longitudinal
+  sub-model and items from the survival sub-model (which contain a subscript
+  2).  The design matrices for random effects are represented using \eqn{Z},
+  fixed effect coefficients are represented by \eqn{\beta}, random effects by
+  \eqn{b} and the measurement error by \eqn{\epsilon}.  Study membership is
+  represented by the subscript \eqn{k} whilst individuals are identified by
+  \eqn{i} and time points at which they are measured by \eqn{j}.  The
+  longitudinal outcome is assumed continuous.
 
-    Currently this function only supports one linking structure between the
-    sub-models, namely a random effects only proportional sharing structure.
-    In this structure, the zero mean random effects from the longitudinal
-    sub-model are inserted into the survival sub-model, with a common
-    association parameter for each level of random effects.  Therefore the
-    survival sub-model (for a case without baseline stratified by study)
-    takes the following format:
+  Currently this function only supports one linking structure between the
+  sub-models, namely a random effects only proportional sharing structure. In
+  this structure, the zero mean random effects from the longitudinal
+  sub-model are inserted into the survival sub-model, with a common
+  association parameter for each level of random effects.  Therefore the
+  survival sub-model (for a case without baseline stratified by study) takes
+  the following format:
 
-    \deqn{\lambda_{ki}(t) = \lambda_{0}(t)exp(X_{2ki}\beta_{2} +
-    \alpha^{(2)}(Z^{(2)}_{1ki}b^{(2)}_{ki}) +
-    \alpha^{(3)}(Z^{(3)}_{1ki}b^{(3)}_{k}))
-    }
+  \deqn{\lambda_{ki}(t) = \lambda_{0}(t)exp(X_{2ki}\beta_{2} +
+  \alpha^{(2)}(Z^{(2)}_{1ki}b^{(2)}_{ki}) +
+  \alpha^{(3)}(Z^{(3)}_{1ki}b^{(3)}_{k})) }
 
-    Otherwise, if only individual level random effects are included in the
-    function call, this reduces to:
+  Otherwise, if only individual level random effects are included in the
+  function call, this reduces to:
 
-    \deqn{\lambda_{ki}(t) = \lambda_{0}(t)exp(X_{2ki}\beta_{2} +
-    \alpha^{(2)}(Z^{(2)}_{1ki}b^{(2)}_{ki})
-    }
+  \deqn{\lambda_{ki}(t) = \lambda_{0}(t)exp(X_{2ki}\beta_{2} +
+  \alpha^{(2)}(Z^{(2)}_{1ki}b^{(2)}_{ki}) }
 
-    In the above equation, \eqn{\lambda_{ki}(t)} represents the survival time
-    of the individual \eqn{i} in study \eqn{k}, and \eqn{\lambda_{0}(t)}
-    represents the baseline hazard.  If a stratified baseline hazard were
-    specified this would be replaced by \eqn{\lambda_{0k}(t)}.  The design
-    matrix for the fixed effects in the survival sub-model is represented by
-    \eqn{X_{2ki}}, with fixed effect coefficients represented by
-    \eqn{\beta_{2}}.  Association parameters quantifying the link between
-    the sub-models are represented by \eqn{\alpha} terms.
+  In the above equation, \eqn{\lambda_{ki}(t)} represents the survival time
+  of the individual \eqn{i} in study \eqn{k}, and \eqn{\lambda_{0}(t)}
+  represents the baseline hazard.  If a stratified baseline hazard were
+  specified this would be replaced by \eqn{\lambda_{0k}(t)}.  The design
+  matrix for the fixed effects in the survival sub-model is represented by
+  \eqn{X_{2ki}}, with fixed effect coefficients represented by
+  \eqn{\beta_{2}}.  Association parameters quantifying the link between the
+  sub-models are represented by \eqn{\alpha} terms.
 
-    The model is fitted using an EM algorithm, starting values for which are
-    extracted from initial separate longitudinal and survival fits.  Pseudo
-    adaptive Gauss - Hermite quadrature is used to evaluate functions of the
-    random effects in the EM algorithm, see Rizopoulos 2012.
+  The model is fitted using an EM algorithm, starting values for which are
+  extracted from initial separate longitudinal and survival fits.  Pseudo
+  adaptive Gauss - Hermite quadrature is used to evaluate functions of the
+  random effects in the EM algorithm, see Rizopoulos 2012.
 }
 
 \examples{
     #change data to jointdata format
     jointdat<-tojointdata(longitudinal = simdat$longitudinal,
-                          survival = simdat$survival, id = "id",
-                          longoutcome = "Y", timevarying = c("time","ltime"),
-                          survtime = "survtime", cens = "cens",
-                          time = "time")
+                          survival = simdat$survival, id = 'id',
+                          longoutcome = 'Y', timevarying = c('time','ltime'),
+                          survtime = 'survtime', cens = 'cens',
+                          time = 'time')
 
     #ensure variables are correctly formatted
     jointdat$baseline$study <- as.factor(jointdat$baseline$study)
@@ -191,27 +188,27 @@ Function to allow a one stage joint model (data from all studies analysed
     #fit multi-study joint model with study level random effects and
     #baseline hazard stratified by study
     onestagefit<-jointmeta1(data = jointdat, long.formula = Y ~ 1 + time +
-                            treat + study, long.rand.ind = c("int", "time"),
-                            long.rand.stud = c("treat"),
-                            sharingstrct = "randprop",
+                            treat + study, long.rand.ind = c('int', 'time'),
+                            long.rand.stud = c('treat'),
+                            sharingstrct = 'randprop',
                             surv.formula = Surv(survtime, cens) ~ treat,
-                            study.name = "study", strat = T)
+                            study.name = 'study', strat = T)
 
     #fit multi-study joint model without study level random effects with
     #unstratified baseline hazard
     onestagefit2<-jointmeta1(data = jointdat, long.formula = Y ~ 1 + time +
-                           treat*study, long.rand.ind = c("int", "time"),
-                           sharingstrct = "randprop",
+                           treat*study, long.rand.ind = c('int', 'time'),
+                           sharingstrct = 'randprop',
                            surv.formula = Surv(survtime, cens) ~ treat*study,
-                           study.name = "study", strat = F)
+                           study.name = 'study', strat = F)
 
 }
 \references{
 Wulfsohn, M.S. and A.A. Tsiatis, A Joint Model for Survival and
-    Longitudinal Data Measured with Error. 1997, International Biometric
-    Society. p. 330
+  Longitudinal Data Measured with Error. 1997, International Biometric
+  Society. p. 330
 
-    Rizopoulos, D. (2012) Fast fitting of joint models for longitudinal and
-    event time data using a pseudo-adaptive Gaussian quadrature rule.
-    Computational Statistics & Data Analysis 56 (3) p.491-501
+  Rizopoulos, D. (2012) Fast fitting of joint models for longitudinal and
+  event time data using a pseudo-adaptive Gaussian quadrature rule.
+  Computational Statistics & Data Analysis 56 (3) p.491-501
 }

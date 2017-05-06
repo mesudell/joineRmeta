@@ -23,25 +23,25 @@ variable in the supplied dataset}
 \item{survtime}{the name of the variable holding the survival time variable
 in the supplied dataset}
 
-\item{cens}{the name of the variable holding the censoring variable
-in the supplied dataset}
+\item{cens}{the name of the variable holding the censoring variable in the
+supplied dataset}
 
 \item{id}{the name of the variable holding the id in the supplied dataset}
 
 \item{smoother}{a logical indicating whether or not a smoother should be
 displayed on the longitudinal plot}
 
-\item{studynames}{a vector of character strings giving the names to label
-the study plots by - the first element of this vector will be the label
-for the plots for the first study in the dataset for both the
-longitudinal and the survival plots}
+\item{studynames}{a vector of character strings giving the names to label the
+study plots by - the first element of this vector will be the label for the
+plots for the first study in the dataset for both the longitudinal and the
+survival plots}
 
 \item{type}{option to select what type of plots should be returned.  If just
-plots of the longitudinal trajectories are required then
-\code{type = "Longitudinal"}.  Else if just plots of the survival
-probabilities are required then \code{type = "Survival"}.  Finally if
-both survival and longitudinal plots are required then this should be
-set to \code{type = "Both"}}
+plots of the longitudinal trajectories are required then \code{type =
+'Longitudinal'}.  Else if just plots of the survival probabilities are
+required then \code{type = 'Survival'}.  Finally if both survival and
+longitudinal plots are required then this should be set to \code{type =
+'Both'}}
 
 \item{eventby}{an optional character string giving a grouping variable that
 the graph of survival probability by time will be split by.}
@@ -50,53 +50,52 @@ the graph of survival probability by time will be split by.}
 should contain confidence intervals or not.  Defaults to \code{FALSE}.}
 }
 \value{
-Returns an object of class \code{"jointplots"}.  This contains an
-    element labelled \code{"longplots"} if \code{type} in the function call
-    is set to one of \code{"Longitudinal"} or \code{"Both"}, and an element
-    labelled \code{"eventplots"} if \code{type} in the function call
-    is set to one of \code{"Survival"} or \code{"Both"}.  The element
-    \code{"longplots"} is a list of ggplot2 objects plotting the longitudinal
-    trajectories for each study, and is of length equal to the number of
-    studies in the supplied dataset.  The element \code{"eventplots"} is a
-    list of ggplot2 objects plotting the survival probabilities for each
-    study and is of length equal to the number of studies in the supplied
-    dataset.
+Returns an object of class \code{'jointplots'}.  This contains an
+  element labelled \code{'longplots'} if \code{type} in the function call is
+  set to one of \code{'Longitudinal'} or \code{'Both'}, and an element
+  labelled \code{'eventplots'} if \code{type} in the function call is set to
+  one of \code{'Survival'} or \code{'Both'}.  The element \code{'longplots'}
+  is a list of ggplot2 objects plotting the longitudinal trajectories for
+  each study, and is of length equal to the number of studies in the supplied
+  dataset.  The element \code{'eventplots'} is a list of ggplot2 objects
+  plotting the survival probabilities for each study and is of length equal
+  to the number of studies in the supplied dataset.
 
-    To plot a particular graph, it can be called by position from the
-    relevent element of the returned \code{"jointplots"} in the same way that
-    an element in a particular position is called from a list, or it can be
-    called by name if \code{study.names} supplied to the function call.
+  To plot a particular graph, it can be called by position from the relevent
+  element of the returned \code{'jointplots'} in the same way that an element
+  in a particular position is called from a list, or it can be called by name
+  if \code{study.names} supplied to the function call.
 
-    This function supplies separate plots for each study in the dataset.  To
-    arrange these plots into one grid, use the function
-    \code{\link{jointmetaplotall}}.
+  This function supplies separate plots for each study in the dataset.  To
+  arrange these plots into one grid, use the function
+  \code{\link{jointmetaplotall}}.
 }
 \description{
 This function can produce plots for each study in the dataset of the
-    longitudinal trajectory pannelled by event type with or without a
-    smoother, and kaplan-meier plots for each study which plot the survival
-    probability against time.
+longitudinal trajectory pannelled by event type with or without a smoother,
+and kaplan-meier plots for each study which plot the survival probability
+against time.
 }
 \examples{
     #change data to jointdata format
     jointdat<-tojointdata(longitudinal = simdat$longitudinal,
-                          survival = simdat$survival, id = "id",
-                          longoutcome = "Y", timevarying = c("time","ltime"),
-                          survtime = "survtime", cens = "cens",
-                          time = "time")
+                          survival = simdat$survival, id = 'id',
+                          longoutcome = 'Y', timevarying = c('time','ltime'),
+                          survtime = 'survtime', cens = 'cens',
+                          time = 'time')
 
     #ensure variables are correctly formatted
     jointdat$baseline$study <- as.factor(jointdat$baseline$study)
     jointdat$baseline$treat <- as.factor(jointdat$baseline$treat)
 
     #produce plots
-    sepplots<-jointmetaplot(dataset = jointdat, study = "study",
-                        longoutcome = "Y", longtime = "time",
-                        survtime = "survtime", cens = "cens", id = "id",
-                        smoother = TRUE, studynames = c("Study 1", "Study 2",
-                        "Study 3", "Study 4", "Study 5"), type = "Both")
+    sepplots<-jointmetaplot(dataset = jointdat, study = 'study',
+                        longoutcome = 'Y', longtime = 'time',
+                        survtime = 'survtime', cens = 'cens', id = 'id',
+                        smoother = TRUE, studynames = c('Study 1', 'Study 2',
+                        'Study 3', 'Study 4', 'Study 5'), type = 'Both')
 }
 \seealso{
 \code{\link[joineR]{jointData}}, \code{\link[ggplot2]{ggplot}},
-    \code{\link{jointmetaplotall}}
+  \code{\link{jointmetaplotall}}
 }

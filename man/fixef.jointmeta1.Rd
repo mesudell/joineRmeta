@@ -11,13 +11,13 @@
 \item{fitted}{A joint model fit from the function jointmeta1}
 
 \item{type}{Type of fixed effects to extract.  To extract fixed effects from
-longitudinal sub-model set \code{type = "Longitudinal"}, from the
-time-to-event sub-model set \code{type = "Survival"}, or extract
-the latent association parameters set to \code{type = "Latent"}.}
+longitudinal sub-model set \code{type = 'Longitudinal'}, from the
+time-to-event sub-model set \code{type = 'Survival'}, or extract the latent
+association parameters set to \code{type = 'Latent'}.}
 }
 \value{
-The function returns a vector of the fixed effects from the
-    specified part of the supplied jointmeta1 model fit.
+The function returns a vector of the fixed effects from the specified
+  part of the supplied jointmeta1 model fit.
 }
 \description{
 Function to extract the estimated fixed effects from a jointmeta1 model fit
@@ -25,10 +25,10 @@ Function to extract the estimated fixed effects from a jointmeta1 model fit
 \examples{
     #change data to jointdata format
     jointdat<-tojointdata(longitudinal = simdat$longitudinal,
-                          survival = simdat$survival, id = "id",
-                          longoutcome = "Y", timevarying = c("time","ltime"),
-                          survtime = "survtime", cens = "cens",
-                          time = "time")
+                          survival = simdat$survival, id = 'id',
+                          longoutcome = 'Y', timevarying = c('time','ltime'),
+                          survtime = 'survtime', cens = 'cens',
+                          time = 'time')
 
     #ensure variables are correctly formatted
     jointdat$baseline$study <- as.factor(jointdat$baseline$study)
@@ -36,20 +36,20 @@ Function to extract the estimated fixed effects from a jointmeta1 model fit
 
     #fit multi-study joint model
     onestagefit<-jointmeta1(data = jointdat, long.formula = Y ~ 1 + time +
-                            treat + study, long.rand.ind = c("int", "time"),
-                            long.rand.stud = c("treat"),
-                            sharingstrct = "randprop",
+                            treat + study, long.rand.ind = c('int', 'time'),
+                            long.rand.stud = c('treat'),
+                            sharingstrct = 'randprop',
                             surv.formula = Surv(survtime, cens) ~ treat,
-                            study.name = "study", strat = T)
+                            study.name = 'study', strat = T)
 
     #extract longitudinal fixed effects
-    fixef(onestagefit, type = "Longitudinal")
+    fixef(onestagefit, type = 'Longitudinal')
 
     #extract time-to-event fixed effects
-    fixef(onestagefit, type = "Survival")
+    fixef(onestagefit, type = 'Survival')
 
     #extract latent (association parameter) coefficients
-    fixef(onestagefit, type = "Latent")
+    fixef(onestagefit, type = 'Latent')
 }
 \seealso{
 \code{\link{jointmeta1}}

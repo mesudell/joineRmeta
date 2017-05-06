@@ -49,12 +49,15 @@ Various ways exist to introduce between study heterogeneity into the data.  Firs
 We will give examples of simulation of several different datasets to demonstrate the capabilities of this data simulation function. The first example contains no study level random effects, with proportional assocation, with common parameters across studies.  
 
 ```{r}
-exampledat1 <- simjointmeta(k = 5, n = rep(500, 5), sepassoc = FALSE, ntms = 5,
-                            longmeasuretimes = c(0, 1, 2, 3, 4), beta1 = c(1, 2, 3), beta2 = 1,
-                            rand_ind = "intslope", rand_stud = NULL, gamma_ind = 1, 
-                            sigb_ind = matrix(c(1, 0.5, 0.5, 1.5), nrow = 2), 
-                            vare = 0.01, theta0 = -3, theta1 = 1, censoring = TRUE,
-                            censlam = exp(-3), truncation = FALSE,
+exampledat1 <- simjointmeta(k = 5, n = rep(500, 5), sepassoc = FALSE, 
+                            ntms = 5,longmeasuretimes = c(0, 1, 2, 3, 4), 
+                            beta1 = c(1, 2, 3), beta2 = 1,
+                            rand_ind = "intslope", rand_stud = NULL, 
+                            gamma_ind = 1, 
+                            sigb_ind = matrix(c(1, 0.5, 0.5, 1.5),nrow = 2), 
+                            vare = 0.01, theta0 = -3, theta1 = 1, 
+                            censoring = TRUE, censlam = exp(-3), 
+                            truncation = FALSE,
                             trunctime = max(longmeasuretimes))
 
 ```
@@ -81,11 +84,13 @@ The second example shows both the inclusion of study level random effects, and a
 
 ```{r}
 exampledat2 <- simjointmeta(k = 5, n = rep(500, 5), sepassoc = TRUE, ntms = 5, 
-                          longmeasuretimes = c(0, 1, 2, 3, 4), beta1 = c(1, 2, 3), beta2 = 1, 
-                          rand_ind = "intslope", rand_stud = "inttreat", gamma_ind = c(0.5, 1), 
-                          gamma_stud = c(0.5, 1), sigb_ind = matrix(c(1, 0.5, 0.5, 1.5), nrow = 2), 
-                          sigb_stud = matrix(c(1, 0.5, 0.5, 1.5), nrow = 2), vare = 0.01, theta0 = -3, 
-                          theta1 = 1, censoring = TRUE, censlam = exp(-3), truncation = FALSE, 
+                          longmeasuretimes = c(0, 1, 2, 3, 4), beta1 = c(1, 2, 3), 
+                          beta2 = 1, rand_ind = "intslope", rand_stud = "inttreat", 
+                          gamma_ind = c(0.5, 1), gamma_stud = c(0.5, 1), 
+                          sigb_ind = matrix(c(1, 0.5, 0.5, 1.5), nrow = 2), 
+                          sigb_stud = matrix(c(1, 0.5, 0.5, 1.5), nrow = 2), 
+                          vare = 0.01, theta0 = -3, theta1 = 1, censoring = TRUE, 
+                          censlam = exp(-3), truncation = FALSE, 
                           trunctime = max(longmeasuretimes))
 ```
 
@@ -99,11 +104,13 @@ theta0set <- c(-3, -2.9, -3, -2.9, -3.1)
 theta1set <- c(1, 0.9, 1.1, 1, 0.9)
 
 exampledat2 <- simjointmeta(k = 5, n = rep(500, 5), sepassoc = TRUE, ntms = 5, 
-                            longmeasuretimes = c(0, 1, 2, 3, 4), beta1 = c(1, 2, 3), beta2 = 1, 
-                            rand_ind = "intslope", rand_stud = "inttreat", gamma_ind = gamma_ind_set, 
-                            gamma_stud = gamma_stud_set, sigb_ind = matrix(c(1, 0.5, 0.5, 1.5), nrow = 2), 
-                            sigb_stud = matrix(c(1, 0.5, 0.5, 1.5), nrow = 2), vare = 0.01, theta0 = theta0set,
-                            theta1 = theta1set, censoring = TRUE, censlam = censlamset, truncation = FALSE,
+                            longmeasuretimes = c(0, 1, 2, 3, 4), beta1 = c(1, 2, 3), 
+                            beta2 = 1, rand_ind = "intslope", rand_stud = "inttreat", 
+                            gamma_ind = gamma_ind_set, gamma_stud = gamma_stud_set, 
+                            sigb_ind = matrix(c(1, 0.5, 0.5, 1.5), nrow = 2),
+                            sigb_stud = matrix(c(1, 0.5, 0.5, 1.5), nrow = 2), 
+                            vare = 0.01, theta0 = theta0set, theta1 = theta1set, 
+                            censoring = TRUE, censlam = censlamset, truncation = FALSE,
                             trunctime = max(longmeasuretimes))
 ```
 
@@ -189,7 +196,8 @@ jointdat3<-tojointdata(longitudinal = simdat3$longitudinal,
 Now that we have `simdat3` in `jointdata` format we can run `removeafter` on it to remove any longitudinal information recorded after an individual's event.  
 
 ```{r, results = "hide"}
-jointdat3.1<-removeafter(data = jointdat3, longitudinal = "Y", survival = "survtime", id = "id", time = "time")
+jointdat3.1<-removeafter(data = jointdat3, longitudinal = "Y", 
+                         survival = "survtime", id = "id", time = "time")
 ```
 
 If we now examine the structures of `jointdat3` and `jointdat3.1` we can see that some of the longitudinal information, namely any that was recorded after an individual's event time, is present in the `longitudinal` data frame in `jointdat3`, but has been removed from the `longitudinal` data frame in `jointdat3.1`.  Note that again there are variables in these datasets (namely `study` and `treat`) that would need to be converted to factors if these datasets were being further used.
@@ -208,15 +216,16 @@ The `joineRmeta` package contains a plotting function that allows the longitudin
 To plot both the survival and the longitudinal data we use the following code
 
 ```{r}
-sepplots <- jointmetaplot(dataset = jointdat, study = "study", longoutcome = "Y", longtime = "time", 
-                          survtime = "survtime", cens = "cens", id = "id",
-                          smoother = TRUE, 
-                          studynames = c("Study 1", "Study 2", "Study 3", "Study 4", "Study 5"), type = "Both")
+sepplots <- jointmetaplot(dataset = jointdat, study = "study", longoutcome = "Y", 
+                          longtime = "time", survtime = "survtime", cens = "cens", 
+                          id = "id", smoother = TRUE, 
+                          studynames = c("Study 1", "Study 2", "Study 3", 
+                                         "Study 4", "Study 5"), type = "Both")
 ```
 
 The above code asked the plotting function to provide plots for both the longitudinal data and the survival data, by setting argument `type = "Both"`.  If just one type of graph were required then `type` is set to one of `Longitudinal` or `Event`.  A smoother was requested for the longitudinal information, but this can be turned off with `smoother = FALSE`.  The `studynames` parameter is optional, but allows the graphs for each study to be clearly labelled.  The names supplied in this parameter are used in order of the unique study names in the supplied data.  The object `sepplots` is then a list of two elements in this case `longplots` and `eventplots`.  Individual plots for each study can then be called by name or by their place in the list for example
 
-```{r, fig.show='hold'}
+```{r, fig.show='hold', fig.keep='high'}
 sepplots$longplots$`studyplot.Study 5`
 sepplots$eventplots[[1]]
 ```
@@ -226,14 +235,18 @@ In the above, warning messages have been produced by including the loess smoothe
 Other options also exist for the event plot.  The event plot survival probability can be plotted for different groups, by providing a grouping variable to `eventby` in the function call.  Also confidence intervals for the survival plot can be included by setting `eventconfint = TRUE`.
 
 ```{r}
-sepplots2 <- jointmetaplot(dataset = jointdat, study = "study", longoutcome = "Y", longtime = "time", 
-                           survtime = "survtime", cens = "cens", id = "id", smoother = TRUE, 
-                           studynames = c("Study 1", "Study 2", "Study 3", "Study 4", "Study 5"), 
+sepplots2 <- jointmetaplot(dataset = jointdat, study = "study", longoutcome = "Y", 
+                           longtime = "time", survtime = "survtime", cens = "cens", 
+                           id = "id", smoother = TRUE, 
+                           studynames = c("Study 1", "Study 2", "Study 3",
+                                          "Study 4", "Study 5"), 
                            type = "Both", eventby = "treat")
 
-sepplots3 <- jointmetaplot(dataset = jointdat, study = "study", longoutcome = "Y", longtime = "time", 
-                           survtime = "survtime", cens = "cens", id = "id", smoother = TRUE, 
-                           studynames = c("Study 1", "Study 2", "Study 3", "Study 4", "Study 5"), 
+sepplots3 <- jointmetaplot(dataset = jointdat, study = "study", longoutcome = "Y", 
+                           longtime = "time", survtime = "survtime", cens = "cens", 
+                           id = "id", smoother = TRUE, 
+                           studynames = c("Study 1", "Study 2", "Study 3", 
+                                          "Study 4", "Study 5"), 
                            type = "Event", eventconfint =  TRUE)
 
 sepplots2$eventplots$`studyplot.Study 3`
@@ -250,7 +263,8 @@ help("jointmetaplot", package = "joineRmeta")
 It is also useful to see the plots side by side instead of viewing each separately.  The function `jointmetaplotall` provides a way to easily do this.  For ease of output, we have wrapped this function call in `suppressWarnings` to prevent printout of warnings relating to the loess smoother inclusion in the longitudinal trajectory plot.
 
 ```{r, fig.show='hide'}
-allplot2 <- suppressWarnings(jointmetaplotall(plotlist = sepplots2, ncol = 2, top = "All studies",
+allplot2 <- suppressWarnings(jointmetaplotall(plotlist = sepplots2, ncol = 2, 
+                                              top = "All studies",
                                               type = "Both"))
 ```
 
@@ -299,8 +313,10 @@ help("joineRfits", package = "joineRmeta")
 This object contains a list of `joineR` fits and the results of the bootstrapping procedure from the package to estimate the standard errors of the model fits.  We can extract these fits using the following code:
 
 ```{r}
-joineRmodels <- joineRfits[c("joineRfit1", "joineRfit2", "joineRfit3", "joineRfit4", "joineRfit5")]
-joineRmodelsSE <- joineRfits[c("joineRfit1SE", "joineRfit2SE", "joineRfit3SE", "joineRfit4SE", "joineRfit5SE")]
+joineRmodels <- joineRfits[c("joineRfit1", "joineRfit2", "joineRfit3", 
+                             "joineRfit4", "joineRfit5")]
+joineRmodelsSE <- joineRfits[c("joineRfit1SE", "joineRfit2SE", "joineRfit3SE", 
+                               "joineRfit4SE", "joineRfit5SE")]
 ```
 The result of this code is that the model fits for each study in the `simdat` data are held in the object `joineRmodels`, and the bootstraps for these model fits are held in the object `joineRmodelsSE`. Each of these model fits has the same structure which can be viewed using the following code:
 
@@ -319,8 +335,10 @@ help("joineRfits2", package = "joineRmeta")
 This object contains a list of `joineR` fits and the results of the bootstrapping procedure from the package to estimate the standard errors of the model fits.  We can extract these fits using the following code:
 
 ```{r}
-joineRmodels2 <- joineRfits2[c("joineRfit6", "joineRfit7", "joineRfit8", "joineRfit9", "joineRfit10")]
-joineRmodels2SE <- joineRfits2[c("joineRfit6SE", "joineRfit7SE", "joineRfit8SE", "joineRfit9SE", "joineRfit10SE")]
+joineRmodels2 <- joineRfits2[c("joineRfit6", "joineRfit7", "joineRfit8", 
+                               "joineRfit9", "joineRfit10")]
+joineRmodels2SE <- joineRfits2[c("joineRfit6SE", "joineRfit7SE", "joineRfit8SE", 
+                                 "joineRfit9SE", "joineRfit10SE")]
 ```
 The result of this code is that the model fits for each study in the `simdat` data are held in the object `joineRmodels2`, and the bootstraps for these model fits are held in the object `joineRmodels2SE`. Each of these model fits has the same structure which can be viewed using the following code:
 
@@ -373,9 +391,11 @@ help("jointmeta2", package = "joineRmeta")
 Firstly consider a case of pooling results from joint model fits estimated using the `joineR` package that were supplied in the `joineRfits` object (described above).  Code to perform the second stage of this two stage meta-analyis is:
 
 ```{r}
-MAjoineRfits <- jointmeta2(fits = joineRmodels, SE = joineRmodelsSE, longpar = c("time", "treat1"), 
+MAjoineRfits <- jointmeta2(fits = joineRmodels, SE = joineRmodelsSE, 
+                           longpar = c("time", "treat1"), 
                            survpar = "treat1", assoc = TRUE, 
-                           studynames = c("Study 1","Study 2", "Study 3", "Study 4", "Study 5"))
+                           studynames = c("Study 1","Study 2", "Study 3", 
+                                          "Study 4", "Study 5"))
 ```
 
 In the above code, because we are supplying fits from the `joineR` package, we have supplied model fits to the argument `fits`, but have also supplied the results of the bootstrapping procedure to `SE`.  We then specify the names of the longitudinal fixed parameters that we want to perform meta-analyses for to argument `longpar`, similarly for the survival sub-model to `survpar`.  If we want to perform a meta-analysis for the association parameter(s), we set `assoc = TRUE`, otherwise this is set to `FALSE`.  An additional optional parameter is `studynames`.  This is an opportunity to supply character strings denoting the names of the studies in the dataset, in the order of the factor levels for the study membership variable.  These character strings will be used to label the meta-analysis results, and will appear on any forest plots produced using these results. A list of lists of meta-analyses is returned by this function.  The meta-analyses of longitudinal fixed parameters are held in the list labelled `longMA`, the meta-analyses of survival fixed parameters are held in the list labelled `survMA.direct`, and the meta-analyses of association parameters, if requested, is held in `assocMA`.
@@ -398,8 +418,10 @@ The importance of not pooling parameters with different interpretations has been
 ```{r, error = TRUE}
 MAjoineRfits2 <- jointmeta2(fits = c(joineRmodels[1:3], joineRmodels2[1:2]), 
                             SE = c(joineRmodelsSE[1:3],joineRmodels2SE[1:2]), 
-                            longpar = c("time", "treat1"), survpar = "treat1", assoc = TRUE, 
-                            studynames = c("Study 1","Study 2", "Study 3", "Study 4", "Study 5"))
+                            longpar = c("time", "treat1"), survpar = "treat1", 
+                            assoc = TRUE, 
+                            studynames = c("Study 1","Study 2", "Study 3", 
+                                           "Study 4", "Study 5"))
 ```
 
 ### Pooling results from JM fits
@@ -408,8 +430,10 @@ As the models fitted using the `joineR` package share only the random effects be
 The first set of fits from the `JM` package held in the object `JMfits` could be pooled in the following way:
 
 ```{r}
-MAJMfits <- jointmeta2(fits = JMfits, longpar = c("time", "treat1"), survpar = "treat1", assoc = TRUE,
-                       studynames = c("Study 1","Study 2", "Study 3", "Study 4", "Study 5"))
+MAJMfits <- jointmeta2(fits = JMfits, longpar = c("time", "treat1"), 
+                       survpar = "treat1", assoc = TRUE,
+                       studynames = c("Study 1","Study 2", "Study 3", 
+                                      "Study 4", "Study 5"))
 ```
 
 The above function returns a list of lists.  The names of the lists included in the list are `longMA`, `survMA.direct`, `survMA.overall`, and `assocMA`, which contain respectively the meta-analyses of the specified longitudinal parameters of interest, the meta-analyses of the direct values of the survival parameters of interst, the meta-analyses of the overall values of the survival parameters of interest, and the meta-analyses of the association parameters.  Note that `survMA.overall` does not appear in meta-analyses of `joineR` fits because fixed effects do not appear in the association structure.  We can produce forest plots of the meta-analyses in the same way as before.
@@ -418,8 +442,10 @@ The second set of fits from the `JM` package held in the object `JMfits2` has an
 
 
 ```{r}
-MAJMfits2 <- jointmeta2(fits = JMfits2, longpar = c("time", "treat1"), survpar = "treat1", assoc = TRUE,
-                        studynames = c("Study 1","Study 2", "Study 3", "Study 4", "Study 5"))
+MAJMfits2 <- jointmeta2(fits = JMfits2, longpar = c("time", "treat1"), 
+                        survpar = "treat1", assoc = TRUE,
+                        studynames = c("Study 1","Study 2", "Study 3", 
+                                       "Study 4", "Study 5"))
 ```
 
 Again, the above function returns a list of lists namely `longMA`, `survMA.direct`, `survMA.overall`, and `assocMA`, which contain respectively the meta-analyses of the specified longitudinal parameters of interest, the meta-analyses of the direct values of the survival parameters of interst, the meta-analyses of the overall values of the survival parameters of interest, and the meta-analyses of the association parameters.
@@ -427,18 +453,22 @@ Again, the above function returns a list of lists namely `longMA`, `survMA.direc
 As with the `joineR` model fits, the fits from the `JM` package will only be pooled by the `jointmeta2` if they have the same specification.  For example the following will throw an error because the joint models contain different longitudinal fixed effects and have different association structures.
 
 ```{r, error = TRUE}
-MAtest <- jointmeta2(fits = c(JMfits2[1:3], JMfits[1:2]), longpar = c("time", "treat1"), 
+MAtest <- jointmeta2(fits = c(JMfits2[1:3], JMfits[1:2]), 
+                     longpar = c("time", "treat1"), 
                      survpar = "treat1", assoc = TRUE, 
-                     studynames = c("Study 1","Study 2", "Study 3", "Study 4", "Study 5"))
+                     studynames = c("Study 1","Study 2", "Study 3", 
+                                    "Study 4", "Study 5"))
 ```
 
 The `jointmeta2` function will also throw errors if fits from both `joineR` and `JM` are supplied to be pooled:
 
 
 ```{r, error = TRUE}
-MAtest <- jointmeta2(fits = c(JMfits2[1:3], joineRfits[1:2]), longpar = c("time", "treat1"), 
+MAtest <- jointmeta2(fits = c(JMfits2[1:3], joineRfits[1:2]), 
+                     longpar = c("time", "treat1"), 
                      survpar = "treat1", assoc = TRUE, 
-                     studynames = c("Study 1","Study 2", "Study 3", "Study 4", "Study 5"))
+                     studynames = c("Study 1","Study 2", "Study 3", 
+                                    "Study 4", "Study 5"))
 ```
 
 # One stage methods
@@ -483,17 +513,22 @@ It is important when fitting a one stage meta-analytic model to joint longitudin
 It is possible, but not advisable, to fit a naive model using `jointmeta` that does not take into account any potential differences between studies.  The code for fitting such as model is:
 
 ```{r, eval=FALSE}
-onestagefit0 <- jointmeta1(data = jointdat, long.formula = Y ~ 1 + time + treat, 
-                           long.rand.ind = c("int", "time"), sharingstrct = "randprop", 
-                           surv.formula = Surv(survtime, cens) ~ treat, study.name = "study", strat = F)
+onestagefit0 <- jointmeta1(data = jointdat, 
+                           long.formula = Y ~ 1 + time + treat, 
+                           long.rand.ind = c("int", "time"), 
+                           sharingstrct = "randprop", 
+                           surv.formula = Surv(survtime, cens) ~ treat, 
+                           study.name = "study", strat = F)
 ```
 The results of this model fit and the results of its bootstrap are given in the data `onestage0` in this package.
 
 One method of taking study level differences into account is to include interaction terms between the study membership variable and other variables of interest in the model.  In model `onestagefit1` (fitted using the code below) we include interaction terms in both sub-models between the study membership variable and the treatment assignment variable.  In this model the baseline hazard is not stratified by study, and we have not specified any random effects at the study level, only a random intercept and slope at the individual level through argument `long.rand.ind`.
 
 ```{r, eval=FALSE}
-onestagefit1 <- jointmeta1(data = jointdat, long.formula = Y ~ 1 + time + treat*study, 
-                           long.rand.ind = c("int", "time"), sharingstrct = "randprop", 
+onestagefit1 <- jointmeta1(data = jointdat, 
+                           long.formula = Y ~ 1 + time + treat*study, 
+                           long.rand.ind = c("int", "time"), 
+                           sharingstrct = "randprop", 
                            surv.formula = Surv(survtime, cens) ~ treat*study, 
                            study.name = "study", strat = F)
 ```
@@ -610,10 +645,13 @@ help("onestage2", package = "joineRmeta")
 Again this data is the result of fitting a one stage joint model and then bootstrapping the model fit using the following code to fit the model:
 
 ```{r, eval=FALSE}
-onestagefit2 <- jointmeta1(data = jointdat, long.formula = Y ~ 1 + time + treat, 
-                           long.rand.ind = c("int", "time"), long.rand.stud = c("study", "treat"), 
+onestagefit2 <- jointmeta1(data = jointdat, 
+                           long.formula = Y ~ 1 + time + treat, 
+                           long.rand.ind = c("int", "time"), 
+                           long.rand.stud = c("study", "treat"), 
                            sharingstrct = "randprop", 
-                           surv.formula = Surv(survtime, cens) ~ treat, study.name = "study", strat = F)
+                           surv.formula = Surv(survtime, cens) ~ treat, 
+                           study.name = "study", strat = F)
 ```
 And to bootstrap the standard errors:
 
@@ -657,9 +695,12 @@ Information for the individual level random effects can be extracted from this m
 The model results held in `onestage3` introduce a baseline hazard stratified by study.  The model fit used the following function call:
 
 ```{r, eval=FALSE}
-onestagefit3 <- jointmeta1(data = jointdat, long.formula = Y ~ 1 + time + treat*study, 
-                           long.rand.ind = c("int", "time"), sharingstrct = "randprop", 
-                           surv.formula = Surv(survtime, cens) ~ treat, study.name = "study", strat = T)
+onestagefit3 <- jointmeta1(data = jointdat, 
+                           long.formula = Y ~ 1 + time + treat*study, 
+                           long.rand.ind = c("int", "time"), 
+                           sharingstrct = "randprop", 
+                           surv.formula = Surv(survtime, cens) ~ treat, 
+                           study.name = "study", strat = T)
 ```
 
 Here we can see that again we have a random intercept and slope at the individual level, but as `long.rand.stud` is not included in the function call, we do not include any study level random effects.  As argument `strat` is set to `T` or `TRUE`, we have included a baseline hazard stratified by study.  The fixed study membership variable, and its interaction with treatment, is again included in the longitudinal sub-model.  Study membership is not included as a fixed effect in the time-to-event sub-model, because we have a stratified baseline hazard, and so it's inclusion would doubly account for between study heterogeneity.

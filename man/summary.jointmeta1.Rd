@@ -15,20 +15,18 @@ measurement errors and the random effects are returned, else if
 }
 \value{
 An object inheriting from class \code{summary.jointmeta1} with all
-    components included in \code{fitted} (see
-    \code{\link{jointmeta1.object}}).
+  components included in \code{fitted} (see \code{\link{jointmeta1.object}}).
 }
 \description{
-A function to provide a summary of a
-    \code{\link{jointmeta1.object}}.
+A function to provide a summary of a \code{\link{jointmeta1.object}}.
 }
 \examples{
     #change data to jointdata format
     jointdat<-tojointdata(longitudinal = simdat$longitudinal,
-                          survival = simdat$survival, id = "id",
-                          longoutcome = "Y", timevarying = c("time","ltime"),
-                          survtime = "survtime", cens = "cens",
-                          time = "time")
+                          survival = simdat$survival, id = 'id',
+                          longoutcome = 'Y', timevarying = c('time','ltime'),
+                          survtime = 'survtime', cens = 'cens',
+                          time = 'time')
 
     #ensure variables are correctly formatted
     jointdat$baseline$study <- as.factor(jointdat$baseline$study)
@@ -36,11 +34,11 @@ A function to provide a summary of a
 
     #fit multi-study joint model
     onestagefit<-jointmeta1(data = jointdat, long.formula = Y ~ 1 + time +
-                            treat + study, long.rand.ind = c("int", "time"),
-                            long.rand.stud = c("treat"),
-                            sharingstrct = "randprop",
+                            treat + study, long.rand.ind = c('int', 'time'),
+                            long.rand.stud = c('treat'),
+                            sharingstrct = 'randprop',
                             surv.formula = Surv(survtime, cens) ~ treat,
-                            study.name = "study", strat = T)
+                            study.name = 'study', strat = T)
 
     #request a summary of the fitted model, with variances printed
     summary(onestagefit, variance = TRUE)

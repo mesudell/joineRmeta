@@ -16,79 +16,75 @@ the model formulae}
 \item{longdat}{the longitudinal data with factors and interaction terms
 expanded, ordered by increasing survival time}
 
-\item{survdat}{the survival data with factors and interaction terms
-expanded,  ordered by increasing survival time}
+\item{survdat}{the survival data with factors and interaction terms expanded,
+ordered by increasing survival time}
 
 \item{q}{the number of individual level random effects}
 
 \item{likeests}{a list of values required to calculated the log-likelihood
-    for the fitted joint model.  This list has the following elements:
-    \describe{
+  for the fitted joint model.  This list has the following elements:
+  \describe{
 
-    \item{\code{beta1}}{a data frame containing the estimates of the
-    coefficients of the fixed effect parameters of the longitudinal
-    sub-model.}
+  \item{\code{beta1}}{a data frame containing the estimates of the
+  coefficients of the fixed effect parameters of the longitudinal sub-model.}
 
-    \item{\code{beta2}}{a data frame containing the estimates of the
-    coefficients of the fixed effect parameters of the survival sub-model.}
+  \item{\code{beta2}}{a data frame containing the estimates of the
+  coefficients of the fixed effect parameters of the survival sub-model.}
 
-    \item{\code{sigma.e}}{the estimate of the variance for the measurement
-    errors in the joint model.}
+  \item{\code{sigma.e}}{the estimate of the variance for the measurement
+  errors in the joint model.}
 
-    \item{\code{D}}{the estimated covariance matrix for the individual level
-    random effects}
+  \item{\code{D}}{the estimated covariance matrix for the individual level
+  random effects}
 
-    \item{\code{A}}{the estimated covariance matrix for the study level
-    random effects.  This is only present in the output if study level random
-    effects were specified in the function call to \code{jointmeta1}.}
+  \item{\code{A}}{the estimated covariance matrix for the study level random
+  effects.  This is only present in the output if study level random effects
+  were specified in the function call to \code{jointmeta1}.}
 
-    \item{\code{random2}}{a list of matrices containing the conditional modes
-    of the individual level random effects given the supplied data and the
-    estimated parameters of the joint model. The list is of length equal to
-    the number of studies in the dataset, and each element of the list has
-    number of rows equal to the number of individuals in the study, and
-    number of columns equal to the number of specified individual level
-    random effects.}
+  \item{\code{random2}}{a list of matrices containing the conditional modes
+  of the individual level random effects given the supplied data and the
+  estimated parameters of the joint model. The list is of length equal to the
+  number of studies in the dataset, and each element of the list has number
+  of rows equal to the number of individuals in the study, and number of
+  columns equal to the number of specified individual level random effects.}
 
-    \item{\code{random3}}{a matrix containing the conditional modes of the
-    study level random effects given the supplied data and the estimated
-    parameters of the joint model.  The matrix has number of rows equal to
-    the number of studies, and number of columns equal to the number of
-    specified study level random effects.}
+  \item{\code{random3}}{a matrix containing the conditional modes of the
+  study level random effects given the supplied data and the estimated
+  parameters of the joint model.  The matrix has number of rows equal to the
+  number of studies, and number of columns equal to the number of specified
+  study level random effects.}
 
-    \item{\code{long.rand.ind.form}}{a character string giving the
-    formulation of the individual level random effects.}
+  \item{\code{long.rand.ind.form}}{a character string giving the formulation
+  of the individual level random effects.}
 
-    \item{\code{long.rand.stud.form}}{a character string giving the
-    formulation of the study level random effects if included in the model.}
+  \item{\code{long.rand.stud.form}}{a character string giving the formulation
+  of the study level random effects if included in the model.}
 
-    \item{\code{conv}}{a logical value indicating whether convergence of the
-    EM algorithm was achieved or not.}
+  \item{\code{conv}}{a logical value indicating whether convergence of the EM
+  algorithm was achieved or not.}
 
-    \item{\code{iters}}{the number of iterations completed by the EM
-    algorithm}
+  \item{\code{iters}}{the number of iterations completed by the EM algorithm}
 
-    \item{\code{n.bystudy}}{the number of individuals present in each study
-    in the data supplied to the function.}
+  \item{\code{n.bystudy}}{the number of individuals present in each study in
+  the data supplied to the function.}
 
-    \item{\code{haz}}{the estimated baseline hazard.  If \code{strat = TRUE}
-    in the function call to \code{jointmeta1} then this is a list of length
-    equal to the number of studies in the supplied dataset, each element of
-    the list being the baseline hazard for the corresponding study. Otherwise
-    there is a common baseline across all studies in the dataset and this is
-    one vector.}
+  \item{\code{haz}}{the estimated baseline hazard.  If \code{strat = TRUE} in
+  the function call to \code{jointmeta1} then this is a list of length equal
+  to the number of studies in the supplied dataset, each element of the list
+  being the baseline hazard for the corresponding study. Otherwise there is a
+  common baseline across all studies in the dataset and this is one vector.}
 
-    \item{\code{rs}}{a counter to indicate the last how many unique event
-    times had occured by the individual's survival time - this is for use
-    during further calculation in the joint model EM algorithm.  If a
-    stratified baseline this is a list of numerical vectors, whereas if the
-    baseline is not stratified this is a single numeric vector.}
+  \item{\code{rs}}{a counter to indicate the last how many unique event times
+  had occured by the individual's survival time - this is for use during
+  further calculation in the joint model EM algorithm.  If a stratified
+  baseline this is a list of numerical vectors, whereas if the baseline is
+  not stratified this is a single numeric vector.}
 
-    \item{\code{sf}}{the unique event times observed in the dataset. If a
-    stratified baseline this is a list of numerical vectors, whereas if the
-    baseline is not stratified this is a single numeric vector.}
+  \item{\code{sf}}{the unique event times observed in the dataset. If a
+  stratified baseline this is a list of numerical vectors, whereas if the
+  baseline is not stratified this is a single numeric vector.}
 
-    }}
+  }}
 
 \item{lgpt}{the number of quadrature points which the log-likelihood is
 evaluated over following a model fit.  This defaults to \code{lgpt = 7}.}
@@ -99,23 +95,22 @@ evaluated over following a model fit.  This defaults to \code{lgpt = 7}.}
 
 \item{p2}{the number of fixed effects included in the survival sub-model}
 
-\item{long.rand.ind}{a vector of character strings to indicate what
-variables to assign individual level random effects to.  A maximum of
-three individual level random effects can be assigned.  To assign a
-random intercept include "int" in the vector.  To not include an
-individual level random intercept include "noint" in the vector.  For
-example to fit a model with individual level random intercept and random
-slope set \code{long.rand.ind = c("int", "time")}, where
-\code{"time"} is the longitudinal time variable in the \code{data}.}
+\item{long.rand.ind}{a vector of character strings to indicate what variables
+to assign individual level random effects to.  A maximum of three
+individual level random effects can be assigned.  To assign a random
+intercept include 'int' in the vector.  To not include an individual level
+random intercept include 'noint' in the vector.  For example to fit a model
+with individual level random intercept and random slope set
+\code{long.rand.ind = c('int', 'time')}, where \code{'time'} is the
+longitudinal time variable in the \code{data}.}
 
-\item{randstart.ind}{a list of the conditional modes of the
-individual level random effects in each study given the data and the
-estimates of the separate longitudinal model parameters}
+\item{randstart.ind}{a list of the conditional modes of the individual level
+random effects in each study given the data and the estimates of the
+separate longitudinal model parameters}
 
-\item{randstart.ind.cov}{a list of the conditional covariance
-matrices for each individual for the individual level random effects
-given the data and the estimates of the separate longitudinal model
-parameters}
+\item{randstart.ind.cov}{a list of the conditional covariance matrices for
+each individual for the individual level random effects given the data and
+the estimates of the separate longitudinal model parameters}
 
 \item{r}{the number of study level random effects (if included in the model)}
 
@@ -124,19 +119,18 @@ variables to assign study level random effects to.  If no study level
 random effects then this either not specified in function call or set to
 \code{NULL}.  If a study level random intercept is required, include the
 name of the study membership variable for example \code{long.rand.stud =
-"study"}.}
+'study'}.}
 
-\item{randstart.stud}{a data frame containing the conditional modes
-of the study level random effects given the data and the estimates of the
-separate longitudinal model parameters.  This is only present if study
-level random effects were specified in the \code{jointmeta1} function
+\item{randstart.stud}{a data frame containing the conditional modes of the
+study level random effects given the data and the estimates of the separate
+longitudinal model parameters.  This is only present if study level random
+effects were specified in the \code{jointmeta1} function call.}
+
+\item{randstart.stud.cov}{a list of conditional covariance matrices for each
+study for the study level random effects given the data and the estimates
+of the separate longitudinal model parameters. This is only present if
+study level random effects were specified in the \code{jointmeta1} function
 call.}
-
-\item{randstart.stud.cov}{a list of conditional covariance matrices
-  for each study for the study level random effects given the data and the
-  estimates of the separate longitudinal model parameters. This is only
-  present if study level random effects were specified in the
-\code{jointmeta1} function call.}
 
 \item{strat}{logical value: if \code{TRUE} then the survival sub-model is
 calculated with a baseline stratified by study.  Otherwise baseline is
@@ -144,23 +138,23 @@ unstratified}
 
 \item{study.name}{a character string denoting the name of the variable in the
 baseline dataset in \code{data} holding study membership, for example
-\code{study.name = "study"}.}
+\code{study.name = 'study'}.}
 
 \item{id.name}{character string specifying the id variable in the dataset}
 }
 \value{
 A list containing three elements: \describe{
 
-\item{\code{log.like}}{the overall log-likelihood for the fitted joint model.
-}
+  \item{\code{log.like}}{the overall log-likelihood for the fitted joint
+  model. }
 
-\item{\code{longlog.like}}{the portion of the log-likelihood attributable to
-the longitudinal sub-model.}
+  \item{\code{longlog.like}}{the portion of the log-likelihood attributable
+  to the longitudinal sub-model.}
 
-\item{\code{survlog.like}}{the portion of the log-likelihood attributable to
-the survival sub-model.}
+  \item{\code{survlog.like}}{the portion of the log-likelihood attributable
+  to the survival sub-model.}
 
-}
+  }
 }
 \description{
 Function to calculate joint likelihood used in the jointmeta1 function

@@ -15,43 +15,42 @@ function.}
 must be supplied to the function}
 
 \item{nrow}{the number of rows of the grid to arrange the plot in.  This is
-an optional parameter, which if not supplied is calculated in the
-function based on the number of supplied plots and the specified value of
+an optional parameter, which if not supplied is calculated in the function
+based on the number of supplied plots and the specified value of
 \code{ncol}.}
 
 \item{top}{a character string to act as the title for the plots}
 
 \item{type}{option to select what type of plots should be returned.  If just
-the grid of the longitudinal trajectories are required then
-\code{type = "Longitudinal"}.  Else if just the grid of the survival
-probabilities graphs are required then \code{type = "Survival"}.  Finally
-if grids of both survival and longitudinal plots are required then this
-should be set to \code{type = "Both"}.  If both, then the same title as
-supplied to \code{top} will be used, similarly for \code{ncol} and
-\code{nrow}.}
+the grid of the longitudinal trajectories are required then \code{type =
+'Longitudinal'}.  Else if just the grid of the survival probabilities
+graphs are required then \code{type = 'Survival'}.  Finally if grids of
+both survival and longitudinal plots are required then this should be set
+to \code{type = 'Both'}.  If both, then the same title as supplied to
+\code{top} will be used, similarly for \code{ncol} and \code{nrow}.}
 }
 \value{
-An object of class \code{"jointplotsall"} is returned.  If in the
-    function call \code{type = "Longitudinal"} or \code{type = "Both"} then
-    the element in the returned object names \code{"longall"} is the arranged
-    grid of longitudinal trajectory plots from each study in the dataset.  If
-    \code{type = "Survival"} or \code{type = "Both"} then the element in the
-    returned object labelled \code{"eventsall"} is the arranged grid of the
-    survival probability plots from each study in the dataset.  The arranged
-    grids can either be printed by name, or by extracting them as you would
-    an element from a list.
+An object of class \code{'jointplotsall'} is returned.  If in the
+  function call \code{type = 'Longitudinal'} or \code{type = 'Both'} then the
+  element in the returned object names \code{'longall'} is the arranged grid
+  of longitudinal trajectory plots from each study in the dataset.  If
+  \code{type = 'Survival'} or \code{type = 'Both'} then the element in the
+  returned object labelled \code{'eventsall'} is the arranged grid of the
+  survival probability plots from each study in the dataset.  The arranged
+  grids can either be printed by name, or by extracting them as you would an
+  element from a list.
 }
 \description{
 This function is designed to take the output from \code{\link{jointmetaplot}}
-    and output the study plots of each type arranged into a grid.
+and output the study plots of each type arranged into a grid.
 }
 \examples{
     #change data to jointdata format
     jointdat<-tojointdata(longitudinal = simdat$longitudinal,
-                          survival = simdat$survival, id = "id",
-                          longoutcome = "Y", timevarying = c("time","ltime"),
-                          survtime = "survtime", cens = "cens",
-                          time = "time")
+                          survival = simdat$survival, id = 'id',
+                          longoutcome = 'Y', timevarying = c('time','ltime'),
+                          survtime = 'survtime', cens = 'cens',
+                          time = 'time')
 
     #ensure variables are correctly formatted
     jointdat$baseline$study <- as.factor(jointdat$baseline$study)
@@ -60,14 +59,14 @@ This function is designed to take the output from \code{\link{jointmetaplot}}
     #produce plots
     #note that inclusion of a smoother sometime results in error messages
     #see ggplot2 for error message interpretation
-    sepplots<-jointmetaplot(dataset = jointdat, study = "study",
-                        longoutcome = "Y", longtime = "time",
-                        survtime = "survtime", cens = "cens", id = "id",
-                        smoother = TRUE, studynames = c("Study 1", "Study 2",
-                        "Study 3", "Study 4", "Study 5"), type = "Both")
+    sepplots<-jointmetaplot(dataset = jointdat, study = 'study',
+                        longoutcome = 'Y', longtime = 'time',
+                        survtime = 'survtime', cens = 'cens', id = 'id',
+                        smoother = TRUE, studynames = c('Study 1', 'Study 2',
+                        'Study 3', 'Study 4', 'Study 5'), type = 'Both')
 
     allplot2<-jointmetaplotall(plotlist = sepplots, ncol =2,
-             top = "All studies", type = "Both"))
+             top = 'All studies', type = 'Both'))
 
 }
 \seealso{

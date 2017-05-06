@@ -3,7 +3,7 @@
 \name{simdat2randlevels}
 \alias{simdat2randlevels}
 \title{Data simulation function for the case with both individual level random
-   effects and study level random effects}
+effects and study level random effects}
 \usage{
 simdat2randlevels(k, n, rand_ind, rand_stud, sepassoc, ntms, longmeasuretimes,
   beta1, beta2, gamma, sigb_ind, sigb_stud, vare, theta0, theta1, censoring,
@@ -16,87 +16,85 @@ simdat2randlevels(k, n, rand_ind, rand_stud, sepassoc, ntms, longmeasuretimes,
 simulate per study}
 
 \item{rand_ind}{a character string specifying the individual level random
-effects structure.  If \code{rand_ind = "intslope"} then there is an
-individual specific random intercept and random time (slope) term
-included in the model.  If \code{rand_ind = "int"} then the model
-includes only a individual specific random intercept.}
+effects structure.  If \code{rand_ind = 'intslope'} then there is an
+individual specific random intercept and random time (slope) term included
+in the model.  If \code{rand_ind = 'int'} then the model includes only a
+individual specific random intercept.}
 
 \item{rand_stud}{a character string specifying the study level random effects
-structure.  If this is set to \code{NULL} or not specified in the
-function call then no study level random effects are included in the
-model that the data is simulated from.  There are three options if data
-is to be simulated with random effects at the study level.  If a study
-level random intercept only is to be included, then set
-\code{rand_stud = "int"}.  Else if a study level random treatment
-assignment term only is to be included then set
-\code{rand_stud = "treat"}.  Finally if both a study level random
-intercept and a study level random treatment effect is to be included,
-then set \code{rand_stud = "inttreat"}.}
+structure.  If this is set to \code{NULL} or not specified in the function
+call then no study level random effects are included in the model that the
+data is simulated from.  There are three options if data is to be simulated
+with random effects at the study level.  If a study level random intercept
+only is to be included, then set \code{rand_stud = 'int'}.  Else if a study
+level random treatment assignment term only is to be included then set
+\code{rand_stud = 'treat'}.  Finally if both a study level random intercept
+and a study level random treatment effect is to be included, then set
+\code{rand_stud = 'inttreat'}.}
 
 \item{sepassoc}{a logical taking value \code{FALSE} if proportional
-association is required, \code{TRUE} if a separate association parameter
-is required for each random effect shared between the sub-models}
+association is required, \code{TRUE} if a separate association parameter is
+required for each random effect shared between the sub-models}
 
 \item{ntms}{the maximum possible number of longitudinal measurements - should
 equal the length of the supplied \code{longmeasuretimes}}
 
 \item{longmeasuretimes}{a vector giving the exact times of the longitudinal
-measurement times.  If this is not specified in the function call then
-the measurement times of the longitudinal outcome are set to start at 0
-then take integer values up to and including \code{ntms - 1}.}
+measurement times.  If this is not specified in the function call then the
+measurement times of the longitudinal outcome are set to start at 0 then
+take integer values up to and including \code{ntms - 1}.}
 
 \item{beta1}{a vector of the fixed effects for the longitudinal sub-model.
 Here the first element gives the coefficient for a fixed or population
 intercept, the second gives the coefficient for the binary treatment
-assignment covariate and the third element gives the covariate for the
-time (slope) covariate}
+assignment covariate and the third element gives the covariate for the time
+(slope) covariate}
 
 \item{beta2}{the coefficient for the binary treatment assignment covariate}
 
 \item{gamma}{are the association parameters.  If different association
 parameters are supplied for each study in the dataset, this is a list of
-vectors each of length equal to the total number of random
-effects. If the same association parameters are supplied for each study
-in the dataset then this is a vector of length equal to the number of
-random effects.  If separate association parameters are
-defined for different random effects (i.e. if \code{sepassoc = TRUE})
-then the elements in each of these vectors are not necessarily identical.
-If \code{sepassoc = FALSE} then the association parameters within each
-vector are identical.  In each vector of association parameters the first
-\code{q} values are the association parameters for the individual level
-random effects, and the remaining values are the association parameters
-for the study level random effects.}
+vectors each of length equal to the total number of random effects. If the
+same association parameters are supplied for each study in the dataset then
+this is a vector of length equal to the number of random effects.  If
+separate association parameters are defined for different random effects
+(i.e. if \code{sepassoc = TRUE}) then the elements in each of these vectors
+are not necessarily identical. If \code{sepassoc = FALSE} then the
+association parameters within each vector are identical.  In each vector of
+association parameters the first \code{q} values are the association
+parameters for the individual level random effects, and the remaining
+values are the association parameters for the study level random effects.}
 
 \item{sigb_ind}{the covariance matrix for the individual level random
-effects. This should have number of rows and columns equal to the
-number of individual level random effects.}
+effects. This should have number of rows and columns equal to the number of
+individual level random effects.}
 
-\item{sigb_stud}{the covariance matrix for the study level random
-effects. This should have number of rows and columns equal to the
-number of study level random effects.  This should only be specified if
-\code{rand_stud} is specified in the function call.}
+\item{sigb_stud}{the covariance matrix for the study level random effects.
+This should have number of rows and columns equal to the number of study
+level random effects.  This should only be specified if \code{rand_stud} is
+specified in the function call.}
 
 \item{vare}{the variance of the measurement error term}
 
-\item{theta0}{parameter defining the distribution of the survival times.
-A separate parameter can be defined per study or a common parameter
-across all studies.  See Bender et al 2005 for advice on approximating
-appropriate values for \code{theta0} and \code{theta1} the using extreme
-value distribution.}
+\item{theta0}{parameter defining the distribution of the survival times. A
+separate parameter can be defined per study or a common parameter across
+all studies.  See Bender et al 2005 for advice on approximating appropriate
+values for \code{theta0} and \code{theta1} the using extreme value
+distribution.}
 
-\item{theta1}{parameter defining the distribution of the survival times.
-A separate parameter can be defined per study or a common parameter
-across all studies.  See Bender et al 2005 for advice on approximating
-appropriate values for \code{theta0} and \code{theta1} the using extreme
-value distribution.}
+\item{theta1}{parameter defining the distribution of the survival times. A
+separate parameter can be defined per study or a common parameter across
+all studies.  See Bender et al 2005 for advice on approximating appropriate
+values for \code{theta0} and \code{theta1} the using extreme value
+distribution.}
 
 \item{censoring}{a logical indicating whether the simulated survival times
 should be censored or not}
 
 \item{censlam}{the lambda parameter controlling the simulated exponentially
-distributed censoring times.  This can either be supplied as one value
-for all studies simulated, or a vector of length equal to the number of
-studies in the dataset.}
+distributed censoring times.  This can either be supplied as one value for
+all studies simulated, or a vector of length equal to the number of studies
+in the dataset.}
 
 \item{truncation}{a logical value to specify whether the simulated survival
 times should be truncated at a specified time or not.}
@@ -110,55 +108,54 @@ truncated at the specified \code{trunctime}}
 }
 \value{
 This function returns a list with three named elements.  The first
-    element is named \code{"longdat"}, the second \code{"survdat"}, the third
-    \code{"percentevent"}.  Each of these elements is a list of length equal
-    to the number of studies specified to simulate in the function call.
+  element is named \code{'longdat'}, the second \code{'survdat'}, the third
+  \code{'percentevent'}.  Each of these elements is a list of length equal to
+  the number of studies specified to simulate in the function call.
 
-    The element \code{"longdat"} is a list of the simulated longitudinal data
-    sets.  Each longitudinal dataset contains the following variables:
-    \describe{
+  The element \code{'longdat'} is a list of the simulated longitudinal data
+  sets.  Each longitudinal dataset contains the following variables:
+  \describe{
 
-    \item{\code{id}}{a numeric id variable}
+  \item{\code{id}}{a numeric id variable}
 
-    \item{\code{Y}}{the continuous longitudinal outcome}
+  \item{\code{Y}}{the continuous longitudinal outcome}
 
-    \item{\code{time}}{the numeric longitudinal time variable}
+  \item{\code{time}}{the numeric longitudinal time variable}
 
-    \item{\code{study}}{a study membership variable}
+  \item{\code{study}}{a study membership variable}
 
-    \item{\code{intercept}}{an intercept term}
+  \item{\code{intercept}}{an intercept term}
 
-    \item{\code{treat}}{a treatment assignment variable to one of two
-        treatment groups}
+  \item{\code{treat}}{a treatment assignment variable to one of two treatment
+  groups}
 
-    \item{\code{ltime}}{a duplicate of the longitudinal time variable}
+  \item{\code{ltime}}{a duplicate of the longitudinal time variable}
 
-    }
+  }
 
-    The element \code{"survdat"} is a list of the simulated survival data
-    sets.  Each survival dataset contains the following variables:
-    \describe{
+  The element \code{'survdat'} is a list of the simulated survival data sets.
+  Each survival dataset contains the following variables: \describe{
 
-    \item{\code{id}}{a numeric id variable}
+  \item{\code{id}}{a numeric id variable}
 
-    \item{\code{survtime}}{the numeric survival times}
+  \item{\code{survtime}}{the numeric survival times}
 
-    \item{\code{cens}}{the censoring indicator}
+  \item{\code{cens}}{the censoring indicator}
 
-    \item{\code{study}}{a study membership variable}
+  \item{\code{study}}{a study membership variable}
 
-    \item{\code{treat}}{a treatment assignment variable to one of two
-        treatment groups}
+  \item{\code{treat}}{a treatment assignment variable to one of two treatment
+  groups}
 
-    }
+  }
 
-    The element \code{"percentevent"} is a list of the percentage of events
-    over censorings seen in the simulated survival data.
+  The element \code{'percentevent'} is a list of the percentage of events
+  over censorings seen in the simulated survival data.
 }
 \description{
 Internal function to simulate joint data with random effect at the both
-    individual level and the study level.  Used inside
-    \code{\link{simjointmeta}}.
+individual level and the study level.  Used inside
+\code{\link{simjointmeta}}.
 }
 \seealso{
 internal

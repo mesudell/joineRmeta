@@ -4,101 +4,90 @@
 \name{joineRfits}
 \alias{joineRfits}
 \title{Study specific joint model fits using the joineR package}
-\format{A list of 10 objects: \describe{
-    \item{\code{joineRfit1}}{an object of class \code{joint}, the result of
-    using the \code{joint} function to fit a joint model to the data from
-    the first study in the \code{simdat} dataset.}
-    \item{\code{joineRfit1SE}}{an object of class \code{data.frame}, the
-    result of applying the function \code{jointSE} to the joint model fit
-    \code{joineRfit1}.}
-    \item{\code{joineRfit2}}{
-    an object of class \code{joint}, the result of
-    using the \code{joint} function to fit a joint model to the data from
-    the second study in the \code{simdat} dataset.}
-    \item{\code{joineRfit2SE}}{an object of class \code{data.frame}, the
-    result of applying the function \code{jointSE} to the joint model fit
-    \code{joineRfit2}.}
-    \item{\code{joineRfit3}}{an object of class \code{joint}, the result of
-    using the \code{joint} function to fit a joint model to the data from
-    the third study in the \code{simdat} dataset.}
-    \item{\code{joineRfit3SE}}{an object of class \code{data.frame}, the
-    result of applying the function \code{jointSE} to the joint model fit
-    \code{joineRfit3}.}
-    \item{\code{joineRfit4}}{an object of class \code{joint}, the result of
-    using the \code{joint} function to fit a joint model to the data from
-    the fourth study in the \code{simdat} dataset.}
-    \item{\code{joineRfit4SE}}{an object of class \code{data.frame}, the
-    result of applying the function \code{jointSE} to the joint model fit
-    \code{joineRfit4}.}
-    \item{\code{joineRfit5}}{an object of class \code{joint}, the result of
-    using the \code{joint} function to fit a joint model to the data from
-    the fifth study in the \code{simdat} dataset.}
-    \item{\code{joineRfit5SE}}{an object of class \code{data.frame}, the
-    result of applying the function \code{jointSE} to the joint model fit
-    \code{joineRfit5}.}
-}}
+\format{A list of 10 objects: \describe{ \item{\code{joineRfit1}}{an object
+  of class \code{joint}, the result of using the \code{joint} function to fit
+  a joint model to the data from the first study in the \code{simdat}
+  dataset.} \item{\code{joineRfit1SE}}{an object of class \code{data.frame},
+  the result of applying the function \code{jointSE} to the joint model fit
+  \code{joineRfit1}.} \item{\code{joineRfit2}}{ an object of class
+  \code{joint}, the result of using the \code{joint} function to fit a joint
+  model to the data from the second study in the \code{simdat} dataset.}
+  \item{\code{joineRfit2SE}}{an object of class \code{data.frame}, the result
+  of applying the function \code{jointSE} to the joint model fit
+  \code{joineRfit2}.} \item{\code{joineRfit3}}{an object of class
+  \code{joint}, the result of using the \code{joint} function to fit a joint
+  model to the data from the third study in the \code{simdat} dataset.}
+  \item{\code{joineRfit3SE}}{an object of class \code{data.frame}, the result
+  of applying the function \code{jointSE} to the joint model fit
+  \code{joineRfit3}.} \item{\code{joineRfit4}}{an object of class
+  \code{joint}, the result of using the \code{joint} function to fit a joint
+  model to the data from the fourth study in the \code{simdat} dataset.}
+  \item{\code{joineRfit4SE}}{an object of class \code{data.frame}, the result
+  of applying the function \code{jointSE} to the joint model fit
+  \code{joineRfit4}.} \item{\code{joineRfit5}}{an object of class
+  \code{joint}, the result of using the \code{joint} function to fit a joint
+  model to the data from the fifth study in the \code{simdat} dataset.}
+  \item{\code{joineRfit5SE}}{an object of class \code{data.frame}, the result
+  of applying the function \code{jointSE} to the joint model fit
+  \code{joineRfit5}.} }}
 \usage{
 joineRfits
 }
 \description{
 A dataset containing a list of the model fits for joint models fitted to the
-    data for each study in the \code{simdat} dataset using the joineR
-    package. Further details of model fits supplied below.
+data for each study in the \code{simdat} dataset using the joineR package.
+Further details of model fits supplied below.
 }
 \details{
 These are the results of fitting a joint model using the
-    \code{joineR} package separately to
-    the data from each study present in the \code{simdat} dataset.  This data
-    has three levels, namely the longitudinal measurements at level 1, nested
-    within individuals (level 2) who are themselves nested within studies
-    (level 3). The
-    joint models fitted to each study's data had the same format.  The
-    longitudinal sub-model contained a fixed intercept, time and treatment
-    assignment term, and random intercept and slope.  The survival sub-model
-    contained a fixed treatment assignment term.  A proportional association
-    structure was used to link the sub-models.  More formally, the
-    longitudinal sub-model had the following format:
+  \code{joineR} package separately to the data from each study present in the
+  \code{simdat} dataset.  This data has three levels, namely the longitudinal
+  measurements at level 1, nested within individuals (level 2) who are
+  themselves nested within studies (level 3). The joint models fitted to each
+  study's data had the same format.  The longitudinal sub-model contained a
+  fixed intercept, time and treatment assignment term, and random intercept
+  and slope.  The survival sub-model contained a fixed treatment assignment
+  term.  A proportional association structure was used to link the
+  sub-models.  More formally, the longitudinal sub-model had the following
+  format:
 
-    \deqn{Y_{kij} = \beta_{10} + \beta_{11}time + \beta_{12}treat +
-    b^{(2)}_{0ki} + b^{(2)}_{1ki}time +
-    \epsilon_{kij}}
+  \deqn{Y_{kij} = \beta_{10} + \beta_{11}time + \beta_{12}treat +
+  b^{(2)}_{0ki} + b^{(2)}_{1ki}time + \epsilon_{kij}}
 
-    Where \eqn{Y} represents the continuous longitudinal outcome, fixed
-    effect coefficients are represented by \eqn{\beta}, random effects
-    coefficients by \eqn{b} and the measurement error by
-    \eqn{\epsilon}.  For the  random effects the superscript of 2 indicates
-    that these are individual level, or level 2 random effects.  This means
-    they take can take a unique value for each individual in the dataset.
-    The longitudinal time variable is represented by
-    \eqn{time}, and the treatment assignment variable (a binary factor) is
-    represented by \eqn{treat}.
+  Where \eqn{Y} represents the continuous longitudinal outcome, fixed effect
+  coefficients are represented by \eqn{\beta}, random effects coefficients by
+  \eqn{b} and the measurement error by \eqn{\epsilon}.  For the  random
+  effects the superscript of 2 indicates that these are individual level, or
+  level 2 random effects.  This means they take can take a unique value for
+  each individual in the dataset. The longitudinal time variable is
+  represented by \eqn{time}, and the treatment assignment variable (a binary
+  factor) is represented by \eqn{treat}.
 
-    The survival sub-model had format:
+  The survival sub-model had format:
 
-    \deqn{\lambda_{ki}(t) = \lambda_{0}(t)exp(\beta_{21}treat +
-    \alpha(b^{(2)}_{0ki} + b^{(2)}_{1ki}time))
-    }
+  \deqn{\lambda_{ki}(t) = \lambda_{0}(t)exp(\beta_{21}treat +
+  \alpha(b^{(2)}_{0ki} + b^{(2)}_{1ki}time)) }
 
-    In the above equation, \eqn{\lambda_{ki}(t)} represents the survival time
-    of the individual \eqn{i} in study \eqn{k}, and \eqn{\lambda_{0}(t)}
-    represents the baseline hazard.  The fixed effect coefficient is
-    represented by \eqn{\beta_{21}}.  The association parameter quantifying
-    the link between the sub-models is represented by \eqn{\alpha}.  Again
-    \eqn{treat} represents the binary factor treatment assignment variable,
-    and \eqn{b^{(2)}_{0ki}} and \eqn{b^{(2)}_{1ki}} are the zero mean random effects shared
-    from the longitudinal sub-model.
+  In the above equation, \eqn{\lambda_{ki}(t)} represents the survival time
+  of the individual \eqn{i} in study \eqn{k}, and \eqn{\lambda_{0}(t)}
+  represents the baseline hazard.  The fixed effect coefficient is
+  represented by \eqn{\beta_{21}}.  The association parameter quantifying the
+  link between the sub-models is represented by \eqn{\alpha}.  Again
+  \eqn{treat} represents the binary factor treatment assignment variable, and
+  \eqn{b^{(2)}_{0ki}} and \eqn{b^{(2)}_{1ki}} are the zero mean random
+  effects shared from the longitudinal sub-model.
 
-    We differentiate between the fixed effect coefficients in the
-    longitudinal and the survival sub-models by varying the first number
-    present in the subscript of the fixed effect, which takes a 1 for
-    coefficients from the longitudinal sub-model and a 2 for coefficients
-    from the survival sub-model.
+  We differentiate between the fixed effect coefficients in the longitudinal
+  and the survival sub-models by varying the first number present in the
+  subscript of the fixed effect, which takes a 1 for coefficients from the
+  longitudinal sub-model and a 2 for coefficients from the survival
+  sub-model.
 
-    These fits have been provided in this package for use with the package
-    vignette, see the vignette for more information.
+  These fits have been provided in this package for use with the package
+  vignette, see the vignette for more information.
 }
 \seealso{
 \code{\link[joineR]{jointdata}}, \code{\link[joineR]{joint}},
-    \code{\link[joineR]{jointSE}}
+  \code{\link[joineR]{jointSE}}
 }
 \keyword{datasets}

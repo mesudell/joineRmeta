@@ -9,12 +9,13 @@ Author: c(
     role = "aut"),
     person("Catrin", "Tudur Smith", email = "cat1@liverpool.ac.uk", 
     role = "aut"))
+Maintainer: Maria Sudell <mesudell@liverpool.ac.uk>
 Description: Functions for meta-analysis of a single longitudinal and a single 
     time-to-event outcome from multiple studies using joint models.  Options to 
     produce plots for multi study joint data, to pool joint model fits from JM
     and joineR packages in a two stage meta-analysis, and to model multi-study 
     joint data in a one stage meta-analysis.
-License: GPL-3 + file
+License: GPL-3 | file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends:

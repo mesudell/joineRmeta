@@ -1,27 +1,27 @@
 #' Extract the variance covariance matrix from the bootstrapped results
 #'
 #' Function applied to a \code{jointmeta1SE} object, the result of the
-#'     \code{jointmetaSE} function to extract the variance covariance matrix for
-#'     the estimated model parameters
+#' \code{jointmetaSE} function to extract the variance covariance matrix for the
+#' estimated model parameters
 #'
 #' @param fittedSE an object of class \code{jointmeta1SE}
 #'
 #' @return a variance covariance matrix for the fixed effects from the
-#'     longitudinal sub-model, the time-to-event sub-model, the association
-#'     parameters, the random effects and the error term.
+#'   longitudinal sub-model, the time-to-event sub-model, the association
+#'   parameters, the random effects and the error term.
 #'
 #' @export
 #'
 #' @seealso \code{\link{jointmeta1}}, \code{\link{jointmeta1SE}},
-#'     \code{\link{jointmeta1SE.object}}
+#'   \code{\link{jointmeta1SE.object}}
 #'
 #' @examples
 #'
 #'     #change data to jointdata format
 #'     jointdat<-tojointdata(longitudinal = simdat$longitudinal,
-#'                           survival = simdat$survival, id = "id",
-#'                           longoutcome = "Y", timevarying = c("time","ltime"),
-#'                           survtime = "survtime", cens = "cens",time = "time")
+#'                           survival = simdat$survival, id = 'id',
+#'                           longoutcome = 'Y', timevarying = c('time','ltime'),
+#'                           survtime = 'survtime', cens = 'cens',time = 'time')
 #'
 #'     #ensure variables are correctly formatted
 #'     jointdat$baseline$study <- as.factor(jointdat$baseline$study)
@@ -30,11 +30,11 @@
 #'     #example without interaction terms
 #'     #fit multi-study joint model
 #'     onestagefit<-jointmeta1(data = jointdat, long.formula = Y ~ 1 + time +
-#'                             treat + study, long.rand.ind = c("int", "time"),
-#'                             long.rand.stud = c("treat"),
-#'                             sharingstrct = "randprop",
+#'                             treat + study, long.rand.ind = c('int', 'time'),
+#'                             long.rand.stud = c('treat'),
+#'                             sharingstrct = 'randprop',
 #'                             surv.formula = Surv(survtime, cens) ~ treat,
-#'                             study.name = "study", strat = T)
+#'                             study.name = 'study', strat = T)
 #'
 #'     #calculate the SE
 #'     onestagefitSE <- jointmetaSE(fitted = onestagefit, n.boot = 200)
@@ -45,24 +45,24 @@
 #'     #example with interaction terms
 #'     #fit multi-study joint model
 #'     onestagefit2<-jointmeta1(data = jointdat, long.formula = Y ~ 1 + time +
-#'                            treat*study, long.rand.ind = c("int", "time"),
-#'                            sharingstrct = "randprop",
+#'                            treat*study, long.rand.ind = c('int', 'time'),
+#'                            sharingstrct = 'randprop',
 #'                            surv.formula = Surv(survtime, cens) ~ treat*study,
-#'                            study.name = "study", strat = F)
+#'                            study.name = 'study', strat = F)
 #'
 #'     #calculate the SE
 #'     onestagefit2SE <- jointmetaSE(fitted = onestagefit2, n.boot = 125,
-#'           overalleffects = list(long = list(c("treat1", "treat1:study2"),
-#'                                             c("treat1", "treat1:study3"),
-#'                                             c("treat1", "treat1:study4"),
-#'                                             c("treat1", "treat1:study5")),
-#'                                 surv = list(c("treat1", "treat1:study2"),
-#'                                             c("treat1", "treat1:study3"),
-#'                                             c("treat1", "treat1:study4"),
-#'                                             c("treat1", "treat1:study5"))))
+#'           overalleffects = list(long = list(c('treat1', 'treat1:study2'),
+#'                                             c('treat1', 'treat1:study3'),
+#'                                             c('treat1', 'treat1:study4'),
+#'                                             c('treat1', 'treat1:study5')),
+#'                                 surv = list(c('treat1', 'treat1:study2'),
+#'                                             c('treat1', 'treat1:study3'),
+#'                                             c('treat1', 'treat1:study4'),
+#'                                             c('treat1', 'treat1:study5'))))
 #'
 vcov.jointmeta1SE <- function(fittedSE) {
-  if(class(fittedSE) != "jointmeta1SE") {
+  if (class(fittedSE) != "jointmeta1SE") {
     stop("fittedSE should be of class jointmeta1SE")
   }
   fittedSE$covmat

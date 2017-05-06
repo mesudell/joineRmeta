@@ -6,23 +6,23 @@
 #'
 #' @param ests estimates from initial longitudinal or survival analyses
 #' @param logical a logical value indicating whether or not results from
-#' separate longitudinal and survival analyses were requested.
+#'   separate longitudinal and survival analyses were requested.
 #'
 #' @return A list of results from the separate longitudinal and survival fits.
-#' The components of this list are: \describe{
+#'   The components of this list are: \describe{
 #'
 #'   \item{\code{longests}}{a list containing estimates from the initial
 #'   longitudinal fit.  The components of this list are: \describe{
 #'
-#'   \item{\code{beta1}}{a data frame of the estimates of the fixed effects
-#'   from the longitudinal sub-model}
+#'   \item{\code{beta1}}{a data frame of the estimates of the fixed effects from
+#'   the longitudinal sub-model}
 #'
 #'   \item{\code{sigma.e}}{the value of the variance of the measurement error
 #'   from the longitudinal sub-model}
 #'
 #'   \item{\code{D}}{the estimate of the covariance matrix for the individual
-#'   level random effects.  Individual level random effects are always
-#'   included in the joint model}
+#'   level random effects.  Individual level random effects are always included
+#'   in the joint model}
 #'
 #'   \item{\code{A}}{the estimate of the covariance matrix for the study level
 #'   random effects.  This is only present if study level random effects are
@@ -53,7 +53,8 @@
 #'
 #'   \item{\code{modelfit}}{the initial longitudinal model fit.  The model has
 #'   the same specification as the longitudinal sub-model for the joint model,
-#'   fitted using the \code{\link[lme4]{lmer}} function from package \code{lme4}}
+#'   fitted using the \code{\link[lme4]{lmer}} function from package
+#'   \code{lme4}}
 #'
 #'   }}
 #'
@@ -87,9 +88,10 @@
 #'   log-likelihood with the initial values and the log-likelihood with the
 #'   final values, see \code{\link[survival]{coxph.object}}}
 #'
-#'   \item{\code{modelfit}}{the initial survival model fit.  The model has
-#'   the same specification as the survival sub-model for the joint model,
-#'   fitted using the \code{\link[survival]{coxph}} function from package \code{survival}}
+#'   \item{\code{modelfit}}{the initial survival model fit.  The model has the
+#'   same specification as the survival sub-model for the joint model, fitted
+#'   using the \code{\link[survival]{coxph}} function from package
+#'   \code{survival}}
 #'
 #'   }}
 #'

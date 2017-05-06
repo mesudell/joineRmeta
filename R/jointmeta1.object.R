@@ -4,10 +4,10 @@
 #' \code{jointmeta1} and representing a fitted joint model for a single
 #' longitudinal and a single time-to-event outcome for data from multiple
 #' studies.  Objects of this class have methods for the generic functions
-#' \code{\link{confint}}, \code{\link{fixef}},
-#' \code{\link{formula}} and \code{\link{ranef}}.
-#' Additionally \code{\link[joineRmeta]{randcov}} allows the user to extract the
-#' estimated covariance matrices for the zero mean random effects.
+#' \code{\link{confint}}, \code{\link{fixef}}, \code{\link{formula}} and
+#' \code{\link{ranef}}. Additionally \code{\link[joineRmeta]{randcov}} allows
+#' the user to extract the estimated covariance matrices for the zero mean
+#' random effects.
 #'
 #' @author Maria Sudell (\email{mesudell@@liverpool.ac.uk})
 #' @seealso \code{\link{jointmeta1}}.
@@ -37,8 +37,8 @@
 #'   be present.}
 #'
 #'   \item{\code{random_stud}}{a matrix with number of columns equal to the
-#'   number of study level random effects, number of rows equal to the number
-#'   of studies in the dataset.  This item is only present if study level random
+#'   number of study level random effects, number of rows equal to the number of
+#'   studies in the dataset.  This item is only present if study level random
 #'   effects are specified in the model fit.}}}
 #'
 #'   \item{\code{latent}}{a numeric containing the estimates of the latent
@@ -47,8 +47,8 @@
 #'   \code{gamma_ind_0}, and for the study level random effects is labelled
 #'   \code{gamma_stud_0}.}}}
 #'
-#'   \item{\code{sigma.e}}{a numeric holding the estimate of the variance of
-#'   the measurement error variance}
+#'   \item{\code{sigma.e}}{a numeric holding the estimate of the variance of the
+#'   measurement error variance}
 #'
 #'   \item{\code{rand_cov}}{a list containing the covariance matrices for the
 #'   random effects included in the model.  The covariance matrix for the
@@ -77,27 +77,27 @@
 #'
 #'   \item{\code{sharingstrct}}{a character string denoting the specified
 #'   sharing structure used in the joint model.  Currently only
-#'   \code{"randprop"} is supported, denoting zero mean random effects sharing
+#'   \code{'randprop'} is supported, denoting zero mean random effects sharing
 #'   structure (see Wulfsohn and Tsiatis (1997)).}
 #'
 #'   \item{\code{sepests}}{A list containing estimates from the separate
 #'   longitudinal and survival analyses.  If separate results are not requested,
-#'   the elements of the list are set to "No separate results requested".
+#'   the elements of the list are set to 'No separate results requested'.
 #'   However, if separate analyses are requested in the \code{jointmeta1}
 #'   function call, the components of this list are: \describe{
 #'
 #'   \item{\code{longests}}{a list containing estimates from the initial
 #'   longitudinal fit.  The components of this list are: \describe{
 #'
-#'   \item{\code{beta1}}{a data frame of the estimates of the fixed effects
-#'   from the longitudinal sub-model}
+#'   \item{\code{beta1}}{a data frame of the estimates of the fixed effects from
+#'   the longitudinal sub-model}
 #'
 #'   \item{\code{sigma.e}}{the value of the variance of the measurement error
 #'   from the longitudinal sub-model}
 #'
 #'   \item{\code{D}}{the estimate of the covariance matrix for the individual
-#'   level random effects.  Individual level random effects are always
-#'   included in the joint model}
+#'   level random effects.  Individual level random effects are always included
+#'   in the joint model}
 #'
 #'   \item{\code{A}}{the estimate of the covariance matrix for the study level
 #'   random effects.  This is only present if study level random effects are
@@ -128,7 +128,8 @@
 #'
 #'   \item{\code{modelfit}}{the initial longitudinal model fit.  The model has
 #'   the same specification as the longitudinal sub-model for the joint model,
-#'   fitted using the \code{\link[lme4]{lmer}} function from package \code{lme4}}
+#'   fitted using the \code{\link[lme4]{lmer}} function from package
+#'   \code{lme4}}
 #'
 #'   }}
 #'
@@ -162,20 +163,21 @@
 #'   log-likelihood with the initial values and the log-likelihood with the
 #'   final values, see \code{\link[survival]{coxph.object}}}
 #'
-#'   \item{\code{modelfit}}{the initial survival model fit.  The model has
-#'   the same specification as the survival sub-model for the joint model,
-#'   fitted using the \code{\link[survival]{coxph}} function from package \code{survival}}
+#'   \item{\code{modelfit}}{the initial survival model fit.  The model has the
+#'   same specification as the survival sub-model for the joint model, fitted
+#'   using the \code{\link[survival]{coxph}} function from package
+#'   \code{survival}}
 #'
 #'   }}
 #'
 #'   }}
 #'
-#'   \item{\code{sep.loglik}}{a list containing the log-likelihoods
-#'   estimated from the separate analyses.  It contains three elements, namely
+#'   \item{\code{sep.loglik}}{a list containing the log-likelihoods estimated
+#'   from the separate analyses.  It contains three elements, namely
 #'   \code{seplhood} - the sum of the log-likelihoods from the separate
 #'   longitudinal and the separate survival analyses, \code{sepy} - the
-#'   log-likelihood from the separate longitudinal analysis, \code{sepn} -
-#'   the log-likelihood from the separate survival analysis.}
+#'   log-likelihood from the separate longitudinal analysis, \code{sepn} - the
+#'   log-likelihood from the separate survival analysis.}
 #'
 #'   \item{\code{data}}{the \code{\link[joineR]{jointdata}} object containing
 #'   the data the joint model was fitted to}
@@ -185,15 +187,15 @@
 #'
 #'   \item{\code{random_cond}}{a list containing the conditional modes of any
 #'   random effects included in the joint model given the data and the
-#'   parameters estimated from the joint model. The components of this list
-#'   are: \describe{
+#'   parameters estimated from the joint model. The components of this list are:
+#'   \describe{
 #'
-#'   \item{\code{random_ind}}{a list of length equal to the number of studies
-#'   in the dataset, each containing a matrix consisting of the conditional
-#'   modes of the individual level random effects.}
+#'   \item{\code{random_ind}}{a list of length equal to the number of studies in
+#'   the dataset, each containing a matrix consisting of the conditional modes
+#'   of the individual level random effects.}
 #'
-#'   \item{\code{random_stud}}{a matrix consisting of the conditional
-#'   modes of the study level random effects.}
+#'   \item{\code{random_stud}}{a matrix consisting of the conditional modes of
+#'   the study level random effects.}
 #'
 #'   }}
 #'
@@ -209,10 +211,10 @@
 #'   analysis due to missing data}
 #'
 #'   \item{\code{nobs}}{a table containing the number of longitudinal
-#'   measurements supplied by each study in the data used to fit the model.
-#'   This will be less than the number of longitudinal measurements in the
-#'   dataset supplied to the function call, if missing data is present in
-#'   variables included in the model}
+#'   measurements supplied by each study in the data used to fit the model. This
+#'   will be less than the number of longitudinal measurements in the dataset
+#'   supplied to the function call, if missing data is present in variables
+#'   included in the model}
 #'
 #'   }
 
