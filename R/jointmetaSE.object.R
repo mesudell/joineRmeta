@@ -1,12 +1,12 @@
 #' A \code{jointmeta1SE} object
 #'
-#' An object returned by the \code{jointmeta1SE} function, inheriting from class
+#' An object returned by the \code{jointmetaSE} function, inheriting from class
 #' \code{jointmeta1SE} representing the results of bootstrapping a fit from the
 #' \code{jointmeta1} function.  Objects of this class have methods for the
-#' \code{\link{print}} and \code{\link{vcov}} functions.
+#' \code{\link{print.jointmeta1SE}} and \code{\link{vcov.jointmeta1SE}} functions.
 #'
 #' @author Maria Sudell (\email{mesudell@@liverpool.ac.uk})
-#' @seealso \code{\link{jointmeta1}}, \code{\link{jointmeta1SE}}.
+#' @seealso \code{\link{jointmeta1}}, \code{\link{jointmetaSE}}.
 #' @return A list with the following components. \describe{
 #'
 #'   \item{\code{results}}{a data frame containing the estimates, standard

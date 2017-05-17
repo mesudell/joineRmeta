@@ -67,7 +67,10 @@
 #'   The element \code{'percentevent'} is a list of the percentage of events
 #'   over censorings seen in the simulated survival data.
 #'
-#' @seealso internal
+#' @keywords internal
+#'
+#' @importFrom stats runif rnorm rbinom
+#'
 simdat2randlevels <- function(k, n, rand_ind, rand_stud, sepassoc, ntms,
                               longmeasuretimes, beta1, beta2, gamma, sigb_ind, sigb_stud, vare, theta0,
                               theta1, censoring, censlam, truncation, trunctime, q, r) {

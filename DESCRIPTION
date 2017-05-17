@@ -15,27 +15,28 @@ Description: Functions for meta-analysis of a single longitudinal and a single
     produce plots for multi study joint data, to pool joint model fits from JM
     and joineR packages in a two stage meta-analysis, and to model multi-study 
     joint data in a one stage meta-analysis.
-License: GPL-3 | file LICENSE
+License: GPL-3 + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends:
     R (>= 3.3.0),
     lme4,
-    survival
+    survival,
+    JM
 Imports:
     ggplot2,
     grid,
     gridExtra,
     gtools,
-    JM,
     joineR,
-    lme4,
     MASS,
     meta,
     msm,
     nlme,
     statmod,
-    survival
+    stats,
+    Matrix,
+    utils
 RoxygenNote: 6.0.1
 Suggests: 
     knitr,

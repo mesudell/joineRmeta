@@ -97,6 +97,9 @@
 #'
 #'   }
 #'
+#' @importFrom Matrix bdiag
+#' @importFrom utils txtProgressBar setTxtProgressBar
+#'
 #'
 #' @keywords internal
 jlike <- function(data, longdat, survdat, q, likeests, lgpt, studies, p1,
@@ -282,7 +285,7 @@ jlike <- function(data, longdat, survdat, q, likeests, lgpt, studies, p1,
         } else {
           warning(paste("Singular matrix encountered during pseudo adaptive
                         procedure, likelihood estimation"))
-          gmat2 + rep(randstart.ind.bystudy[[u]][v, ], each = nrow(gmat))
+          gmat + rep(randstart.ind.bystudy[[u]][v, ], each = nrow(gmat))
         }
 
       })

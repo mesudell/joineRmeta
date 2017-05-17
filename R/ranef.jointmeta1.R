@@ -3,12 +3,13 @@
 #' This function extracts the estimated values of the random effects from a
 #' supplied \code{jointmeta1} fit.
 #'
-#' @param fitted a \code{jointmeta1} object (the result of fitting a model using
+#' @param object a \code{jointmeta1} object (the result of fitting a model using
 #'   \code{\link{jointmeta1}}, see \code{\link{jointmeta1.object}})
 #' @param type the type of random effects to return.  Set \code{type =
 #'   'individual'} to return the estimates of the individual level random
 #'   effects.  Set \code{type = 'study'} to return the estimates of the level
 #'   random effects if included in the model.
+#' @param ... additional arguments; currently none are used.
 #'
 #' @return If \code{type = 'individual'} then a list of matrices containing the
 #'   individual level random effects is returned.  This list is of length equal
@@ -29,46 +30,47 @@
 #'   \code{\link{fixef}}
 #'
 #' @examples
-#'     #change data to jointdata format
-#'     jointdat<-tojointdata(longitudinal = simdat$longitudinal,
-#'                           survival = simdat$survival, id = 'id',
-#'                           longoutcome = 'Y',
-#'                           timevarying = c('time','ltime'),
-#'                           survtime = 'survtime', cens = 'cens',
-#'                           time = 'time')
+#'    #change example data to jointdata object
+#'    jointdat2<-tojointdata(longitudinal = simdat2$longitudinal,
+#'    survival = simdat2$survival, id = 'id',longoutcome = 'Y',
+#'    timevarying = c('time','ltime'),
+#'    survtime = 'survtime', cens = 'cens',time = 'time')
 #'
-#'     #ensure variables are correctly formatted
-#'     jointdat$baseline$study <- as.factor(jointdat$baseline$study)
-#'     jointdat$baseline$treat <- as.factor(jointdat$baseline$treat)
+#'    #set variables to factors
+#'    jointdat2$baseline$study <- as.factor(jointdat2$baseline$study)
+#'    jointdat2$baseline$treat <- as.factor(jointdat2$baseline$treat)
 #'
-#'     #fit multi-study joint model
-#'     onestagefit<-jointmeta1(data = jointdat, long.formula = Y ~ 1 + time +
-#'                             treat + study, long.rand.ind = c('int', 'time'),
-#'                             long.rand.stud = c('treat'),
-#'                             sharingstrct = 'randprop',
-#'                             surv.formula = Surv(survtime, cens) ~ treat,
-#'                             study.name = 'study', strat = T)
+#'    #fit multi-study joint model
+#'    #note: for demonstration purposes only - max.it restricted to 5
+#'    #model would need more iterations to truely converge
+#'    onestagefit<-jointmeta1(data = jointdat2, long.formula = Y ~ 1 + time +
+#'                            + treat + study, long.rand.ind = c('int', 'time'),
+#'                            long.rand.stud = c('treat'),
+#'                            sharingstrct = 'randprop',
+#'                            surv.formula = Surv(survtime, cens) ~ treat,
+#'                            study.name = 'study', strat = TRUE, max.it=5)
 #'
 #'     #extract the individual level random effects covariance matrix
 #'     ranef(onestagefit, type = 'individual')
 #'
 #'     #extract the study level random effects covariance matrix
 #'     ranef(onestagefit, type = 'study')
-ranef.jointmeta1 <- function(fitted, type = c("individual", "study")) {
-  if (class(fitted) != "jointmeta1") {
-    stop("Variable fitted should be of class jointmeta1")
+ranef.jointmeta1 <- function(object, type = c("individual", "study"), ...) {
+  if (class(object) != "jointmeta1") {
+    stop("Variable object should be of class jointmeta1")
   }
   if (missing(type) || !(type %in% c("individual", "study"))) {
     stop("type should be one of \"individual\", \"study\"")
   }
   if (type == "individual") {
-    ranef.ind <- fitted$random_cond$random_ind
+    ranef.ind <- object$random_cond$random_ind
     return(ranef.ind)
   } else if (type == "study") {
-    if (is.null(fitted$random_cond$random_stud)) {
+    if (is.null(object$random_cond$random_stud)) {
       stop("No study level random effects in supplied model fit")
     }
-    ranef.stud <- fitted$random_cond$random_stud
+    ranef.stud <- object$random_cond$random_stud
     return(ranef.stud)
   }
 }
+

@@ -4,37 +4,40 @@
 \alias{print.jointmeta1}
 \title{Print function for \code{jointmeta1} objects}
 \usage{
-\method{print}{jointmeta1}(fitted)
+\method{print}{jointmeta1}(x, ...)
 }
 \arguments{
-\item{fitted}{a jointmeta1.object, the result of fitting a jointmeta1 model}
+\item{x}{a jointmeta1.object, the result of fitting a jointmeta1 model}
+
+\item{...}{additional arguments; currently none are used.}
 }
 \value{
 An object inheriting from class \code{print.jointmeta1} with all
-  components included in \code{fitted} (see \code{\link{jointmeta1.object}}).
+  components included in \code{x} (see \code{\link{jointmeta1.object}}).
 }
 \description{
 A function to print a \code{\link{jointmeta1.object}}.
 }
 \examples{
-    #change data to jointdata format
-    jointdat<-tojointdata(longitudinal = simdat$longitudinal,
-                          survival = simdat$survival, id = 'id',
-                          longoutcome = 'Y', timevarying = c('time','ltime'),
-                          survtime = 'survtime', cens = 'cens',
-                          time = 'time')
+   #change example data to jointdata object
+   jointdat2<-tojointdata(longitudinal = simdat2$longitudinal,
+   survival = simdat2$survival, id = 'id',longoutcome = 'Y',
+   timevarying = c('time','ltime'),
+   survtime = 'survtime', cens = 'cens',time = 'time')
 
-    #ensure variables are correctly formatted
-    jointdat$baseline$study <- as.factor(jointdat$baseline$study)
-    jointdat$baseline$treat <- as.factor(jointdat$baseline$treat)
+   #set variables to factors
+   jointdat2$baseline$study <- as.factor(jointdat2$baseline$study)
+   jointdat2$baseline$treat <- as.factor(jointdat2$baseline$treat)
 
-    #fit multi-study joint model
-    onestagefit<-jointmeta1(data = jointdat, long.formula = Y ~ 1 + time +
-                            treat + study, long.rand.ind = c('int', 'time'),
-                            long.rand.stud = c('treat'),
-                            sharingstrct = 'randprop',
-                            surv.formula = Surv(survtime, cens) ~ treat,
-                            study.name = 'study', strat = T)
+   #fit multi-study joint model
+   #note: for demonstration purposes only - max.it restricted to 5
+   #model would need more iterations to truely converge
+   onestagefit<-jointmeta1(data = jointdat2, long.formula = Y ~ 1 + time +
+                           + treat + study, long.rand.ind = c('int', 'time'),
+                           long.rand.stud = c('treat'),
+                           sharingstrct = 'randprop',
+                           surv.formula = Surv(survtime, cens) ~ treat,
+                           study.name = 'study', strat = TRUE, max.it=5)
 
     #print the fitted multi-study joint model
     print(onestagefit)

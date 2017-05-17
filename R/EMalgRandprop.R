@@ -79,11 +79,13 @@
 #'
 #' @seealso \code{\link{jointmeta1}}, \code{\link{tojointdata}},
 #'   \code{\link[joineR]{jointdata}},\code{\link[lme4]{lmer}},
-#'   \code{\link[coxph]{survival}}
+#'   \code{\link[survival]{coxph}}
 #'
 #' @keywords internal
 #'
-#' @import survival statmod
+#' @import survival
+#' @importFrom stats as.formula model.frame model.matrix
+#' @importFrom statmod gauss.quad.prob
 #'
 
 EMalgRandprop <- function(data, longdat, survdat, long.rand.ind, long.rand.stud = NULL,

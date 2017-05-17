@@ -147,7 +147,7 @@
 #'
 #' @export
 #'
-#' @import survival
+#' @import survival stats
 #'
 #' @references Wulfsohn, M.S. and A.A. Tsiatis, A Joint Model for Survival and
 #'   Longitudinal Data Measured with Error. 1997, International Biometric
@@ -161,33 +161,25 @@
 #'
 #'
 #' @examples
-#'     #change data to jointdata format
-#'     jointdat<-tojointdata(longitudinal = simdat$longitudinal,
-#'                           survival = simdat$survival, id = 'id',
-#'                           longoutcome = 'Y', timevarying = c('time','ltime'),
-#'                           survtime = 'survtime', cens = 'cens',
-#'                           time = 'time')
+#'    #change example data to jointdata object
+#'    jointdat2<-tojointdata(longitudinal = simdat2$longitudinal,
+#'    survival = simdat2$survival, id = 'id',longoutcome = 'Y',
+#'    timevarying = c('time','ltime'),
+#'    survtime = 'survtime', cens = 'cens',time = 'time')
 #'
-#'     #ensure variables are correctly formatted
-#'     jointdat$baseline$study <- as.factor(jointdat$baseline$study)
-#'     jointdat$baseline$treat <- as.factor(jointdat$baseline$treat)
+#'    #set variables to factors
+#'    jointdat2$baseline$study <- as.factor(jointdat2$baseline$study)
+#'    jointdat2$baseline$treat <- as.factor(jointdat2$baseline$treat)
 #'
-#'     #fit multi-study joint model with study level random effects and
-#'     #baseline hazard stratified by study
-#'     onestagefit<-jointmeta1(data = jointdat, long.formula = Y ~ 1 + time +
-#'                             treat + study, long.rand.ind = c('int', 'time'),
-#'                             long.rand.stud = c('treat'),
-#'                             sharingstrct = 'randprop',
-#'                             surv.formula = Surv(survtime, cens) ~ treat,
-#'                             study.name = 'study', strat = T)
-#'
-#'     #fit multi-study joint model without study level random effects with
-#'     #unstratified baseline hazard
-#'     onestagefit2<-jointmeta1(data = jointdat, long.formula = Y ~ 1 + time +
-#'                            treat*study, long.rand.ind = c('int', 'time'),
+#'    #fit multi-study joint model
+#'    #note: for demonstration purposes only - max.it restricted to 5
+#'    #model would need more iterations to truely converge
+#'    onestagefit<-jointmeta1(data = jointdat2, long.formula = Y ~ 1 + time +
+#'                            + treat + study, long.rand.ind = c('int', 'time'),
+#'                            long.rand.stud = c('treat'),
 #'                            sharingstrct = 'randprop',
-#'                            surv.formula = Surv(survtime, cens) ~ treat*study,
-#'                            study.name = 'study', strat = F)
+#'                            surv.formula = Surv(survtime, cens) ~ treat,
+#'                            study.name = 'study', strat = TRUE, max.it=5)
 #'
 
 jointmeta1 <- function(data, long.formula, long.rand.ind, long.rand.stud = NULL,
@@ -228,11 +220,6 @@ jointmeta1 <- function(data, long.formula, long.rand.ind, long.rand.stud = NULL,
   if ((sharingstrct %in% c("randprop", "randsep", "value", "slope", "valandslope")) ==
       FALSE) {
     stop("Invalid sharing structure specified")
-  }
-  if (sharingstrct %in% c("slope", "valandslope")) {
-    if (missing(derivbytime)) {
-      stop("Please specify the derivbytime variable")
-    }
   }
   if (sharingstrct != "randprop") {
     stop("Currently jointmeta only supports randprop sharing structures")

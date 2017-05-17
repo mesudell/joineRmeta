@@ -5,7 +5,7 @@
 #' longitudinal and a single time-to-event outcome for data from multiple
 #' studies.  Objects of this class have methods for the generic functions
 #' \code{\link{confint}}, \code{\link{fixef}}, \code{\link{formula}} and
-#' \code{\link{ranef}}. Additionally \code{\link[joineRmeta]{randcov}} allows
+#' \code{\link{ranef}}. Additionally \code{\link[joineRmeta]{rancov}} allows
 #' the user to extract the estimated covariance matrices for the zero mean
 #' random effects.
 #'

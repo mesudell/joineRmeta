@@ -96,6 +96,6 @@ against time.
                         'Study 3', 'Study 4', 'Study 5'), type = 'Both')
 }
 \seealso{
-\code{\link[joineR]{jointData}}, \code{\link[ggplot2]{ggplot}},
+\code{\link[joineR]{jointdata}}, \code{\link[ggplot2]{ggplot}},
   \code{\link{jointmetaplotall}}
 }

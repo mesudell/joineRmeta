@@ -84,6 +84,6 @@ These are the results of using the \code{jointmeta1} function to fit
   \code{ onestagefit2SE<-jointmetaSE(fitted = onestagefit2, n.boot = 200) }
 }
 \seealso{
-\code{\link{jointmeta1}}, \code{\link{jointmeta1SE}}
+\code{\link{jointmeta1}}, \code{\link{jointmetaSE}}
 }
 \keyword{datasets}

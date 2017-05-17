@@ -84,6 +84,6 @@ These are the results of using the \code{jointmeta1} function to fit
   'treat1:study5')))) }
 }
 \seealso{
-\code{\link{jointmeta1}}, \code{\link{jointmeta1SE}}
+\code{\link{jointmeta1}}, \code{\link{jointmetaSE}}
 }
 \keyword{datasets}

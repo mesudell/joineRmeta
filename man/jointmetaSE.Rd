@@ -77,50 +77,29 @@ This function takes the results of a one stage joint model fit to
   \code{surv}
 }
 \examples{
+   #change example data to jointdata object
+   jointdat2<-tojointdata(longitudinal = simdat2$longitudinal,
+   survival = simdat2$survival, id = 'id',longoutcome = 'Y',
+   timevarying = c('time','ltime'),
+   survtime = 'survtime', cens = 'cens',time = 'time')
 
-    #change data to jointdata format
-    jointdat<-tojointdata(longitudinal = simdat$longitudinal,
-                          survival = simdat$survival, id = 'id',
-                          longoutcome = 'Y',
-                          timevarying = c('time','ltime'),
-                          survtime = 'survtime', cens = 'cens',
-                          time = 'time')
+   #set variables to factors
+   jointdat2$baseline$study <- as.factor(jointdat2$baseline$study)
+   jointdat2$baseline$treat <- as.factor(jointdat2$baseline$treat)
 
-    #ensure variables are correctly formatted
-    jointdat$baseline$study <- as.factor(jointdat$baseline$study)
-    jointdat$baseline$treat <- as.factor(jointdat$baseline$treat)
-
-    #example without interaction terms
-    #fit multi-study joint model
-    onestagefit<-jointmeta1(data = jointdat, long.formula = Y ~ 1 + time +
-                           treat + study, long.rand.ind = c('int', 'time'),
+   #fit multi-study joint model
+   #note: for demonstration purposes only - max.it restricted to 5
+   #model would need more iterations to truely converge
+   onestagefit<-jointmeta1(data = jointdat2, long.formula = Y ~ 1 + time +
+                           + treat + study, long.rand.ind = c('int', 'time'),
                            long.rand.stud = c('treat'),
                            sharingstrct = 'randprop',
                            surv.formula = Surv(survtime, cens) ~ treat,
-                           study.name = 'study', strat = T)
+                           study.name = 'study', strat = TRUE, max.it=5)
 
-    #calculate the SE
-    onestagefitSE <- jointmetaSE(fitted = onestagefit, n.boot = 200)
-
-    #example with interaction terms
-    #fit multi-study joint model
-    onestagefit2<-jointmeta1(data = jointdat, long.formula = Y ~ 1 + time +
-                           treat*study, long.rand.ind = c('int', 'time'),
-                           sharingstrct = 'randprop',
-                           surv.formula = Surv(survtime, cens) ~ treat*study,
-                           study.name = 'study',
-                           strat = F)
-
-    #calculate the SE
-    onestagefit2SE <- jointmetaSE(fitted = onestagefit2, n.boot = 125,
-          overalleffects = list(long = list(c('treat1', 'treat1:study2'),
-                                            c('treat1', 'treat1:study3'),
-                                            c('treat1', 'treat1:study4'),
-                                            c('treat1', 'treat1:study5')),
-                                surv = list(c('treat1', 'treat1:study2'),
-                                            c('treat1', 'treat1:study3'),
-                                            c('treat1', 'treat1:study4'),
-                                            c('treat1', 'treat1:study5'))))
-
+    \dontrun{
+        #calculate the SE
+        onestagefitSE <- jointmetaSE(fitted = onestagefit, n.boot = 200)
+    }
 
 }

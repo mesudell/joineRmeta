@@ -45,6 +45,7 @@ This function is designed to take the output from \code{\link{jointmetaplot}}
 and output the study plots of each type arranged into a grid.
 }
 \examples{
+    \dontrun{
     #change data to jointdata format
     jointdat<-tojointdata(longitudinal = simdat$longitudinal,
                           survival = simdat$survival, id = 'id',
@@ -66,7 +67,8 @@ and output the study plots of each type arranged into a grid.
                         'Study 3', 'Study 4', 'Study 5'), type = 'Both')
 
     allplot2<-jointmetaplotall(plotlist = sepplots, ncol =2,
-             top = 'All studies', type = 'Both'))
+             top = 'All studies', type = 'Both')
+   }
 
 }
 \seealso{

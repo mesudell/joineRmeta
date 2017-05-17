@@ -57,7 +57,7 @@
 #' @export
 #' @import ggplot2 survival
 #'
-#' @seealso \code{\link[joineR]{jointData}}, \code{\link[ggplot2]{ggplot}},
+#' @seealso \code{\link[joineR]{jointdata}}, \code{\link[ggplot2]{ggplot}},
 #'   \code{\link{jointmetaplotall}}
 #'
 #' @examples
@@ -272,8 +272,8 @@ jointmetaplot <- function(dataset, study, longoutcome, longtime, survtime,
           p <- p + ggtitle(studynames[u])
         }
         if (eventconfint) {
-          p <- p + geom_line(aes(y = upper), linetype = 2, na.rm = TRUE)
-          p <- p + geom_line(aes(y = lower), linetype = 2, na.rm = TRUE)
+          p <- p + geom_line(aes(y = kmplotdata$upper), linetype = 2, na.rm = TRUE)
+          p <- p + geom_line(aes(y = kmplotdata$lower), linetype = 2, na.rm = TRUE)
         }
         p
       } else {
@@ -317,8 +317,8 @@ jointmetaplot <- function(dataset, study, longoutcome, longtime, survtime,
           p <- p + ggtitle(studynames[u])
         }
         if (eventconfint) {
-          p <- p + geom_line(aes(y = upper), linetype = 2, na.rm = TRUE)
-          p <- p + geom_line(aes(y = lower), linetype = 2, na.rm = TRUE)
+          p <- p + geom_line(aes(y = kmplotdata$upper), linetype = 2, na.rm = TRUE)
+          p <- p + geom_line(aes(y = kmplotdata$lower), linetype = 2, na.rm = TRUE)
         }
         p
       }

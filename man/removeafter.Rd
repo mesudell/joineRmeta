@@ -50,7 +50,7 @@ This function removes any longitudinal information recorded for an
   individual's survival time.
 }
 \examples{
-
+ \dontrun{
  #the dataset simdat3 in this package contains joint data where longitudinal
  #data exists after individual's survival times.
  str(simdat3)
@@ -68,7 +68,7 @@ This function removes any longitudinal information recorded for an
  #we can compare the two datasets to see the removed data
  str(jointdat3)
  str(jointdat3.1)
-
+ }
 
 }
 \seealso{

@@ -156,6 +156,6 @@ jointmeta1 function is called.
 \seealso{
 \code{\link{jointmeta1}}, \code{\link{tojointdata}},
   \code{\link[joineR]{jointdata}},\code{\link[lme4]{lmer}},
-  \code{\link[coxph]{survival}}
+  \code{\link[survival]{coxph}}
 }
 \keyword{internal}

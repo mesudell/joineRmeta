@@ -32,10 +32,13 @@
 #'
 #' @export
 #' @import ggplot2 grid gridExtra
+#' @importFrom grDevices recordPlot
+#'
 #'
 #' @seealso \code{\link{jointmetaplot}}
 #'
 #' @examples
+#'     \dontrun{
 #'     #change data to jointdata format
 #'     jointdat<-tojointdata(longitudinal = simdat$longitudinal,
 #'                           survival = simdat$survival, id = 'id',
@@ -57,7 +60,8 @@
 #'                         'Study 3', 'Study 4', 'Study 5'), type = 'Both')
 #'
 #'     allplot2<-jointmetaplotall(plotlist = sepplots, ncol =2,
-#'              top = 'All studies', type = 'Both'))
+#'              top = 'All studies', type = 'Both')
+#'    }
 #'
 jointmetaplotall <- function(plotlist, ncol, nrow = NULL, top = NULL, type = c("Longitudinal",
                                                                                "Event", "Both")) {
@@ -136,6 +140,7 @@ jointmetaplotall <- function(plotlist, ncol, nrow = NULL, top = NULL, type = c("
       layoutset <- rbind(do.call(rbind, split(1:(ncol * nrow), ceiling(seq_along(1:(ncol *
                                                                                       nrow))/ncol))), rep((ncol * nrow) + 1, ncol))
       heights <- c(rep(2.5, nrow), 0.2)
+      nrow <- nrow + 1
     } else {
       blankplot <- ggplot(data.frame()) + geom_blank() + theme_bw() +
         theme(panel.border = element_blank())
@@ -148,9 +153,9 @@ jointmetaplotall <- function(plotlist, ncol, nrow = NULL, top = NULL, type = c("
                                                                                 nrow))/ncol)))
       heights <- rep(2.5, nrow)
     }
-    do.call(grid.arrange, c(eventplots, list(ncol = ncol, nrow = nrow +
-                                               1, layout_matrix = layoutset, top = textGrob(top, gp = gpar(fontsize = 20,
-                                                                                                           font = 2)), heights = heights)))
+    do.call(grid.arrange, c(eventplots, list(ncol = ncol, nrow = nrow,
+                                             layout_matrix = layoutset, top = textGrob(top, gp = gpar(fontsize = 20,
+                                                                                                      font = 2)), heights = heights)))
     plots$eventsall <- recordPlot()
   }
   class(plots) <- "jointplotsall"

@@ -93,6 +93,8 @@ This function is designed to take study specific joint model fits,
   fits are fitted using the \code{JM} package.
 }
 \examples{
+    \dontrun{
+    library(joineR)
 
     #change data to jointdata format
     jointdat<-tojointdata(longitudinal = simdat$longitudinal,
@@ -167,83 +169,7 @@ This function is designed to take study specific joint model fits,
     #produce forest plots
     library(meta)
     forest(MAjoineRfits$longMA$treat1)
-
-    ###########################
-    ### Example using JM fits
-
-    longdat.1<-merge(jointdat.1$longitudinal,jointdat.1$baseline,by='id')
-    longdat.2<-merge(jointdat.2$longitudinal,jointdat.2$baseline,by='id')
-    longdat.3<-merge(jointdat.3$longitudinal,jointdat.3$baseline,by='id')
-    longdat.4<-merge(jointdat.4$longitudinal,jointdat.4$baseline,by='id')
-    longdat.5<-merge(jointdat.5$longitudinal,jointdat.5$baseline,by='id')
-
-    survdat.1<-merge(jointdat.1$survival,jointdat.1$baseline,by='id')
-    survdat.2<-merge(jointdat.2$survival,jointdat.2$baseline,by='id')
-    survdat.3<-merge(jointdat.3$survival,jointdat.3$baseline,by='id')
-    survdat.4<-merge(jointdat.4$survival,jointdat.4$baseline,by='id')
-    survdat.5<-merge(jointdat.5$survival,jointdat.5$baseline,by='id')
-
-
-    #fit with current value sharing structure
-    library('nlme', 'JM')
-    lmefit1<-lme(fixed = Y ~ 1 + time + treat, data = longdat.1,
-                   random = ~ 1 + time|id, control=lmeControl(opt = 'optim'))
-    survfit1<-coxph(Surv(survtime, cens) ~ treat, data = survdat.1, x = TRUE)
-    JMfit1<-jointModel(lmeObject = lmefit1, survObject = survfit1,
-                   timeVar = 'time',
-                   parameterization = 'value', method = 'spline-PH-aGH')
-
-    lmefit2<-lme(fixed = Y ~ 1 + time + treat, data = longdat.2,
-                   random = ~ 1 + time|id, control=lmeControl(opt = 'optim'))
-    survfit2<-coxph(Surv(survtime, cens) ~ treat, data = survdat.2, x = TRUE)
-    JMfit2<-jointModel(lmeObject = lmefit2, survObject = survfit2,
-                   timeVar = 'time',
-                   parameterization = 'value', method = 'spline-PH-aGH')
-
-    lmefit3<-lme(fixed = Y ~ 1 + time + treat, data = longdat.3,
-                   random = ~ 1 + time|id, control=lmeControl(opt = 'optim'))
-    survfit3<-coxph(Surv(survtime, cens) ~ treat, data = survdat.3, x = TRUE)
-    JMfit3<-jointModel(lmeObject = lmefit3, survObject = survfit3,
-                   timeVar = 'time',
-                   parameterization = 'value', method = 'spline-PH-aGH')
-
-    lmefit4<-lme(fixed = Y ~ 1 + time + treat, data = longdat.4,
-                   random = ~ 1 + time|id, control=lmeControl(opt = 'optim'))
-    survfit4<-coxph(Surv(survtime, cens) ~ treat, data = survdat.4, x = TRUE)
-    JMfit4<-jointModel(lmeObject = lmefit4, survObject = survfit4,
-                   timeVar = 'time',
-                   parameterization = 'value', method = 'spline-PH-aGH')
-
-    lmefit5<-lme(fixed = Y ~ 1 + time + treat, data = longdat.5,
-                   random = ~ 1 + time|id, control=lmeControl(opt = 'optim'))
-    survfit5<-coxph(Surv(survtime, cens) ~ treat, data = survdat.5, x = TRUE)
-    JMfit5<-jointModel(lmeObject = lmefit5, survObject = survfit5,
-                   timeVar = 'time',
-                   parameterization = 'value', method = 'spline-PH-aGH')
-
-    JMfits<-list(JMfit1,
-                 JMfit2,
-                 JMfit3,
-                 JMfit4,
-                 JMfit5)
-
-    names(JMfits)<-c('JMfit1',
-                     'JMfit2',
-                     'JMfit3',
-                     'JMfit4',
-                     'JMfit5')
-
-    #perform the MA of the supplied fits
-    MAJMfits<-jointmeta2(fits = JMfits, longpar = c('time', 'treat1'),
-                  survpar = 'treat1', assoc = TRUE,
-                  studynames = c('Study 1','Study 2', 'Study 3', 'Study 4',
-                  'Study 5'))
-
-    #produce forest plots
-    library(meta)
-    forest(MAJMfits$longMA$treat1)
-
-
+    }
 
 }
 \references{

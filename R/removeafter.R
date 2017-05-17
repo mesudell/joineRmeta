@@ -41,7 +41,7 @@
 #' @seealso \code{\link[joineR]{jointdata}}
 #'
 #' @examples
-#'
+#'  \dontrun{
 #'  #the dataset simdat3 in this package contains joint data where longitudinal
 #'  #data exists after individual's survival times.
 #'  str(simdat3)
@@ -59,7 +59,7 @@
 #'  #we can compare the two datasets to see the removed data
 #'  str(jointdat3)
 #'  str(jointdat3.1)
-#'
+#'  }
 #'
 removeafter <- function(data, longitudinal, survival, id, time) {
   if (class(data) != "jointdata") {

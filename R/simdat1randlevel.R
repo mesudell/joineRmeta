@@ -63,6 +63,9 @@
 #'   over censorings seen in the simulated survival data.
 #'
 #' @keywords internal
+#'
+#' @importFrom stats runif rnorm rbinom
+#'
 simdat1randlevel <- function(k, n, rand_ind, sepassoc, ntms, longmeasuretimes,
                              beta1, beta2, gamma, sigb_ind, vare, theta0, theta1, censoring, censlam,
                              truncation, trunctime, q) {

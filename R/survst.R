@@ -47,7 +47,7 @@
 #'
 #'   \item{\code{modelfit}}{the initial survival model fit, fitted using the
 #'   \code{\link[survival]{coxph}} function from the
-#'   \code{\link[survival]{survival}} package.}
+#'   \code{survival} package.}
 #'
 #'   }
 #'

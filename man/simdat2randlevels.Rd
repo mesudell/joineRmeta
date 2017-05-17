@@ -157,6 +157,4 @@ Internal function to simulate joint data with random effect at the both
 individual level and the study level.  Used inside
 \code{\link{simjointmeta}}.
 }
-\seealso{
-internal
-}
+\keyword{internal}
