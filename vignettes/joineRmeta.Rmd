@@ -13,15 +13,15 @@ vignette: >
 ```{r set-options, echo=FALSE, cache=FALSE}
 options(width = 100)
 ```
+
 # Introduction
 
-The joineRmeta package implements methods for analysing joint longitudinal and time-to-event data from multiple studies.  The responses for each subject should consist of a single continuous longitudinal outcome and a single possibly  censored time-to-event outcome.  This package provides methods to perform the  second stage of a two stage meta-analysis of joint model fits, where model  parameters from study specific fits are pooled using standard meta-analytic  techniques, and methods to perform a one stage meta-analysis of the data, where data from all studies is analysed simultaneously.  Methods are also included to  easily plot joint data from multiple studies, and to simulate joint data from  multiple studies.
+The joineRmeta package implements methods for analyzing joint longitudinal and time-to-event data from multiple studies.  The responses for each subject should consist of a single continuous longitudinal outcome and a single possibly  censored time-to-event outcome.  This package provides methods to perform the  second stage of a two stage meta-analysis of joint model fits, where model  parameters from study specific fits are pooled using standard meta-analytic  techniques, and methods to perform a one stage meta-analysis of the data, where data from all studies is analysed simultaneously.  Methods are also included to  easily plot joint data from multiple studies, and to simulate joint data from  multiple studies.
 
 To load the library, use code
 
 ```{r}
 library("joineRmeta")
-
 ```
 
 # Data
@@ -29,24 +29,26 @@ library("joineRmeta")
 This package contains several functions beneficial when first dealing with multi-study joint data in a project.  These include a function to change  multi-study data supplied in a range of formats to the `jointdata` format  introduced in the `joineR` package, and a function to remove longitudinal information recorded after the event of interest if the event of interest is not terminal.
 
 ## Data Simulation
+
 The `joineRmeta` package contains the `simjointmeta` function that allows simulation of three level joint longitudinal and survival data (longitudinal measurements (level 1) nested within individuals (level 2) nested within studies (level 3)).  To see the help file for the `simjointmeta` function use the following command:
 
 ```{r, eval=FALSE}
 help("simjointmeta", package = "joineRmeta")
 ```
+
 This function is an extension of one written by the `joineR` package team to the multi-study case. This function simulates data for multiple studies, for one continuous longitudinal and one survival outcome, under a joint model with a random effects only association structure.  The association structure can either be proportional (one common association parameter for all shared random effects at a given level) or separate (separate association parameters for each shared random effects) by setting `sepassoc` to be `FALSE` or `TRUE` respectively.  Random effects can be specified at just the individual level, or at both the individual and the study levels.  At the individual level, a random intercept can be specified, or both a random intercept and a random slope.  If study level random effects are included, a study level random intercept, a study level random treatment effect, or both can be specified.  The covariance matrices for the individual level and the study level random effects (if specified) are supplied to arguments `sigb_ind` and `sigb_stud`.  The variation of the longitudinal measurement error term is set using argument `vare`.
 
 The longitudinal outcome is generated under a linear mixed effects model, with a fixed intercept, time (slope) and binary indicator variable (which is labelled `treat` to represent treatment assignment to one of two treatment groups).  The coefficients for these fixed effects are supplied in the function call to argument `beta1`, in order intercept, slope, treatment effects.  The only fixed effect influencing the survival times is again the binary treatment indicator variable, the coefficient for which is supplied in the function call to argument `beta2`.  
 
 If separate association parameters have been set for each included random effects, the association parameters for each of the individual level random effects should be supplied as a vector to `gamma_ind`, and the association parameters for each of the study level random effects should be supplied as a vector to `gamma_stud`.  However if a proportional association has been selected, then a single association parameter for the individual level random effects should be supplied, and a single association parameter for the study level random effects.
 
-The survival data is generated under an exponential distribution if the individual level random effects do not contain a random slope (time) term, and a Gompertz distribution otherwise (see @Austin2012, and @Bender2005).  These distributions can be controlled using the `theta0` and `theta1` parameters.  If the individual level random effects contain only a random intercept, then the mean of the exponentially distributed survival times is equal to one over the log of `theta0`.  However if the individual level random effects contain both a random intercept and a random slope (time) term, then the survival times are generated under a Gompertz distribution, and so the values of `theta0` and `theta1`, can be determined using the extreme value distribution (a description of how to do this is given in @Bender2005).  The survival times can also be censored by setting `censoring` equal to `TRUE`.  If censored, the censoring times are expoentially distributed, with lambda parameter equal to `censlam`.  The survival times could also be set to be truncated by setting `truncation` to `TRUE`, the default is to truncate the survival times at the largest value of `longmeasuretimes` i.e. the last longitudinal time-point.  Note that longitudinal observations simulated at times after the simulated event time for each individual are discarded by the function and not returned in the final datasets (i.e. the event being simulated is assumed terminal)
+The survival data is generated under an exponential distribution if the individual level random effects do not contain a random slope (time) term, and a Gompertz distribution otherwise (see @Austin2012, and @Bender2005).  These distributions can be controlled using the `theta0` and `theta1` parameters.  If the individual level random effects contain only a random intercept, then the mean of the exponentially distributed survival times is equal to one over the log of `theta0`.  However if the individual level random effects contain both a random intercept and a random slope (time) term, then the survival times are generated under a Gompertz distribution, and so the values of `theta0` and `theta1`, can be determined using the extreme value distribution (a description of how to do this is given in @Bender2005).  The survival times can also be censored by setting `censoring` equal to `TRUE`.  If censored, the censoring times are exponentially distributed, with lambda parameter equal to `censlam`.  The survival times could also be set to be truncated by setting `truncation` to `TRUE`, the default is to truncate the survival times at the largest value of `longmeasuretimes` i.e. the last longitudinal time-point.  Note that longitudinal observations simulated at times after the simulated event time for each individual are discarded by the function and not returned in the final datasets (i.e. the event being simulated is assumed terminal)
 
 The number of studies to simulate data for is supplied to argument `k`.  The number of individuals to simulate in each study is supplied to argument `n`, which should be a numeric of length equal to `k`.  The number of longitudinal measurement times is supplied to argument `ntms`.  The time points for the longitudinal measurements can either be supplied to argument `longmeasuretimes`, or if they are not, the function sets them to integer values from 0 to `ntms`.
 
-Various ways exist to introduce between study heterogeneity into the data.  Firstly study level random effects can be specified in the function call.  Secondly it is possible to allow different distributions of survival times between simulated studies by suppling a vector of `theta0` and `theta1` values of length equal to the number of studies `k` rather than single values common across studies for each argument.  Thirdly it is possible to allow different censoring time distributions between simulated studies by suppling a vector of `censlam` values of length equal to the number of studies `k` rather than a single value common across studies for each argument.  Finally whether separate or proportional association has been selected, different association parameters can be supplied for each study in a list of length equal to the number of studies in the simulated data.  If separate association, this is a list of vectors for each of `gamma_ind` and `gamma_stud`, where each vector is of length equal to the number of random effects at each level.  If proportional association this is a list of single values for each of `gamma_ind` and `gamma_stud`.  
+Various ways exist to introduce between study heterogeneity into the data.  Firstly study level random effects can be specified in the function call.  Secondly it is possible to allow different distributions of survival times between simulated studies by supplying a vector of `theta0` and `theta1` values of length equal to the number of studies `k` rather than single values common across studies for each argument.  Thirdly it is possible to allow different censoring time distributions between simulated studies by supping a vector of `censlam` values of length equal to the number of studies `k` rather than a single value common across studies for each argument.  Finally whether separate or proportional association has been selected, different association parameters can be supplied for each study in a list of length equal to the number of studies in the simulated data.  If separate association, this is a list of vectors for each of `gamma_ind` and `gamma_stud`, where each vector is of length equal to the number of random effects at each level.  If proportional association this is a list of single values for each of `gamma_ind` and `gamma_stud`.  
 
-We will give examples of simulation of several different datasets to demonstrate the capabilities of this data simulation function. The first example contains no study level random effects, with proportional assocation, with common parameters across studies.  
+We will give examples of simulation of several different datasets to demonstrate the capabilities of this data simulation function. The first example contains no study level random effects, with proportional association, with common parameters across studies.  
 
 ```{r}
 exampledat1 <- simjointmeta(k = 5, n = rep(500, 5), sepassoc = FALSE, 
@@ -68,16 +70,14 @@ When run, the function prints the percentage of events observed in each study.  
 exampledat1$percentevent
 ```
 
-The longitudinal and survival data are returned seperately by this function.  They are returned as lists of datasets, one for each study specified to be simulated.  These can be extracted, and using the `tojointdata` function, later can easily be transformed into a `jointdata` object, which is necessary to be able to use many of the functions available in this package.  The function `tojointdata` is further discussed below.
+The longitudinal and survival data are returned separately by this function.  They are returned as lists of datasets, one for each study specified to be simulated.  These can be extracted, and using the `tojointdata` function, later can easily be transformed into a `jointdata` object, which is necessary to be able to use many of the functions available in this package.  The function `tojointdata` is further discussed below.
 
 ```{r}
 str(exampledat1$longitudinal)
-
 ```
 
 ```{r}
 str(exampledat1$survival)
-
 ```
 
 The second example shows both the inclusion of study level random effects, and also the ability to assign separate association parameters for each random effect at each level in the data.
@@ -123,28 +123,28 @@ Throughout this vignette we will refer to simulated example datasets `simdat2`, 
 help("simdat2", package = "joineRmeta")
 help("simdat3", package = "joineRmeta")
 ```
+
 Briefly, `simdat2` contains simulated joint data for 3 studies each containing 100 individuals.  This is a subset of simulated dataset `simdat`, available in the `joineRmeta` package. The data in `simdat3` is available solely to demonstrate the `removeafter` function below, whilst the data in `simdat` and `simdat2` exist in the package as simulated example datasets for cases with a small or larger number of identified studies.
 
-We will proceed with the `simdat2` dataset unless otherwise stated.  The `simdat2` dataset is supplied as a list, the elements of which are a list of long format longitudinal datasets, a list of time-to-event datasets, and a list of the  percentage of individuals experiencing an event in each study.  Both of `simdat`, and `simdat3` were generated using the function `simjointmeta` available in the `joineRmeta` package, and have been supplied in the format output by this function.  Note that `simdat3` was produced by manually stepping through the `simjointmeta` function, to avoid longitudinal observations occuring after the event time from being discarded.  Also note that `simdat2` is a subset of `simdat` rather than a completely independently simulated dataset. The structure of the data can be viewed using:
+We will proceed with the `simdat2` dataset unless otherwise stated.  The `simdat2` dataset is supplied as a list, the elements of which are a list of long format longitudinal datasets, a list of time-to-event datasets, and a list of the  percentage of individuals experiencing an event in each study.  Both of `simdat`, and `simdat3` were generated using the function `simjointmeta` available in the `joineRmeta` package, and have been supplied in the format output by this function.  Note that `simdat3` was produced by manually stepping through the `simjointmeta` function, to avoid longitudinal observations occurring after the event time from being discarded.  Also note that `simdat2` is a subset of `simdat` rather than a completely independently simulated dataset. The structure of the data can be viewed using:
 
 ```{r, eval=FALSE}
 data("simdat2")
 str(simdat2)
 ```
 
-
 ## Reformatting to jointdata format
 
 We will reformat this data into the `jointdata` format required for the  functions in this dataset.  The `jointdata` function is available as part of the `joineR` package.  A function `tojointdata` is available in `joineRmeta` that  aids multistudy data provided in a variety of forms to be reformatted into a  `jointdata` object. In this case we have `simdat2` whose first element is a list  of long format longitudinal datasets, and whose second element is a list of time-to-event datasets.  We change this to a `jointdata` object using the following code:
 
 ```{r}
-jointdat<-tojointdata(longitudinal = simdat2$longitudinal, 
+jointdat <- tojointdata(longitudinal = simdat2$longitudinal, 
   survival = simdat2$survival, id = "id", longoutcome = "Y", 
   timevarying = c("time","ltime"), survtime = "survtime", cens = "cens",
   time = "time")
 ```
 
-Because we had separate longitudinal and survival datasets we used the parameters `longitudinal` and `survival` in the `tojointdata` function call. If  we had had one dataset in wide or long format containing both the longitudinal  and survival information we would have supplied this to an argument `dataset`.   If we had had a dataset or datasets of baseline data in addition to the longitudinal and survival datasets, these would  have been supplied to argument `baseline`.  Data can be supplied as lists of identically formatted (long or wide) datasts where the list is of length equal  to the number of studies in the dataset, or as metadatasets containing all data, or all longitudinal or survival or baseline data from each study.  The function assumes that variables that are identically named between datasets concern the same variables, therefore datasets should be checked before reformatting to ensure consistency in naming of variables, and of format (long  or wide) if separate datasets for each study are supplied.  For more information concerning the `tojointdata` function run
+Because we had separate longitudinal and survival datasets we used the parameters `longitudinal` and `survival` in the `tojointdata` function call. If  we had had one dataset in wide or long format containing both the longitudinal  and survival information we would have supplied this to an argument `dataset`.   If we had had a dataset or datasets of baseline data in addition to the longitudinal and survival datasets, these would  have been supplied to argument `baseline`.  Data can be supplied as lists of identically formatted (long or wide) datasets where the list is of length equal  to the number of studies in the dataset, or as meta-datasets containing all data, or all longitudinal or survival or baseline data from each study.  The function assumes that variables that are identically named between datasets concern the same variables, therefore datasets should be checked before reformatting to ensure consistency in naming of variables, and of format (long  or wide) if separate datasets for each study are supplied.  For more information concerning the `tojointdata` function run
 
 ```{r, eval=FALSE}
 help("tojointdata", package = "joineRmeta") 
@@ -152,13 +152,11 @@ help("tojointdata", package = "joineRmeta")
 
 If we now examine the structure of this joint data, we can see that two variables (`study` and `treat`, respectively the study membership and treatment assignment variables) that should be factors are currently numeric. 
 
-
 ```{r}
 str(jointdat)
 ```
 
 We can solve this by running the following code, which changes these variables to factors.
-
 
 ```{r}
 jointdat$baseline$study <- as.factor(jointdat$baseline$study)
@@ -171,6 +169,7 @@ The main dataset we are examining is now in `jointdata` format in object `jointd
 
 
 ## Removing any longitudinal information recorded after the event
+
 If a dataset concerns a non-terminal event, it is possible that longitudinal information could be recorded after an individual's event.  For example if the event is time until first seizure, longitudinal information could be available after this first seizure time.  However it should not contribute to the joint model as the joint model is investigating the effect of the longitudinal outcome on the risk of an event.  As such the `joineRmeta` package contains the function `removeafter` to remove any longitudinal information recorded after each individual's event time from the `jointdata` object.  To see the help file for this function run
 
 ```{r, eval=FALSE}
@@ -182,10 +181,11 @@ We will demonstrate this function on the simulated dataset `simdat3` with contai
 ```{r, eval=FALSE}
 str(simdat3)
 ```
+
 To change this dataset into `jointdata` format again we run the `tojointdata` function
 
 ```{r}
-jointdat3<-tojointdata(longitudinal = simdat3$longitudinal, 
+jointdat3 <- tojointdata(longitudinal = simdat3$longitudinal, 
   survival = simdat3$survival, id = "id", longoutcome = "Y", 
   timevarying = c("time","ltime"), survtime = "survtime", cens = "cens",
   time = "time")
@@ -195,7 +195,7 @@ jointdat3<-tojointdata(longitudinal = simdat3$longitudinal,
 Now that we have `simdat3` in `jointdata` format we can run `removeafter` on it to remove any longitudinal information recorded after an individual's event.  
 
 ```{r, results = "hide"}
-jointdat3.1<-removeafter(data = jointdat3, longitudinal = "Y", 
+jointdat3.1 <- removeafter(data = jointdat3, longitudinal = "Y", 
                          survival = "survtime", id = "id", time = "time")
 ```
 
@@ -208,6 +208,7 @@ str(jointdat3.1)
 ```
 
 # Plotting the data
+
 Plotting the longitudinal trajectories, and graphs of survival probabilities, are a useful way to examine both whether there appears to be heterogeneity between studies, and what types of random effects structures might be most appropriate for the longitudinal sub-model.
 
 The `joineRmeta` package contains a plotting function that allows the longitudinal and / or the survival data to be plotted for each study in the dataset.
@@ -228,7 +229,7 @@ sepplots$longplots$`studyplot.Study 3`
 sepplots$eventplots[[1]]
 ```
 
-In the above, warning messages have been produced by including the loess smoother on the longitudinal trajectory plots.  We refer issues with the loess smoother to the `ggplot2` helpfiles, and note that the smoother here is used as a guide to the mean trajectory in an exploratory analysis rather than the end result of an analysis.
+In the above, warning messages have been produced by including the loess smoother on the longitudinal trajectory plots.  We refer issues with the loess smoother to the `ggplot2` help files, and note that the smoother here is used as a guide to the mean trajectory in an exploratory analysis rather than the end result of an analysis.
 
 Other options also exist for the event plot.  The event plot survival probability can be plotted for different groups, by providing a grouping variable to `eventby` in the function call.  Also confidence intervals for the survival plot can be included by setting `eventconfint = TRUE`.
 
@@ -247,7 +248,6 @@ sepplots3 <- jointmetaplot(dataset = jointdat, study = "study", longoutcome = "Y
 
 sepplots2$eventplots$`studyplot.Study 3`
 sepplots3$eventplots[[2]]
-
 ```
 
 For more information concerning this plotting function see
@@ -276,30 +276,32 @@ allplot2$longall
 allplot2$eventsall
 ```
 
-
 This prints out the arranged plot for the longitudinal trajectories and for the survival data respectively. For more help on the `jointmetaplotall` function see
 
 ```{r, eval=FALSE}
 help("jointmetaplotall", package = "joineRmeta")
 ```
 
-#Two stage methods
+# Two stage methods
 
 ## Pre-analysis - data
+
 When conducting a two stage meta-analysis of joint longitudinal and survival data using the methods available in this package we firstly assume that the data is in joint data format (explanation for putting in this format is above).  The data should be examined and plotted, for example using the `jointmetaplot` function.  From these plots, and with consideration for the type of data and the research questions of the investigation, a decision should be made as to the most appropriate joint modelling structure for each study.  
 
 The association structure used in the joint models fitted to the data from each study should be chosen based on the aims of the investigation.  For example, if the investigation wishes to establish whether the current value (fixed and random) effects of the longitudinal trajectory significantly effects the risk of an event, then a current value sharing structure as available in the `JM` package must be employed (see @Rizopoulos2012, @Rizopoulos2010).  Alternatively if the effect of the rate of change of the longitudinal trajectory on the risk of an event is of interest, then the slope or first derivative of the longitudinal trajectory with respect to time must inserted into the survival sub-model to link the longitudinal and survival components.  Again this option is fitted with the `JM` package, which also allows both the current value and the slope of the longitudinal trajectory to be inserted into the survival sub-model each with their own association parameters. Alternatively if the effect of the deviation of an individual from the population mean longitudinal trajectory on the risk of an event is of interest, then an association structure that shares only the random effects between the sub-model should be used (see @Gould2015, @Wulfsohn1997 and @Henderson2000).  Such models can be fitted using the `joineR` package (see @Philipson2012).
 
 Different studies may require different fixed effects and/or random effects to be included in their joint model.  For example the data from one study might display individual variation in the slope of the longitudinal trajectory, whereas the data from another study may not.  Additionally different fixed effects might be available in different studies, or might have a significant effect on the response in one study but not another.  Dependent on the type of association structure selected for the investigation, the interpretations of parameters can differ between joint model fits depending on their fixed effect and random effect specifications. If the random effects specification differs between the study specific joint model fits, and either a fixed and random effect association structure or random effects only association structure has been selected, then the interpretation of the association parameters will differ between studies.  Additionally for fixed and random effect association structures, if the fixed effects included in the longitudinal trajectory differ between the study specific fits, then the association structure will differ between the joint model fits, so again the association parameters between model fits would have different interpretations.  Finally if one study fit involves one type of association structure (e.g. the current value of the longitudinal trajectory) and another study fit used a different association structure (e.g. random effects only) then the interpretation of the association parameters again will be different between studies.
 
-To summarise, only parameters with the same interpretation should be pooled in a meta-analysis.  Care needs to be taken to ensure that the association parameters have the same interpretation.  Differing interpretations could stem from differing random effects specifications, or differing longitudinal fixed effects specifications if a fixed and random effect association structure is used, or from different association structures being employed in different model fits.  Special care should be taken for the case where the first derivative of the longitudinal trajectory is inserted into the survival sub-model, as the association structure will only involve the derivative of fixed or random effects that are some function of the longitudinal time variable.
+To summarize, only parameters with the same interpretation should be pooled in a meta-analysis.  Care needs to be taken to ensure that the association parameters have the same interpretation.  Differing interpretations could stem from differing random effects specifications, or differing longitudinal fixed effects specifications if a fixed and random effect association structure is used, or from different association structures being employed in different model fits.  Special care should be taken for the case where the first derivative of the longitudinal trajectory is inserted into the survival sub-model, as the association structure will only involve the derivative of fixed or random effects that are some function of the longitudinal time variable.
 
 If different joint modelling structures are appropriate for different studies identified in a two stage meta-analysis we recommend grouping studies by identical joint modelling structures and only quantitatively pooling data from those studies within the same group.
 
 ## First stage - study specific joint model fits
+
 In the first stage of a two stage meta-analysis of joint longitudinal and survival data identical joint models are fitted to the data from each study.  Depending on the type of joint models to be fitted, and the number of studies included in the meta-analysis, these model fits can take some time to fit.  For example the models fitted using the `joineR` package require a bootstrapping procedure to estimate the standard errors, which can take several hours (see @Hsieh2006 for reasons for bootstrapping).  For ease of use of this vignette, we provide a range of joint model fits, and where appropriate the bootstrapped standard error estimates, from the `joineR` and the `JM` packages to illustrate the second stage of the meta-analysis.  We will briefly introduce these fits and list the code needed to fit them, but we highlight that the fits are available in this package so that the user does not need to take time to bootstrap model fits whilst completing this tutorial.  As noted earlier these study specific model fits are fitted using the data held in the `simdat2` dataset.
 
 ### Fits using the joineR package
+
 Two sets of example fits from the `joineR` package are available in the `joineRmeta` package.  The first is available in the `joineRfits` object, the help file for which can be examined using:
 
 ```{r, eval=FALSE}
@@ -312,12 +314,13 @@ This object contains a list of `joineR` fits and the results of the bootstrappin
 joineRmodels <- joineRfits[c("joineRfit1", "joineRfit2", "joineRfit3")]
 joineRmodelsSE <- joineRfits[c("joineRfit1SE", "joineRfit2SE", "joineRfit3SE")]
 ```
+
 The result of this code is that the model fits for each study in the `simdat2` data are held in the object `joineRmodels`, and the bootstraps for these model fits are held in the object `joineRmodelsSE`. Each of these model fits has the same structure which can be viewed using the following code:
 
 ```{r}
 summary(joineRmodels[[1]])
-
 ```
+
 We can see from the above code that a model with a random intercept and random slope formulation has been fitted to the data from each study, and that the longitudinal sub-model contains a fixed intercept, time (slope) and treatment term, and finally that the survival sub-model contains a fixed treatment term.  
 
 The second set of example fits from the `joineR` package is held in the object `joineRfits2`.  The help file for these fits can be viewed using the following code:
@@ -334,15 +337,17 @@ joineRmodels2 <- joineRfits2[c("joineRfit6", "joineRfit7", "joineRfit8",
 joineRmodels2SE <- joineRfits2[c("joineRfit6SE", "joineRfit7SE", "joineRfit8SE", 
                                  "joineRfit9SE", "joineRfit10SE")]
 ```
+
 The result of this code is that the model fits for each study in the `simdat2` data are held in the object `joineRmodels2`, and the bootstraps for these model fits are held in the object `joineRmodels2SE`. Each of these model fits has the same structure which can be viewed using the following code:
 
 ```{r}
 summary(joineRmodels2[[1]])
-
 ```
+
 We can see from the above summary of the joint model fit that this model contained only a random intercept, but the same fixed effects in the longitudinal and the survival sub-models as the fits held in the `joineRmodels` object.  These two sets of fits (`joineRfits` and `joineRfits2`) have been supplied so that we can demonstrate what happens in `joineR` fits with differing random effects structures are supplied to the two stage pooling function in the `joineRmeta` package.
 
 ### Fits using the JM package
+
 Two example sets of fits from the `JM` package are available in the `joineRmeta` package.  The first is available in the `JMfits` object, the help file for which can be examined using:
 
 ```{r, eval=FALSE}
@@ -353,9 +358,9 @@ This object contains a list of `JM` fits.  We do not need to extract the fits fr
 
 ```{r}
 summary(JMfits[[1]])
-
 ```
-From the above summary we can see extract a range of details about the model fit.  The longitudinal sub-model contains a fixed intercept, time (slope) and treatment assignment term.  The survival sub-model contains only a fixed treatment assignment term.  The baseline hazard was modelled using splines, whose parameters are listed as `bs1` to `bs8` in the results for the Event process.  A random intercept and random slope were included in the model.  The current value (fixed and random effects) of the longitudinal trajectory was inserted into the survival sub-model.  The association parameter for this association structure is denoted by `Assoct`.
+
+From the above summary we can see extract a range of details about the model fit.  The longitudinal sub-model contains a fixed intercept, time (slope) and treatment assignment term.  The survival sub-model contains only a fixed treatment assignment term.  The baseline hazard was modeled using splines, whose parameters are listed as `bs1` to `bs8` in the results for the Event process.  A random intercept and random slope were included in the model.  The current value (fixed and random effects) of the longitudinal trajectory was inserted into the survival sub-model.  The association parameter for this association structure is denoted by `Assoct`.
 
 The second set of joint model fits from the `JM` package is available in the `JMfits2` object, the help file for which can be examined using:
 
@@ -367,22 +372,23 @@ This object contains a list of `JM` fits.  Again, we do not need to extract the 
 
 ```{r}
 summary(JMfits2[[1]])
-
 ```
-From the above summary we can extract a range of details about the model fit. The longitudinal sub-model contains fixed effects for the intercept, the time (slope) term, the treatment assignment, and an interaction term between the time and the treatment.  As before, a random intercept and random time (slope) has been included in the model.  The survival sub-model contains a fixed effect for the treatment assignment.  The baseline hazard is modelled using splines, the parameters for which are represented by the terms `bs1` to `bs8` in the Event process results.  The joint model contains a current value of the longitudinal trajectory and current slope of the longitudinal trajectory association structure, the association parameters for which are denoted by `Assoct` and `Assoct.s` respectively.  We have deliberately included a fixed interaction term with the time and the treatment variables to demonstrate the pooling of parameters from a range of joint models of varying complexity.
+
+From the above summary we can extract a range of details about the model fit. The longitudinal sub-model contains fixed effects for the intercept, the time (slope) term, the treatment assignment, and an interaction term between the time and the treatment.  As before, a random intercept and random time (slope) has been included in the model.  The survival sub-model contains a fixed effect for the treatment assignment.  The baseline hazard is modeled using splines, the parameters for which are represented by the terms `bs1` to `bs8` in the Event process results.  The joint model contains a current value of the longitudinal trajectory and current slope of the longitudinal trajectory association structure, the association parameters for which are denoted by `Assoct` and `Assoct.s` respectively.  We have deliberately included a fixed interaction term with the time and the treatment variables to demonstrate the pooling of parameters from a range of joint models of varying complexity.
 
 We should highlight that we have fitted a range of models to the example data to demonstrate the methods in this package.  We are not examining or presenting the model which is necessarily the most appropriate for the data.
 
 ## Second stage - pooling results
 
 ### Pooling results from joineR fits
+
 In the second stage of a two stage meta-analysis of joint longitudinal and survival data, we assume that the study specific joint model fits are available to the user.  We then use the `jointmeta2` function from the `joineRmeta` package to pool the model parameters.  To access the help file for this function use:
 
 ```{r, eval=FALSE}
 help("jointmeta2", package = "joineRmeta")
 ```
 
-Firstly consider a case of pooling results from joint model fits estimated using the `joineR` package that were supplied in the `joineRfits` object (described above).  Code to perform the second stage of this two stage meta-analyis is:
+Firstly consider a case of pooling results from joint model fits estimated using the `joineR` package that were supplied in the `joineRfits` object (described above).  Code to perform the second stage of this two stage meta-analysis is:
 
 ```{r}
 MAjoineRfits <- jointmeta2(fits = joineRmodels, SE = joineRmodelsSE, 
@@ -398,12 +404,14 @@ These lists can each be of length greater than one if multiple meta-analyses of 
 ```{r}
 names(MAjoineRfits$longMA)
 ```
+
 So the results are labelled by the parameters they concern.  If required, forest plots can easily be generated from these results by applying the `forest` function from the `meta` package to each separate meta-analysis:
 
-```{r, fig.height=4, fig.width=9, warning = FALSE, message = FALSE}
+```{r, fig.height=4, fig.width=9, warning=FALSE, message=FALSE}
 library(meta)
 forest(MAjoineRfits$longMA$treat1)
 ```
+
 We can see from the above plot that both fixed and random meta-analyses are performed for each requested meta-analysis.  This plot can be saved from the R console to file.
 
 The importance of not pooling parameters with different interpretations has been addressed earlier in this vignette.  As such, the `jointmeta2` function will throw errors if joint models of different structures are supplied to be pooled.  In this example, the random effects specification differs, and so an error is printed.  An error would also have been printed if some of the supplied joint model fits had separate association parameters for each random effect, and some supplied joint model fits had a single association parameter common to all the shared random effects:
@@ -417,6 +425,7 @@ MAjoineRfits2 <- jointmeta2(fits = c(joineRmodels[1:3], joineRmodels2[1:2]),
 ```
 
 ### Pooling results from JM fits
+
 As the models fitted using the `joineR` package share only the random effects between the sub-models, when pooling model parameters, values come from one source only.  However for joint models that involve an association structure containing some function of both fixed and random effects, such as those provided in the `JM` package, survival sub-model fixed effects could be decomposed into direct components and indirect components.  Direct components stem from parameters being included in the survival sub-model as fixed effects.  Indirect components stem from parameters with fixed effects in the survival sub-model also being present in the association structure.  The overall estimate of the parameter then comes from the sum of the direct component plus the product of the relevant association parameter and the indirect component (see @Ibrahim2010).  The `jointmeta2` function takes this into consideration, and provides estimates for the direct estimates for fixed effects of interest from the survival sub-model, as well as overall estimates (that contain the combination of the direct and indirect information).
 
 The first set of fits from the `JM` package held in the object `JMfits` could be pooled in the following way:
@@ -427,10 +436,9 @@ MAJMfits <- jointmeta2(fits = JMfits, longpar = c("time", "treat1"),
                        studynames = c("Study 1","Study 2", "Study 3"))
 ```
 
-The above function returns a list of lists.  The names of the lists included in the list are `longMA`, `survMA.direct`, `survMA.overall`, and `assocMA`, which contain respectively the meta-analyses of the specified longitudinal parameters of interest, the meta-analyses of the direct values of the survival parameters of interst, the meta-analyses of the overall values of the survival parameters of interest, and the meta-analyses of the association parameters.  Note that `survMA.overall` does not appear in meta-analyses of `joineR` fits because fixed effects do not appear in the association structure.  We can produce forest plots of the meta-analyses in the same way as before.
+The above function returns a list of lists.  The names of the lists included in the list are `longMA`, `survMA.direct`, `survMA.overall`, and `assocMA`, which contain respectively the meta-analyses of the specified longitudinal parameters of interest, the meta-analyses of the direct values of the survival parameters of interest, the meta-analyses of the overall values of the survival parameters of interest, and the meta-analyses of the association parameters.  Note that `survMA.overall` does not appear in meta-analyses of `joineR` fits because fixed effects do not appear in the association structure.  We can produce forest plots of the meta-analyses in the same way as before.
 
 The second set of fits from the `JM` package held in the object `JMfits2` has an association structure that shares both the current value of the longitudinal trajectory and the first derivative of the longitudinal trajectory with respect to time between the sub-models.  The `jointmeta2` function can handle indirect components of a survival parameter of interest stemming from both the current value and the first derivative parts of the association structure, and the code is identical to that above:
-
 
 ```{r}
 MAJMfits2 <- jointmeta2(fits = JMfits2, longpar = c("time", "treat1"), 
@@ -438,7 +446,7 @@ MAJMfits2 <- jointmeta2(fits = JMfits2, longpar = c("time", "treat1"),
                         studynames = c("Study 1","Study 2", "Study 3"))
 ```
 
-Again, the above function returns a list of lists namely `longMA`, `survMA.direct`, `survMA.overall`, and `assocMA`, which contain respectively the meta-analyses of the specified longitudinal parameters of interest, the meta-analyses of the direct values of the survival parameters of interst, the meta-analyses of the overall values of the survival parameters of interest, and the meta-analyses of the association parameters.
+Again, the above function returns a list of lists namely `longMA`, `survMA.direct`, `survMA.overall`, and `assocMA`, which contain respectively the meta-analyses of the specified longitudinal parameters of interest, the meta-analyses of the direct values of the survival parameters of interest, the meta-analyses of the overall values of the survival parameters of interest, and the meta-analyses of the association parameters.
 
 As with the `joineR` model fits, the fits from the `JM` package will only be pooled by the `jointmeta2` if they have the same specification.  For example the following will throw an error because the joint models contain different longitudinal fixed effects and have different association structures.
 
@@ -451,7 +459,6 @@ MAtest <- jointmeta2(fits = c(JMfits2[1:3], JMfits[1:2]),
 
 The `jointmeta2` function will also throw errors if fits from both `joineR` and `JM` are supplied to be pooled:
 
-
 ```{r, error = TRUE}
 MAtest <- jointmeta2(fits = c(JMfits2[1:3], joineRfits[1:2]), 
                      longpar = c("time", "treat1"), 
@@ -460,6 +467,7 @@ MAtest <- jointmeta2(fits = c(JMfits2[1:3], joineRfits[1:2]),
 ```
 
 # One stage methods
+
 The package also allows one stage joint longitudinal and survival models to be fitted for a single continuous longitudinal outcome and a single possibly censored time-to-event outcome.  These models take in data from all the studies in the meta-analysis, and allow a variety of ways for differences between the studies to be investigated.  Between study heterogeneity can be accounted for by including study level random effects, by including fixed study membership indicator variables and their interactions between variables that could vary between studies, or in the survival sub-model by stratifying the baseline hazard by study.  
 
 The longitudinal sub-model is a linear mixed effects model.  The survival sub-model is a Cox proportional hazards model with an unspecified baseline hazard.  The random effects in the model are updated iteratively using pseudo-adaptive quadrature (see @Rizopoulos2012b).  The model is fitted using an EM algorithm.  Standard errors are estimated via a bootstrapping method, as @Hsieh2006 point out that otherwise standard errors could be underestimated as the baseline hazard of the model is unspecified.
@@ -469,9 +477,10 @@ The function `jointmeta1` is used to fit these one stage models.  To view the he
 ```{r, eval=FALSE}
 help("jointmeta1", package = "joineRmeta")
 ```
+
 A `jointdata` object should be supplied to the `data` argument of the function (see `jointdata` in package `joineR` for more information).  A `formula` object for the longitudinal sub-model needs to be supplied to argument `long.formula`.  A `formula` object for the survival sub-model needs to be supplied to argument `surv.formula`. 
 
-A range of other arguments need to be specified to the `jointmeta` function call.  The argument `gpt` sets the number of quadrature points used in the Gauss Hermite quadrature procedure to estimate the random effects (the same number of quadrature points is used for each level of the random effects).  This defaults to 5.  The argument `lgpt` is the number of quadrature points used in the estimation of the log-likelihood, and defaults to 7.  The `max.it` specifies the maximum number of iterations that the EM algorithm will perform during model fitting, this defaults to 350 although more iterations could be needed for complex datasets.  The argument `tol` sets the tolerance level used for checking the convergence in the EM algorithm, and defaults to `0.001`. The name of the variable holding the study membership for individuals in the dataset must be supplied to argument `study.name`.  The argument `strat` should be set to `TRUE` or `FALSE` depending on whether the baseline hazard should be stratified by study or not.  The arguments `longsep` and `survsep` should be set to `TRUE` if the separate results for the initial longitudinal and survival fits used to generate the starting values for the EM algorithm respectively should be returned or not (this includes the model fit object that would be returned by fitting the longitudinal or time-to-event sub-models as separate longitudinal or time-to-event models using the `lmer` or `coxph` functions from packages `lme4` and `survival` respectively).  The argument `bootrun` should be set to `FALSE` if the log-likelihood calculation is required, `TRUE` otherwise - this option exists to speed up the boostrapping of the joint model, during which it is not necessary to calculate the log-likelihood for each bootstrap.  If details of the current parameter values are required to be printed at each iteration of the EM algorithm then argument `print.detail` should be set to `TRUE`.
+A range of other arguments need to be specified to the `jointmeta` function call.  The argument `gpt` sets the number of quadrature points used in the Gauss Hermite quadrature procedure to estimate the random effects (the same number of quadrature points is used for each level of the random effects).  This defaults to 5.  The argument `lgpt` is the number of quadrature points used in the estimation of the log-likelihood, and defaults to 7.  The `max.it` specifies the maximum number of iterations that the EM algorithm will perform during model fitting, this defaults to 350 although more iterations could be needed for complex datasets.  The argument `tol` sets the tolerance level used for checking the convergence in the EM algorithm, and defaults to `0.001`. The name of the variable holding the study membership for individuals in the dataset must be supplied to argument `study.name`.  The argument `strat` should be set to `TRUE` or `FALSE` depending on whether the baseline hazard should be stratified by study or not.  The arguments `longsep` and `survsep` should be set to `TRUE` if the separate results for the initial longitudinal and survival fits used to generate the starting values for the EM algorithm respectively should be returned or not (this includes the model fit object that would be returned by fitting the longitudinal or time-to-event sub-models as separate longitudinal or time-to-event models using the `lmer` or `coxph` functions from packages `lme4` and `survival` respectively).  The argument `bootrun` should be set to `FALSE` if the log-likelihood calculation is required, `TRUE` otherwise - this option exists to speed up the bootstrapping of the joint model, during which it is not necessary to calculate the log-likelihood for each bootstrap.  If details of the current parameter values are required to be printed at each iteration of the EM algorithm then argument `print.detail` should be set to `TRUE`.
 
 Random effects are included in the model by supplying vectors of characters strings representing the variables to assign random effects to, to arguments `long.rand.ind` and `long.rand.stud` for the individual level and the study level random effects respectively.  The one stage multilevel joint model must contain at least one individual level random effect. Due to the complex nature of the model structure, a maximum of three random effects are permitted at each level.  Note that the number of random effects could be altered e.g. by assigning random effects to a factor with more than two levels.  Note that assigning a random effect to study membership in `long.rand.stud` is including a random intercept at the study level of the model.  Currently the function does not support assigning random effects to interaction terms unless they have been pre-calculated in the dataset.  These random effects are zero mean, and so a random effect should only be assigned to a variable in the model if a corresponding fixed or population effect is also present in `long.formula`.
 
@@ -482,7 +491,6 @@ If a random intercept is to be included at the study level, then the name of the
 Currently, the only sharing structure available in this model is `"randprop"` namely random effects only proportional association (see @Wulfsohn1997).  In this association structure, the zero mean random effects are shared between the longitudinal and the survival sub-models, and the random effects at each level share a common association parameter.  It is planned to expand the code to allow for  additional association structures or sharing structures in the future, namely random effects only association structure with separate association parameters for each random effect (`"randsep"`), current value of the longitudinal trajectory (`"value"`), current first derivative or slope of the longitudinal trajectory (`"slope"`), and inserting both the current value and current slope of the longitudinal trajectory (`"valandslope"`).  However currently argument `sharingstrct` must be set to `"randprop"`, choosing any of the other options for this argument currently results in an error message.
 
 We will now examine some examples of fitting these one stage joint models.  The package contains example fitted models and bootstrap results `onestage0`, `onestage1`, `onestage2`, `onestage3`, and `onestage4`.  These are models applied to the `simdat2` simulated dataset encountered earlier in this document, available in the package.  The data was transformed to a `jointdata` object using the `tojointdata` function, as described earlier, to give object `jointdat`, which was then supplied to the function calls.  These fits and bootstrap results are provided so that users can quickly examine what format the results of using the functions in this package will look like without having to wait for bootstraps to be completed, for cases with interaction terms, with stratified baseline hazard or with study level random effects.  These examples are respectively:
-
 
 * __onestage0__ - naive model with individual level random effects (random intercept and slope), but with no accounting for between study heterogeneity (unstratified baseline hazard, no study level random effects, no inclusion of fixed study membership variable or its interactions)
 * __onestage1__ - model with individual level random effects (random intercept and slope), unstratified baseline hazard, between study heterogeneity accounted for using fixed interaction terms with study membership
@@ -508,6 +516,7 @@ onestagefit0 <- jointmeta1(data = jointdat,
                            surv.formula = Surv(survtime, cens) ~ treat, 
                            study.name = "study", strat = F)
 ```
+
 The results of this model fit and the results of its bootstrap are given in the data `onestage0` in this package.
 
 One method of taking study level differences into account is to include interaction terms between the study membership variable and other variables of interest in the model.  In model `onestagefit1` (fitted using the code below) we include interaction terms in both sub-models between the study membership variable and the treatment assignment variable.  In this model the baseline hazard is not stratified by study, and we have not specified any random effects at the study level, only a random intercept and slope at the individual level through argument `long.rand.ind`.
@@ -520,20 +529,22 @@ onestagefit1 <- jointmeta1(data = jointdat,
                            surv.formula = Surv(survtime, cens) ~ treat*study, 
                            study.name = "study", strat = F)
 ```
+
 The `jointmeta1` function returns an object of class `jointmeta1`, information for which can be found by running:
 
 ```{r, eval=FALSE}
 help("jointmeta1.object", package = "joineRmeta")
 ```
 
-Once the model has been fitted by running function `jointmeta1`, we would run the boostrapping function `jointmetaSE` to estimate the standard errors for the model parameters.  The `jointmetaSE` function allows the standard errors for combinations of estimated model parameters to be calculated.  For example, for the model fitted in `onestagefit1` we have a treatment effect estimate, and study specific adjustments for this treatment effect estimate.  If it would be of interest to know the estimated treatment effect in each study in the dataset, we can calculate the overall value (main estimate plus study specific treatment effect estimate) for each study and its standard error using the bootstrapping function.  To bootstrap this model, and estimate the standard errors for the study specific treatment effect estimates where `study1` is the baseline study, we run the following code:
+Once the model has been fitted by running function `jointmeta1`, we would run the bootstrapping function `jointmetaSE` to estimate the standard errors for the model parameters.  The `jointmetaSE` function allows the standard errors for combinations of estimated model parameters to be calculated.  For example, for the model fitted in `onestagefit1` we have a treatment effect estimate, and study specific adjustments for this treatment effect estimate.  If it would be of interest to know the estimated treatment effect in each study in the dataset, we can calculate the overall value (main estimate plus study specific treatment effect estimate) for each study and its standard error using the bootstrapping function.  To bootstrap this model, and estimate the standard errors for the study specific treatment effect estimates where `study1` is the baseline study, we run the following code:
 
 ```{r, eval=FALSE}
-onestagefit1SE <- jointmetaSE(fitted = onestagefit1, n.boot = 200, 
-                              overalleffects = list(long = list(c("treat1", "treat1:study2"), 
-                                                                c("treat1", "treat1:study3")), 
-                                                    surv = list(c("treat1", "treat1:study2"), 
-                                                                c("treat1", "treat1:study3"))))
+onestagefit1SE <- jointmetaSE(
+  fitted = onestagefit1, n.boot = 200,
+  overalleffects = list(long = list(c("treat1", "treat1:study2"),
+                                    c("treat1", "treat1:study3")),
+                        surv = list(c("treat1", "treat1:study2"),
+                                    c("treat1", "treat1:study3"))))
 ```
 
 In the above code we can see that 200 bootstraps are requested, and that overall effects are listed for both the longitudinal and survival sub-model as we have interaction terms of interest for both sub-models.  If the standard errors of the overall estimates are not of interest, then the `overalleffects` argument can simply be left `NULL`.  Additionally, it is not necessary to supply both the `long` and `surv` lists in the `overalleffects` argument, for example if overall effects are only required from the longitudinal sub-model, then the list `long` would be present in the argument `overalleffects` but the list `surv` would not be present or would be set to `NULL`.  The `jointmetaSE` function returns an object of class `jointmeta1SE1`, the help file for which can be examined by running:
@@ -545,7 +556,7 @@ help("jointmeta1SE.object", package = "joineRmeta")
 In a normal research project we would then have two objects, `onestagefit1` and `onestagefit1SE` in the R workspace. We have saved these two objects and made them available in the package so that this tutorial can be completed without waiting for bootstraps to complete.  We will extract these now, but these following lines are not necessary when fitting a one stage model to your own data.
 
 ```{r}
-#extract the saved model fit and bootstrap results
+# extract the saved model fit and bootstrap results
 onestagefit1 <- onestage1$onestagefit1
 onestagefit1SE <- onestage1$onestagefit1SE
 ```
@@ -567,9 +578,11 @@ The fixed effects can be extracted from the model fit using the `fixef` function
 ```{r}
 fixef(onestagefit1, type = "Longitudinal")
 ```
+
 ```{r}
 fixef(onestagefit1, type = "Survival")
 ```
+
 ```{r}
 fixef(onestagefit1, type = "Latent")
 ```
@@ -587,6 +600,7 @@ Another important piece of information about the random effects in a joint model
 ```{r}
 rancov(onestagefit1, type = "individual")
 ```
+
 Again, if the estimated covariance matrix for the study level random effects is required then this code is used, but `type` is set to `"study"`.  However this would result in an error message in this case because study level random effects were not included in `onestagefit1`.
 
 It also may be of interest to extract formulas for the model fit.  This is done using function `formula`.  This takes a `jointmeta1` object, and a character string specifying the type of formula required (`"Longitudinal"` to return the formula for the longitudinal sub-model, `"Survival"` to return the formula for the survival sub-model, `"Rand_ind"` to return the formula for the individual level random effects, and `"Rand_stud"` to return the formula for the study level random effects if included in the model).  For example:
@@ -594,9 +608,11 @@ It also may be of interest to extract formulas for the model fit.  This is done 
 ```{r}
 formula(onestagefit1, type = "Longitudinal")
 ```
+
 ```{r}
 formula(onestagefit1, type = "Survival")
 ```
+
 ```{r}
 formula(onestagefit1, type = "Rand_ind")
 ```
@@ -607,11 +623,12 @@ Several functions also exist to use with `jointmeta1SE` objects.  A `jointmeta1S
 print(onestagefit1SE)
 ```
 
-From this we can see we have the model estimates, standard errors and confidence intervals for the model parameters, and overall effects, from both sub-models, the association parameter and the variance parameters (random effects and residual term).  Because the print function exists, simplying typing `onestagefit1SE` into the console would also have had the same result, as would typing `onestagefit1SE$results`.  We can also just extract the estimate and the confidence intervals in a data frame from the bootstrapped results using `confint`:
+From this we can see we have the model estimates, standard errors and confidence intervals for the model parameters, and overall effects, from both sub-models, the association parameter and the variance parameters (random effects and residual term).  Because the print function exists, simply typing `onestagefit1SE` into the console would also have had the same result, as would typing `onestagefit1SE$results`.  We can also just extract the estimate and the confidence intervals in a data frame from the bootstrapped results using `confint`:
 
 ```{r}
 confint(onestagefit1SE)
 ```
+
 Finally, the function `vcov` allows the covariance matrix for the bootstrapped estimates to be extracted:
 
 ```{r, eval=FALSE}
@@ -637,21 +654,23 @@ onestagefit2 <- jointmeta1(data = jointdat,
                            surv.formula = Surv(survtime, cens) ~ treat, 
                            study.name = "study", strat = F)
 ```
+
 And to bootstrap the standard errors:
 
 ```{r, eval=FALSE}
-onestagefit2SE<-jointmetaSE(fitted = onestagefit2, n.boot = 200)
+onestagefit2SE <- jointmetaSE(fitted = onestagefit2, n.boot = 200)
 ```
-From the above function calls, we can see that this model has included two study level random effects, namely a study level random intercept included in the model by supplying the name of the study membership variable `study` to the argument for the study level randome effects `long.rand.stud` and also a study level random treatment effect `treat` which would quantify variation between studies in true treatment effect.  As earlier, we still have a random intercept and time at the individual level through `long.rand.ind = c("int","time")`, and the remainder of the arguments remain the same.  
+
+From the above function calls, we can see that this model has included two study level random effects, namely a study level random intercept included in the model by supplying the name of the study membership variable `study` to the argument for the study level random effects `long.rand.stud` and also a study level random treatment effect `treat` which would quantify variation between studies in true treatment effect.  As earlier, we still have a random intercept and time at the individual level through `long.rand.ind = c("int","time")`, and the remainder of the arguments remain the same.  
 
 In the bootstrap function, unlike for `onestagefit1`, we no longer have a fixed study membership variable or interactions with a fixed study membership variable in either sub-model, and so we do not specify the `overalleffects` argument in the call to `jointmetaSE`.
 
 Again, the results of this model fit and bootstrapping procedure are available in the package.  We can extract the results of this code using the following:
 
 ```{r}
-#extract the saved model fit and bootstrap results
-onestagefit2<-onestage2$onestagefit2
-onestagefit2SE<-onestage2$onestagefit2SE
+# extract the saved model fit and bootstrap results
+onestagefit2 <- onestage2$onestagefit2
+onestagefit2SE <- onestage2$onestagefit2SE
 ```
 
 Again note that these fits and bootstrap results are provided in this way so that this tutorial can be completed without waiting for bootstrap code.  In reality, the model would be fitted and the results bootstrapped using the code available in the help file for `onestage2`, which could take several hours.  
@@ -692,9 +711,10 @@ Here we can see that again we have a random intercept and slope at the individua
 The bootstrapping for this model used the following function call:
 
 ```{r, eval=FALSE}
-onestagefit3SE <- jointmetaSE(fitted = onestagefit3, n.boot = 200, 
-                              overalleffects = list(long = list(c("treat1", "treat1:study2"), 
-                                                                c("treat1", "treat1:study3")))))
+onestagefit3SE <- jointmetaSE(
+  fitted = onestagefit3, n.boot = 200,
+  overalleffects = list(long = list(c("treat1", "treat1:study2"),
+                                    c("treat1", "treat1:study3")))))
 ```
 
 Here we can see that overall effects were requested for the longitudinal sub-model (where a fixed effect was included for study membership, as well as its interaction with the treatment assignment variable).  However no overall effects were requested for the time-to-event sub-model (`surv` was not specified in argument `overalleffects`, it could have also been set to `NULL` in the function call).
@@ -702,9 +722,9 @@ Here we can see that overall effects were requested for the longitudinal sub-mod
 As before, the results of the model fit and the bootstrapping function are available in the package, and can be extracted using the following code:
 
 ```{r}
-#extract the saved model fit and bootstrap results
-onestagefit3<-onestage3$onestagefit3
-onestagefit3SE<-onestage3$onestagefit3SE
+# extract the saved model fit and bootstrap results
+onestagefit3 <- onestage3$onestagefit3
+onestagefit3SE <- onestage3$onestagefit3SE
 ```
 
 We can view a summary of the model fit using the following code:
@@ -715,22 +735,24 @@ summary(onestagefit3)
 
 The summary is similar to previous model fit print outs.  The fact that baseline hazard is stratified by study can be seen both from the function call at the top of the summary, but also through the information about the time-to-event sub-model, where the message `Strat: TRUE` is printed.
 
-Extraction of fixed effects, random effects, covariance matrices, boostrapping results, confidence intervals etc. is performed in the same way for models with stratified baseline hazard as the models without stratified baseline hazard, using the functions and methods already shown in this document.  However, as with some earlier examples, as no study level random effects were included in the model again, attempting to extract study level random effects results from the model fit would result in error messages:
+Extraction of fixed effects, random effects, covariance matrices, bootstrapping results, confidence intervals etc. is performed in the same way for models with stratified baseline hazard as the models without stratified baseline hazard, using the functions and methods already shown in this document.  However, as with some earlier examples, as no study level random effects were included in the model again, attempting to extract study level random effects results from the model fit would result in error messages:
 
 ```{r}
 rancov(fitted = onestagefit3, type = "individual")
 ```
+
 ```{r, error = TRUE}
 rancov(fitted = onestagefit3, type = "study")
 ```
 
-The final set of example models availabe in the package are saved in file `onestage4`. These models include a baseline hazard stratified by study, study level random effect for the treatment effect, and in the longitudinal sub-model a fixed effect for the study membership variable.  The call to fit this model is:
+The final set of example models available in the package are saved in file `onestage4`. These models include a baseline hazard stratified by study, study level random effect for the treatment effect, and in the longitudinal sub-model a fixed effect for the study membership variable.  The call to fit this model is:
 
 ```{r, eval=FALSE}
-onestagefit4 <- jointmeta1(data = jointdat, long.formula = Y ~ 1 + time + treat + study,
-                           long.rand.ind = c("int", "time"), long.rand.stud = c("treat"), 
-                           sharingstrct = "randprop", surv.formula = Surv(survtime, cens) ~ treat, 
-                           study.name = "study", strat = TRUE)
+onestagefit4 <- jointmeta1(
+  data = jointdat, long.formula = Y ~ 1 + time + treat + study,
+  long.rand.ind = c("int", "time"), long.rand.stud = "treat",
+  sharingstrct = "randprop", surv.formula = Surv(survtime, cens) ~ treat,
+  study.name = "study", strat = TRUE)
 ```
 
 Whilst the call to run the bootstraps to obtain the standard errors for the model fit is:
@@ -739,10 +761,10 @@ Whilst the call to run the bootstraps to obtain the standard errors for the mode
 onestagefit4SE <- jointmetaSE(fitted = onestagefit4, n.boot = 200)
 ```
 
-In this model, as we had no interactions between fixed effects, there was no need to use the `overalleffects` argument in the bootstrapping function.  As earlier the results for these model fit and bootstrapping functions are available in the package, although the same results can be obtained by running the above function calls.  To extract the precalculated model fit and bootstraps run:
+In this model, as we had no interactions between fixed effects, there was no need to use the `overalleffects` argument in the bootstrapping function.  As earlier the results for these model fit and bootstrapping functions are available in the package, although the same results can be obtained by running the above function calls.  To extract the pre-calculated model fit and bootstraps run:
 
 ```{r}
-#extract the saved model fit and bootstrap results
+# extract the saved model fit and bootstrap results
 onestagefit4 <- onestage4$onestagefit4
 onestagefit4SE <- onestage4$onestagefit4SE
 ```
@@ -755,11 +777,12 @@ summary(onestagefit4)
 
 Again, we can see from the time-to-event fixed results in the output (as well as the function call printed at the top of the output) that the baseline hazard is stratified by study.
 
-Extraction of fixed effects, random effects, covariance matrices, boostrapping results, confidence intervals etc. is performed in the same way for models with stratified baseline hazard as the models without stratified baseline hazard, using the functions and methods already shown in this document.  However, as study level random effects were included in the model, we can now extract information about them for example:
+Extraction of fixed effects, random effects, covariance matrices, bootstrapping results, confidence intervals etc. is performed in the same way for models with stratified baseline hazard as the models without stratified baseline hazard, using the functions and methods already shown in this document.  However, as study level random effects were included in the model, we can now extract information about them for example:
 
 ```{r}
 rancov(fitted = onestagefit4, type = "individual")
 ```
+
 ```{r}
 rancov(fitted = onestagefit4, type = "study")
 ```
@@ -767,16 +790,17 @@ rancov(fitted = onestagefit4, type = "study")
 As mentioned earlier, the `jointmeta` function has two arguments `longsep` and `survsep` that, if set to `TRUE`, cause the results of separate longitudinal and time-to-event fits to be returned as well as the joint model fit itself.  As well as parameter estimates and the like, the entire model fit object is returned as well.  If requested in the original joint model fit, this can be extracted in the following way:
 
 ```{r, eval=FALSE}
-###CODE NOT RUN
-#to extract the results from a separate longitudinal model
+# to extract the results from a separate longitudinal model
 fitted$sepests$longests$modelfit
 
-#to extract the results from a separate survival model
+# to extract the results from a separate survival model
 fitted$sepests$survests$modelfit
 ```
+
 This allows separate longitudinal and time-to-event models of the same specifications (apart from association structure) to be easily compared to the full joint model fit.
 
 # Conclusion
+
 This vignette has given a brief introduction to the functions available in the `joineRmeta` package.  It assumes a working knowledge of joint modelling, and aims to demonstrate the use of the functions rather than the methodology behind them.  Additional information about the functions described here can be found in the help files for this package.
 
 # References
