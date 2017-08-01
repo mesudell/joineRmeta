@@ -268,7 +268,8 @@ jointmetaSE <- function(fitted, n.boot, gpt, max.it, tol, print.detail = FALSE,
         pb <- txtProgressBar(min = 0, max = n.boot, style = 3)
         counter <- 1
       }
-      for (i in 1:n.boot) {
+      ii <- 1
+      while (ii < (n.boot + 1)) {
         s.new <- lapply(1:numstudies, function(u) {
           dataout <- sample.jointdata(data.bystudy[[u]], size = nsubj[u],
                                       replace = TRUE)
@@ -336,26 +337,27 @@ jointmetaSE <- function(fitted, n.boot, gpt, max.it, tol, print.detail = FALSE,
               }
               b2 <- c(b2, b2.overall)
             }
-            out[i, ] <- c(b1, b2, b3, b4, b5)
-            ests <- out[i, ]
+            out[ii, ] <- c(b1, b2, b3, b4, b5)
+            ests <- out[ii, ]
             if (print.detail) {
-              detail <- data.frame(iteration = i, t(ests))
+              detail <- data.frame(iteration = ii, t(ests))
               names(detail) <- c("Iteration", paranames)
               print(detail)
             }
           } else {
-            out[i, ] <- c(b1, b3, b4, b5)
-            ests <- out[i, ]
+            out[ii, ] <- c(b1, b3, b4, b5)
+            ests <- out[ii, ]
             if (print.detail) {
-              detail <- data.frame(iteration = i, t(ests))
+              detail <- data.frame(iteration = ii, t(ests))
               names(detail) <- c("Iteration", paranames)
               print(detail)
             }
           }
-        }
-        if (print.detail == FALSE) {
-          setTxtProgressBar(pb, counter)
-          counter <- counter + 1
+          ii <- ii + 1
+          if (print.detail == FALSE) {
+            setTxtProgressBar(pb, counter)
+            counter <- counter + 1
+          }
         }
       }
       if (print.detail == FALSE) {
@@ -366,7 +368,7 @@ jointmetaSE <- function(fitted, n.boot, gpt, max.it, tol, print.detail = FALSE,
       se <- 0
       ci1 <- 0
       ci2 <- 0
-      if (nrow(out) == 1) {
+      if (is.matrix(out) == FALSE) {
         out <- matrix(out, nrow = 1)
       }
       for (i in 1:length(out[1, ])) {
@@ -476,16 +478,6 @@ jointmetaSE <- function(fitted, n.boot, gpt, max.it, tol, print.detail = FALSE,
       }
       names(b1)[1:6] <- c("Component", "Parameter", "Estimate", "SE",
                           "95%Lower", "95%Upper")
-      compnamesfull<-as.character(compnames)
-      temp <- compnamesfull[1]
-      for(i in 2:length(compnamesfull)){
-        if(compnamesfull[i] == "") {
-          compnamesfull[i] <- temp
-        } else {
-          temp <- compnamesfull[i]
-        }
-      }
-      colnames(out) <- paste(compnamesfull, paranames, sep=".")
       output <- list(results = b1, covmat = covmat, bootstraps = out)
       class(output) <- "jointmeta1SE"
       return(output)
@@ -655,7 +647,8 @@ jointmetaSE <- function(fitted, n.boot, gpt, max.it, tol, print.detail = FALSE,
         pb <- txtProgressBar(min = 0, max = n.boot, style = 3)
         counter <- 1
       }
-      for (i in 1:n.boot) {
+      ii <- 1
+      while (ii < (n.boot + 1)) {
         s.new <- lapply(1:numstudies, function(u) {
           dataout <- sample.jointdata(data.bystudy[[u]], size = nsubj[u],
                                       replace = T)
@@ -721,26 +714,27 @@ jointmetaSE <- function(fitted, n.boot, gpt, max.it, tol, print.detail = FALSE,
               }
               b2 <- c(b2, b2.overall)
             }
-            out[i, ] <- c(b1, b2, b3, b4, b5)
-            ests <- out[i, ]
+            out[ii, ] <- c(b1, b2, b3, b4, b5)
+            ests <- out[ii, ]
             if (print.detail) {
-              detail <- data.frame(iteration = i, t(ests))
+              detail <- data.frame(iteration = ii, t(ests))
               names(detail) <- c("Iteration", paranames)
               print(detail)
             }
           } else {
-            out[i, ] <- c(b1, b3, b4, b5)
-            ests <- out[i, ]
+            out[ii, ] <- c(b1, b3, b4, b5)
+            ests <- out[ii, ]
             if (print.detail) {
-              detail <- data.frame(iteration = i, t(ests))
+              detail <- data.frame(iteration = ii, t(ests))
               names(detail) <- c("Iteration", paranames)
               print(detail)
             }
           }
-        }
-        if (print.detail == FALSE) {
-          setTxtProgressBar(pb, counter)
-          counter <- counter + 1
+          ii <- ii + 1
+          if (print.detail == FALSE) {
+            setTxtProgressBar(pb, counter)
+            counter <- counter + 1
+          }
         }
       }
       if (print.detail == FALSE) {
@@ -752,7 +746,7 @@ jointmetaSE <- function(fitted, n.boot, gpt, max.it, tol, print.detail = FALSE,
       se <- 0
       ci1 <- 0
       ci2 <- 0
-      if (nrow(out) == 1) {
+      if (is.matrix(out) == FALSE) {
         out <- matrix(out, nrow = 1)
       }
       for (i in 1:length(out[1, ])) {
@@ -854,16 +848,6 @@ jointmetaSE <- function(fitted, n.boot, gpt, max.it, tol, print.detail = FALSE,
     }
     names(b1)[1:6] <- c("Component", "Parameter", "Estimate", "SE",
                         "95%Lower", "95%Upper")
-    compnamesfull<-as.character(compnames)
-    temp <- compnamesfull[1]
-    for(i in 2:length(compnamesfull)){
-      if(compnamesfull[i] == "") {
-        compnamesfull[i] <- temp
-      } else {
-        temp <- compnamesfull[i]
-      }
-    }
-    colnames(out) <- paste(compnamesfull, paranames, sep=".")
     output <- list(results = b1, covmat = covmat, bootstraps = out)
     class(output) <- "jointmeta1SE"
     return(output)
