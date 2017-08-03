@@ -139,7 +139,7 @@ jointmetaplotall <- function(plotlist, ncol, nrow = NULL, top = NULL, type = c("
       eventplots[[length(eventplots) + 1]] <- eventlegend
       layoutset <- rbind(do.call(rbind, split(1:(ncol * nrow), ceiling(seq_along(1:(ncol *
                                                                                       nrow))/ncol))), rep((ncol * nrow) + 1, ncol))
-      heights <- c(rep(2.5, nrow), 0.2)
+      heights <- c(rep(2.5, nrow), 0.4)
       nrow <- nrow + 1
     } else {
       blankplot <- ggplot(data.frame()) + geom_blank() + theme_bw() +

@@ -110,9 +110,15 @@ survst <- function(survdat, surv.formula, survdat2, strat, study.name = NULL) {
     surv.start.f <- survfit(surv.start)
     data <- data.frame(cbind(basehaz(surv.start), surv.start.f$n.event,
                              surv.start.f$n.risk))
-    data.bystudy <- lapply(1:numstudies, function(u) {
-      data[which(data[, 3] == studies[u]), ]
-    })
+    if(grepl(study.name, data[1, 3])) {
+      data.bystudy <- lapply(1:numstudies, function(u) {
+        data[which(data[, 3] == paste(study.name, "=", studies[u], sep="")), ]
+      })
+    } else {
+      data.bystudy <- lapply(1:numstudies, function(u) {
+        data[which(data[, 3] == studies[u]), ]
+      })
+    }
     names(data.bystudy) <- studies
     sf.bystudy <- lapply(1:numstudies, function(u) {
       data.bystudy[[u]][which(data.bystudy[[u]][, 4] != 0), 2]
