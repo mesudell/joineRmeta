@@ -349,13 +349,13 @@ Two example sets of fits from the `JM` package are available in the `joineRmeta`
 help("JMfits", package = "joineRmeta")
 ```
 
-This object contains a list of `JM` fits.  We do not need to extract the fits from this object, as all the objects in `JMfits` are of type `jointModel`, a joint model fit.  The `JM` package does not require bootstrapping to estimate the standard errors. Each of the elements in the `JMfits` object is the result of fitting a model from `JM` to the data from each study in term from the example dataset `simdat2`. Each of these model fits has the same structure which can be viewed using the following code:
+This object contains a list of `JM` fits.  We do not need to extract the fits from this object, as all the objects in `JMfits` are of type `jointModel`, a joint model fit.  The `JM` package does not require bootstrapping to estimate the standard errors. Each of the elements in the `JMfits` object is the result of fitting a model from `JM` to the data from each study in turn from the example dataset `simdat2`. Each of these model fits has the same structure which can be viewed using the following code:
 
 ```{r}
 summary(JMfits[[1]])
 
 ```
-From the above summary we can see extract a range of details about the model fit.  The longitudinal sub-model contains a fixed intercept, time (slope) and treatment assignment term.  The survival sub-model contains only a fixed treatment assignment term.  The baseline hazard was modelled using splines, whose parameters are listed as `bs1` to `bs8` in the results for the Event process.  A random intercept and random slope were included in the model.  The current value (fixed and random effects) of the longitudinal trajectory was inserted into the survival sub-model.  The association parameter for this association structure is denoted by `Assoct`.
+From the above summary we can see a range of details about the model fit.  The longitudinal sub-model contains a fixed intercept, time (slope) and treatment assignment term.  The survival sub-model contains only a fixed treatment assignment term.  The baseline hazard was modelled using splines, whose parameters are listed as `bs1` to `bs8` in the results for the Event process.  A random intercept and random slope were included in the model.  The current value (fixed and random effects) of the longitudinal trajectory was inserted into the survival sub-model.  The association parameter for this association structure is denoted by `Assoct`.
 
 The second set of joint model fits from the `JM` package is available in the `JMfits2` object, the help file for which can be examined using:
 
@@ -363,7 +363,7 @@ The second set of joint model fits from the `JM` package is available in the `JM
 help("JMfits2", package = "joineRmeta")
 ```
 
-This object contains a list of `JM` fits.  Again, we do not need to extract the fits from this object, as all the objects in `JMfits` are of type `jointModel`, a joint model fit.  The `JM` package does not require bootstrapping to estimate the standard errors. Each of the elements in the `JMfits2` object is the result of fitting a model from `JM` to the data from each study in term from the example dataset `simdat2`. Each of these model fits has the same structure which can be viewed using the following code:
+This object contains a list of `JM` fits.  Again, we do not need to extract the fits from this object, as all the objects in `JMfits` are of type `jointModel`, a joint model fit.  The `JM` package does not require bootstrapping to estimate the standard errors. Each of the elements in the `JMfits2` object is the result of fitting a model from `JM` to the data from each study in turn from the example dataset `simdat2`. Each of these model fits has the same structure which can be viewed using the following code:
 
 ```{r}
 summary(JMfits2[[1]])

@@ -271,8 +271,13 @@ jointmeta2 <- function(fits, SE = NULL, longpar = NULL, survpar = NULL,
                                                                               function(u) {
                                                                                 grep(longpar[u], rownames(tempfit$coefficients$fixed$longitudinal))
                                                                               })), ]
-        longSE <- SE[[i]][which(SE[[i]][, 1] == "Longitudinal"):(which(SE[[i]][,
-                                                                               1] == "Survival") - 1), ]
+        if ("Survival" %in% SE[[i]][, 1]) {
+          longSE <- SE[[i]][which(SE[[i]][, 1] == "Longitudinal"):(which(SE[[i]][,
+                                                                                 1] == "Survival") - 1), ]
+        } else {
+          longSE <- SE[[i]][which(SE[[i]][, 1] == "Longitudinal"):(which(SE[[i]][,
+                                                                                 1] == "Failure") - 1), ]
+        }
         longSE <- longSE[unlist(lapply(1:length(longpar), function(u) {
           grep(longpar[u], longSE[, 2])
         })), ]
@@ -289,8 +294,13 @@ jointmeta2 <- function(fits, SE = NULL, longpar = NULL, survpar = NULL,
                                                                                  function(u) {
                                                                                    grep(survpar[u], names(tempfit$coefficients$fixed$survival))
                                                                                  }))]
-        survSE <- SE[[i]][which(SE[[i]][, 1] == "Survival"):(which(SE[[i]][,
-                                                                           1] == "Association") - 1), ]
+        if ("Survival" %in% SE[[i]][, 1]) {
+          survSE <- SE[[i]][which(SE[[i]][, 1] == "Survival"):(which(SE[[i]][,
+                                                                             1] == "Association") - 1), ]
+        } else {
+          survSE <- SE[[i]][which(SE[[i]][, 1] == "Failure"):(which(SE[[i]][,
+                                                                            1] == "Association") - 1), ]
+        }
         survSE <- survSE[unlist(lapply(1:length(survpar), function(u) {
           grep(survpar[u], survSE[, 2])
         })), ]
@@ -691,10 +701,10 @@ jointmeta2 <- function(fits, SE = NULL, longpar = NULL, survpar = NULL,
               results$survMA.overall <- survMA.overall
             } else {
               stop("parametrization of joint model not value,
-               slope or both and so not recognised")
+                   slope or both and so not recognised")
+            }
             }
           }
-        }
         if (assoc) {
           assocMA <- lapply(1:ncol(assocest), function(u) {
             metagen(TE = assocest[, u], seTE = assocpres[, u], studlab = studynames,
@@ -705,7 +715,7 @@ jointmeta2 <- function(fits, SE = NULL, longpar = NULL, survpar = NULL,
         }
         class(results) <- "jointmeta2"
         return(results)
-          } else {
-            stop("Function currently supports only joineR or JM model fits")
-          }
+        } else {
+          stop("Function currently supports only joineR or JM model fits")
         }
+}
