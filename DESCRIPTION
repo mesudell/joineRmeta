@@ -3,12 +3,15 @@ Type: Package
 Title: Joint Modelling for Meta-Analytic (Multi-Study) Data
 Version: 0.1.0.9000
 Author: c(
-    person("Maria", "Sudell", email = "mesudell@liverpool.ac.uk", 
-    role = c("aut","cre")), 
-    person("Ruwanthi", "Kolamunnage-Dona", email = "Ruwanthi.Kolamunnage-Dona@liverpool.ac.uk", 
-    role = "aut"),
-    person("Catrin", "Tudur Smith", email = "cat1@liverpool.ac.uk", 
-    role = "aut"))
+    person("Maria", "Sudell",
+           email = "mesudell@liverpool.ac.uk", 
+           role = c("aut","cre")), 
+    person("Ruwanthi", "Kolamunnage-Dona",
+           email = "kdrr@liverpool.ac.uk", 
+           role = "aut"),
+    person("Catrin", "Tudur Smith",
+           email = "cat1@liverpool.ac.uk", 
+           role = "aut"))
 Maintainer: Maria Sudell <mesudell@liverpool.ac.uk>
 Description: Functions for meta-analysis of a single longitudinal and a single 
     time-to-event outcome from multiple studies using joint models.  Options to 
