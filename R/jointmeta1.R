@@ -601,12 +601,10 @@ jointmeta1 <- function(data, long.formula, long.rand.ind, long.rand.stud = NULL,
                      rand_ind_formula = as.formula(paste("~", long.rand.ind.form,
                                                          sep = "")))
 
-    random_cond <- list(random_ind = random_ind)
     rand_cov <- list(D = jointfit$D)
     if (is.null(long.rand.stud) == FALSE) {
       formulae$rand_stud_formula <- as.formula(paste("~", long.rand.stud.form,
                                                      sep = ""))
-      random_cond$random_stud <- random_stud
       rand_cov$A <- jointfit$A
     }
     nobs <- table(longdat[[study.name]])
@@ -615,7 +613,7 @@ jointmeta1 <- function(data, long.formula, long.rand.ind, long.rand.stud = NULL,
                     rand_cov = rand_cov, hazard = jointfit$haz, loglik = loglik,
                     numIter = jointfit$iters, convergence = jointfit$conv, sharingstrct = sharingstrct,
                     sepests = sepests, sep.loglik = sep.loglik, data = data, Call = Call,
-                    random_cond = random_cond, numstudies = numstudies, n.bystudy = n.bystudy,
+                    numstudies = numstudies, n.bystudy = n.bystudy,
                     missingids = missingids, nobs = nobs, AIC = AIC)
     class(results) <- "jointmeta1"
     results

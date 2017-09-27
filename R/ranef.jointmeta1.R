@@ -63,13 +63,13 @@ ranef.jointmeta1 <- function(object, type = c("individual", "study"), ...) {
     stop("type should be one of \"individual\", \"study\"")
   }
   if (type == "individual") {
-    ranef.ind <- object$random_cond$random_ind
+    ranef.ind <- object$coefficients$random$random_ind
     return(ranef.ind)
   } else if (type == "study") {
-    if (is.null(object$random_cond$random_stud)) {
+    if (is.null(object$coefficients$random$random_stud)) {
       stop("No study level random effects in supplied model fit")
     }
-    ranef.stud <- object$random_cond$random_stud
+    ranef.stud <- object$coefficients$random$random_stud
     return(ranef.stud)
   }
 }

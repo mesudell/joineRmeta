@@ -185,20 +185,6 @@
 #'   \item{\code{call}}{the function call supplied to the \code{jointmeta1}
 #'   function.}
 #'
-#'   \item{\code{random_cond}}{a list containing the conditional modes of any
-#'   random effects included in the joint model given the data and the
-#'   parameters estimated from the joint model. The components of this list are:
-#'   \describe{
-#'
-#'   \item{\code{random_ind}}{a list of length equal to the number of studies in
-#'   the dataset, each containing a matrix consisting of the conditional modes
-#'   of the individual level random effects.}
-#'
-#'   \item{\code{random_stud}}{a matrix consisting of the conditional modes of
-#'   the study level random effects.}
-#'
-#'   }}
-#'
 #'   \item{\code{numstudies}}{an integer containing the number of studies
 #'   present in the data used to fit the joint model}
 #'

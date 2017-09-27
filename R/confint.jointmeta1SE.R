@@ -86,7 +86,7 @@ confint.jointmeta1SE <- function(object, parm = NULL, level = 0.95, ...) {
     out[, 6] <- round(ci2, 4)
   }
   if (is.null(parm)) {
-    out[, c(1:3, 5, 6)]
+    out<-out[, c(1:3, 5, 6)]
   } else {
     component <- as.character(out[, 1])
     temp <- component[1]
@@ -109,6 +109,6 @@ confint.jointmeta1SE <- function(object, parm = NULL, level = 0.95, ...) {
     out <- out[selection, c(1:3, 5, 6)]
     out[which(!((1:nrow(out)) %in% match(unique(out[, 1]), out[, 1]))),
         1] <- ""
-  }
+    }
   return(out)
 }

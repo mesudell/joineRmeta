@@ -376,7 +376,7 @@ simjointmeta <- function(k = 5, n = rep(500, 5), sepassoc = FALSE, ntms = 5,
         stop("Some but not all of gamma_stud, rand_stud and sigb_stud supplied")
       } else {
         if (length(n) != k) {
-          stop("Number of studies differes between k and length of n")
+          stop("Number of studies differs between k and length of n")
         }
         rand_ind <- match.arg(rand_ind)
         if (rand_ind != "intslope" && rand_ind != "int") {
