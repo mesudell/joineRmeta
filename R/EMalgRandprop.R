@@ -299,24 +299,11 @@ EMalgRandprop <- function(data, longdat, survdat, long.rand.ind, long.rand.stud 
       idtemp <- ids.bystudy[[u]][v]
       B2temp <- paraests$randstart.ind.cov[[which(names(paraests$randstart.ind.cov) %in%
                                                     idtemp)]]
-      eig <- eigen(B2temp)
-
       cm.2 <- matrix(as.numeric(as.character(paraests$randstart.ind[which(rownames(paraests$randstart.ind) %in%
                                                                             idtemp), ])), gpt^q, q, TRUE)
-      if (length(which(eig$values < 0)) == 0) {
-        if (q > 1) {
-          B2 <- eig$vectors %*% diag(sqrt(eig$values))
-        } else {
-          B2 <- eig$vectors %*% matrix(sqrt(eig$values))
-        }
-        gmat2 %*% B2 + cm.2
-      } else {
-        warning(paste("Singular matrix encountered during pseudo adaptive
-                      procedure, individual level"))
-        gmat2 + cm.2
-      }
+      gmat2 %*% solve(chol(solve(B2temp))) + cm.2
     })
-    })
+  })
   randstart.ind <- paraests$randstart.ind
   randstart.ind.bystudy <- lapply(1:numstudies, function(u) {
     out <- as.matrix(randstart.ind[which(rownames(randstart.ind) %in%
@@ -475,21 +462,9 @@ EMalgRandprop <- function(data, longdat, survdat, long.rand.ind, long.rand.stud 
       studtemp <- studies[u]
       B3temp <- paraests$randstart.stud.cov[[which(names(paraests$randstart.stud.cov) %in%
                                                      studtemp)]]
-      eig <- eigen(B3temp)
       cm.3 <- matrix(as.numeric(as.character(paraests$randstart.stud[which(rownames(paraests$randstart.stud) %in%
                                                                              studtemp), ])), gpt^r, r, TRUE)
-      if (length(which(eig$values < 0)) == 0) {
-        if (r > 1) {
-          B3 <- eig$vectors %*% diag(sqrt(eig$values))
-        } else {
-          B3 <- eig$vectors %*% matrix(sqrt(eig$values))
-        }
-        gmat3 %*% B3 + cm.3
-      } else {
-        warning(paste("Singular matrix encountered during pseudo adaptive
-                      procedure, study level"))
-        gmat3 + cm.3
-      }
+      gmat3 %*% solve(chol(solve(B3temp))) + cm.3
     })
     names(newu.3.all) <- studies
     randstart.stud <- paraests$randstart.stud
@@ -503,17 +478,17 @@ EMalgRandprop <- function(data, longdat, survdat, long.rand.ind, long.rand.stud 
                                                                                   times = q), rep(1:q, each = q), sep = ""), sep = ""), paste("A",
                                                                                                                                               paste(rep(1:r, times = r), rep(1:r, each = r), sep = ""),
                                                                                                                                               sep = ""))
-    } else {
-      r <- NULL
-      survnames <- NULL
-      if (p2 > 0) {
-        survnames <- paste("T.", names(beta2)[1:(length(beta2) - 1)],
-                           sep = "")
-      }
-      paranames <- c(paste("Y.", names(beta1), sep = ""), survnames,
-                     "gamma_ind_0", "sigma.e", paste("D", paste(rep(1:q, times = q),
-                                                                rep(1:q, each = q), sep = ""), sep = ""))
+  } else {
+    r <- NULL
+    survnames <- NULL
+    if (p2 > 0) {
+      survnames <- paste("T.", names(beta2)[1:(length(beta2) - 1)],
+                         sep = "")
     }
+    paranames <- c(paste("Y.", names(beta1), sep = ""), survnames,
+                   "gamma_ind_0", "sigma.e", paste("D", paste(rep(1:q, times = q),
+                                                              rep(1:q, each = q), sep = ""), sep = ""))
+  }
   conv <- FALSE
   for (it in 1:max.it) {
     if (p2 > 0) {
@@ -810,8 +785,8 @@ EMalgRandprop <- function(data, longdat, survdat, long.rand.ind, long.rand.stud 
         }))
         sigma.e <- colSums((do.call(c, Y.bystudy) - ((do.call(rbind,
                                                               X1.bystudy) %*% beta1) + (out)))^2)/sum(N)
-
-
+        
+        
       }
     }
     diag(D) <- colMeans(do.call(rbind, EUU.2))[1:q]
