@@ -4,10 +4,6 @@ language: R
 sudo: true
 cache: packages
 
-before_install:
- - sudo apt-get install libnlopt-dev
-
-
 os:
  - linux
  - osx
@@ -16,3 +12,7 @@ r:
   - oldrel
   - release
   - devel
+
+cran: http://cran.rstudio.com
+repos:
+   CRAN: http://cran.rstudio.com
