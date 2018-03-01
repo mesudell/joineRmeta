@@ -4,10 +4,6 @@ language: R
 sudo: required
 cache: packages
 
-
-before_install:
- - sudo apt-get install libnlopt-dev
-
 os:
  - linux
  - osx
@@ -25,4 +21,4 @@ repos:
 
 r_packages:
  - devtools
-
+ - nloptr
