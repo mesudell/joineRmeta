@@ -8,10 +8,6 @@ os:
  - linux
  - osx
 
-install:
-  - if [ $TRAVIS_OS_NAME = linux ]; then sudo apt-get install libnlopt-dev
-  - if [ $TRAVIS_OS_NAME = osx ]; then brew install nloptr
-
 r:
  - oldrel
  - release
@@ -25,3 +21,6 @@ repos:
 r_packages:
  - devtools
 # - nloptr
+
+apt_packages;
+ - libnlopt-dev
