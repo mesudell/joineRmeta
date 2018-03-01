@@ -88,8 +88,7 @@ A list of results from the separate longitudinal fit is returned. The
   random effects are included in the model.}
 
   \item{\code{modelfit}}{the initial longitudinal model fit, fitted using the
-  \code{\link[lme4]{lmer}} function from the \code{\link[lme4]{lme4}}
-  package.}
+  \code{\link[lme4]{lmer}} function}
 
   }
 }
