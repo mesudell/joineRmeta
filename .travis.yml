@@ -4,6 +4,9 @@ language: R
 sudo: true
 cache: packages
 
+before_install:
+ - sudo apt-get install libnlopt-dev
+
 os:
  - linux
  - osx
