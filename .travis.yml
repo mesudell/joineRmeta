@@ -1,8 +1,9 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 
 language: R
-sudo: true
+sudo: required
 cache: packages
+
 
 before_install:
  - sudo apt-get install libnlopt-dev
@@ -11,11 +12,17 @@ os:
  - linux
  - osx
 
+
 r:
-  - oldrel
-  - release
-  - devel
+ - oldrel
+ - release
+ - devel
+
 
 cran: http://cran.rstudio.com
 repos:
-   CRAN: http://cran.rstudio.com
+  CRAN: http://cran.rstudio.com
+
+r_packages:
+ - devtools
+
