@@ -14,6 +14,11 @@ knitr::opts_chunk$set(
 
 # joineRmeta
 
+[![Travis-CI Build Status](https://travis-ci.org/mesudell/joineRmeta.svg?branch=master)](https://travis-ci.org/mesudell/joineRmeta)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/mesudell/joineRmeta?branch=master&svg=true)](https://ci.appveyor.com/project/mesudell/joineRmeta)
+<!--[![License](https://img.shields.io/badge/License-GPL%20%28%3E=%203%29-brightgreen.svg)](http://www.gnu.org/licenses/gpl-3.0.html)-->
+
+
 The `joineRmeta` package implements methods to analyse multi-study joint data consisting of a single continuous longitudinal outcome, and a single possible censored time-to-event outcome.  The modelling framework for the longitudinal data is a linear mixed effects model (Laird and Ware, 1982).  The modelling framework for the time-to-event outcome is a Cox proportional hazards model with an unspecified baseline hazard (Cox, 1972).  The longitudinal and time-to-event sub-model are linked through an association structure.  Currently only the random effects only proportional association is available (see Gould et al, 2015).  The methodology used to fit the model is described in Henderson et al (2000) and Wulfsohn and Tsiatis (1997).
 
 The `joineRmeta` package contains methods to perform the second stage of a two stage meta-analysis (MA) of study specific joint modelling fits, and one stage MA of multi-study joint data where between study heterogeneity can be accounted for using interaction terms with study membership variables, study level random effects, or baseline hazard stratified by study.  The package also contains plotting and simulation functions.
