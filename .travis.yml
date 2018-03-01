@@ -1,12 +1,14 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 
 language: R
-sudo: false
+sudo: required
 cache: packages
+
+before_install:
+ - sudo apt-get install libnlopt-dev
 
 os:
  - linux
- - osx
 
 r:
  - oldrel
@@ -20,4 +22,3 @@ repos:
 
 r_packages:
  - devtools
- - nloptr
