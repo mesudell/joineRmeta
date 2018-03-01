@@ -1,7 +1,7 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 
 language: R
-sudo: required
+sudo: false
 cache: packages
 
 os:
@@ -20,7 +20,4 @@ repos:
 
 r_packages:
  - devtools
-# - nloptr
-
-apt_packages;
- - libnlopt-dev
+ - nloptr
