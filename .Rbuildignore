@@ -2,5 +2,6 @@
 ^\.Rproj\.user$
 ^README\.Rmd$
 ^cran-comments\.md$
+^NEWS\.md$
 ^\.travis\.yml$
 ^appveyor\.yml$
