@@ -9,186 +9,109 @@ jointmeta2(fits, SE = NULL, longpar = NULL, survpar = NULL,
 }
 \arguments{
 \item{fits}{a list of joint modelling fits.  These fits should all be of the
-same type (i.e. all fitted using \code{\link[joineR]{joint}} or all fitted
-using \code{\link[JM]{jointModel}}), with the same model specification.}
+same type, with the same model specification.}
 
 \item{SE}{a list of the results from \code{\link[joineR]{jointSE}}.  Only to
-be supplied if the model fits supplied in \code{fits} are all fitted using
-the \code{\link[joineR]{joineR}} package.}
+be supplied if the model fits supplied in \code{fits} are all fitted
+using the \code{\link[joineR]{joineR}} package.}
 
 \item{longpar}{a vector of character strings of parameters from the
 longitudinal sub-model for which meta-analyses should be performed}
 
-\item{survpar}{a vector of character strings of parameters from the survival
-sub-model for which meta-analyses should be performed}
+\item{survpar}{a vector of character strings of parameters from the
+survival sub-model for which meta-analyses should be performed}
 
-\item{assoc}{a logical indicating whether a meta-analysis should be performed
-for the association parameter(s)}
+\item{assoc}{a logical indicating whether a meta-analysis should be
+performed for the association parameter(s)}
 
 \item{studynames}{a vector of character strings containing the names for the
-studies present in the dataset that the joint models were fitted to. These
-character strings if supplied are used to label the meta-analyses performed
-by the function}
+studies present in the dataset that the joint models were fitted to.
+These character strings if supplied are used to label the meta-analyses
+performed by the function}
 }
 \value{
 This function returns a list of results for the two stage MA.  These
-  results are split by the type of parameter being pooled.  If the names of
-  longitudinal parameters were supplied to \code{longpar} then an element
-  named \code{longMA} will be present in the results.  If the names of
-  survival parameters were supplied to \code{survpar} then if the supplied
-  joint model fits were fitted using the \code{joint} function from the
-  \code{joineR} package, an element named \code{survMA.direct} will be
-  present in the results.  If the supplied joint model fits were fitted using
-  the \code{jointModel} function from the \code{JM} package, two elements
-  named \code{survMA.direct} and \code{survMA.overall} will be present.  If
-  \code{assoc = TRUE} then an element labelled \code{assocMA} will be present
-  in the results.
+    results are split by the type of parameter being pooled.  If the names
+    of longitudinal parameters were supplied to \code{longpar} then an
+    element named \code{longMA} will be present in the results.  If the
+    names of survival parameters were supplied to \code{survpar} then if the
+    supplied joint model fits were fitted using the \code{joint} function
+    from the \code{joineR} package, an element named \code{survMA.direct}
+    will be present in the results.  If the supplied joint model fits were
+    fitted using the \code{jointModel} function from the \code{JM} package,
+    two elements named \code{survMA.direct} and \code{survMA.overall} will be
+    present.  If \code{assoc = TRUE} then an element labelled \code{assocMA}
+    will be present in the results.
 
-  Each element of each of these components of the results (\code{longMA},
-  \code{survMA.direct}, \code{assocMA}...) is of class \code{metagen}, and is
-  the result of using the \code{\link[meta]{metagen}} function on the results
-  of joint models fitted to multiple studies in the dataset. This method
-  pools the supplied information in fixed and random MA using inverse
-  variance weighting.  Forest plots can be produced for these results simply
-  by applying the function \code{\link[meta]{forest}} to the objects of class
-  \code{metagen} / \code{meta} supplied in the results.
+    Each element of each of these components of the results (\code{longMA},
+    \code{survMA.direct}, \code{assocMA}...) is of class \code{metagen},
+    and is the result of using the \code{\link[meta]{metagen}} function on
+    the results of joint models fitted to multiple studies in the dataset.
+    This method pools the supplied information in fixed and random MA using
+    inverse variance weighting.  Forest plots can be produced for these
+    results simply by applying the function \code{\link[meta]{forest}} to the
+    objects of class \code{metagen} / \code{meta} supplied in the results.
 }
 \description{
 This function takes joint model fits from either \code{\link[joineR]{joint}}
-or \code{\link[JM]{jointModel}} and pools the information from the fits in
-the second stage of a two stage meta-analysis (MA).
+    or \code{\link[JM]{jointModel}} and pools the information from the fits
+    in the second stage of a two stage meta-analysis (MA).
 }
 \details{
-This function is designed to take study specific joint model fits,
-  and pool them in a meta-analysis.  This is the second stage in a two stage
-  IPD meta-analysis.  The function can handle fits using the
-  \code{\link[joineR]{joint}} function or the \code{\link[JM]{jointModel}},
-  but not a mixture of the two.  This is due to the differing types of
-  association structures available in each package (for more details see
-  \code{\link[joineR]{joineR}}, and \code{\link[JM]{JM}}).
-
-  The fixed effects in the survival sub-models estimated in both packages
-  have slightly different interpretations.  The joint model fits modelled
-  using the \code{joineR} package link the sub-models using shared zero mean
-  random effects (see Henderson et al (2000)).  However the joint model fits
-  modelled using the \code{JM} package link the sub-models using sharing
-  structures that involve both the fixed and random effects.  If a parameter
-  specified in survpar is also present in the fixed effects of the
-  longitudinal sub-model, a direct effect of the parameter on the risk of an
-  event can be extracted from the survival sub-model, as well as the overall
-  effect resulting from the sum of fixed effect in the survival sub-model,
-  and the presence of the parameter in the longitudinal sub-model, present in
-  the sharing structure of the joint model. As such, if a parameter specified
-  in \code{survpar} is also present as a fixed effect in the longitudinal
-  sub-model, and the fixed and random effects make up the sharing structure
-  linking the sub-models, the overall parameter effect is found by
-  \eqn{\beta_2 + (\alpha * \beta_1)}, where \eqn{\alpha} is the association
-  parameter, \eqn{\beta_2} is the coefficient for the parameter in question
-  from the survival sub-model, and \eqn{\beta_1} is the coefficient for the
-  parameter in question from the longitudinal sub-model.  For more
-  information about overall effects versus direct effects see Ibrahim et al
-  (2010), Rizopoulos (2012) and Gould et al (2015).  Because both a direct
-  and an overall effect of the survival parameters can be extracted from the
-  model, both are present in the results if the joint models supplied in the
-  fits are fitted using the \code{JM} package.
+The joint model fits modelled using the \code{joineR} package link
+    the sub-models using shared zero mean random effects (see Henderson et al
+    (2000)).  However the joint model fits modelled using the \code{JM}
+    package link the sub-models using sharing structures that involve both
+    the fixed and random effects.  If a parameter specified in survpar is
+    also present in the fixed effects of the longitudinal sub-model, a direct
+    effect of the parameter on the risk of an event can be extracted from the
+    survival sub-model, as well as the overall effect resulting from the sum
+    of fixed effect in the survival sub-model, and the presence of the
+    parameter in the longitudinal sub-model, present in the sharing structure
+    of the joint model. As such, if a parameter specified in
+    \code{survpar} is also present as a fixed effect in the longitudinal
+    sub-model, and the fixed and random effects make up the sharing structure
+    linking the sub-models, the overall parameter effect is found by
+    \eqn{\beta_2 + (\alpha * \beta_1)}, where \eqn{\alpha} is
+    the association parameter, \eqn{\beta_2} is the coefficient for the
+    parameter in question from the survival sub-model, and \eqn{\beta_1} is
+    the coefficient for the parameter in question from the longitudinal
+    sub-model.  For more information about overall effects versus direct
+    effects see Ibrahim et al (2010), Rizopoulos (2012) and Gould et al
+    (2015).  Because both a direct and an overall effect of the survival
+    parameters can be extracted from the model, both are present in the
+    results if the joint models supplied in the fits are fitted using the
+    \code{JM} package.
 }
 \examples{
-    \dontrun{
-    library(joineR)
+joineRmodels <- joineRfits[c("joineRfit1", "joineRfit2", "joineRfit3")]
+joineRmodelsSE <- joineRfits[c("joineRfit1SE", "joineRfit2SE",
+                               "joineRfit3SE")]
 
-    #change data to jointdata format
-    jointdat<-tojointdata(longitudinal = simdat$longitudinal,
-                          survival = simdat$survival, id = 'id',
-                          longoutcome = 'Y',
-                          timevarying = c('time','ltime'),
-                          survtime = 'survtime', cens = 'cens',
-                          time = 'time')
+MAjoineRfits <- jointmeta2(fits = joineRmodels, SE = joineRmodelsSE,
+                          longpar = c("time", "treat1"),
+                          survpar = "treat1", assoc = TRUE,
+                          studynames = c("Study 1", "Study 2", "Study 3"))
 
-    #ensure variables are correctly formatted
-    jointdat$baseline$study <- as.factor(jointdat$baseline$study)
-    jointdat$baseline$treat <- as.factor(jointdat$baseline$treat)
-
-    #subset the data by study
-    for(i in 1:length(unique(jointdat$baseline$study))){
-         idstemp<-jointdat$baseline$id[which(jointdat$baseline$study \%in\%
-                                         unique(jointdat$baseline$study)[i])]
-         temp<-subset(jointdat,idstemp)
-         class(temp)<-'jointdata'
-         assign(paste('jointdat',unique(jointdat$baseline$study)[i],
-                      sep='.'),temp)
-      }
-
-    #############################
-    ### Example using joineR fits
-
-    #use the joineR package to fit study specific joint models
-    joineRfit1<-joint(data = jointdat.1, long.formula = Y ~ 1 + time + treat,
-                  surv.formula = Surv(survtime, cens) ~ treat,
-                  model = 'intslope')
-
-    joineRfit2<-joint(data = jointdat.2, long.formula = Y ~ 1 + time + treat,
-                  surv.formula = Surv(survtime, cens) ~ treat,
-                  model = 'intslope')
-
-    joineRfit3<-joint(data = jointdat.3, long.formula = Y ~ 1 + time + treat,
-                  surv.formula = Surv(survtime, cens) ~ treat,
-                  model = 'intslope')
-
-    joineRfit4<-joint(data = jointdat.4, long.formula = Y ~ 1 + time + treat,
-                  surv.formula = Surv(survtime, cens) ~ treat,
-                  model = 'intslope')
-
-    joineRfit5<-joint(data = jointdat.5, long.formula = Y ~ 1 + time + treat,
-                  surv.formula = Surv(survtime, cens) ~ treat,
-                  model = 'intslope')
-
-    joineRfit1SE<-jointSE(fitted = joineRfit1, n.boot = 200)
-    joineRfit2SE<-jointSE(fitted = joineRfit2, n.boot = 200)
-    joineRfit3SE<-jointSE(fitted = joineRfit3, n.boot = 200)
-    joineRfit4SE<-jointSE(fitted = joineRfit4, n.boot = 200)
-    joineRfit5SE<-jointSE(fitted = joineRfit5, n.boot = 200)
-
-    joineRfits<-list(joineRfit1, joineRfit1SE,
-    joineRfit2, joineRfit2SE,
-    joineRfit3, joineRfit3SE,
-    joineRfit4, joineRfit4SE,
-    joineRfit5, joineRfit5SE)
-
-    names(joineRfits)<-c('joineRfit1', 'joineRfit1SE',
-                         'joineRfit2', 'joineRfit2SE',
-                         'joineRfit3', 'joineRfit3SE',
-                         'joineRfit4', 'joineRfit4SE',
-                         'joineRfit5', 'joineRfit5SE')
-
-    #perform the second stage of the two stage MA
-    MAjoineRfits<-jointmeta2(fits = joineRmodels, SE = joineRmodelsSE,
-                  longpar = c('time', 'treat1'), survpar = 'treat1',
-                  assoc = TRUE, studynames = c('Study 1','Study 2',
-                  'Study 3', 'Study 4', 'Study 5'))
-
-    #produce forest plots
-    library(meta)
-    forest(MAjoineRfits$longMA$treat1)
-    }
 
 }
 \references{
 Ibrahim et al (2010) Basic Concepts and Methods for Joint Models
-  of Longitudinal and Survival Data. JOURNAL OF CLINICAL ONCOLOGY 28 (10):
-  2796-2801
+    of Longitudinal and Survival Data. JOURNAL OF CLINICAL ONCOLOGY 28 (10):
+    2796-2801
 
-  Rizopoulos (2012) Joint Models for Longitudinal and Time-to-Event Data With
-  Applications in R. Chapman and Hall/CRC Biostatistics Series
+    Rizopoulos (2012) Joint Models for Longitudinal and Time-to-Event Data
+    With Applications in R. Chapman and Hall/CRC Biostatistics Series
 
-  Henderson et al (2000) Joint modelling of longitudinal measurements and
-  event time data. Biostatistics, 1,4, pp. 465–480
+    Henderson et al (2000) Joint modelling of longitudinal measurements and
+    event time data. Biostatistics, 1,4, pp. 465–480
 
-  Gould et al (2015) Joint modeling of survival and longitudinal non-survival
-  data: current methods and issues. Report of the DIA Bayesian joint modeling
-  working group.  Statistics in Medicine 34(14): 2181–2195.
-  doi:10.1002/sim.6141.
+    Gould et al (2015) Joint modeling of survival and longitudinal
+    non-survival data: current methods and issues. Report of the DIA Bayesian
+    joint modeling working group.  Statistics in Medicine 34(14): 2181–2195.
+    doi:10.1002/sim.6141.
 }
 \seealso{
 \code{\link[joineR]{joint}}, \code{\link[JM]{jointModel}},
-  \code{\link[joineR]{jointSE}}, \code{\link[meta]{metagen}}
+    \code{\link[joineR]{jointSE}}, \code{\link[meta]{metagen}}
 }

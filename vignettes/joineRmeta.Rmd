@@ -329,10 +329,8 @@ help("joineRfits2", package = "joineRmeta")
 This object contains a list of `joineR` fits and the results of the bootstrapping procedure from the package to estimate the standard errors of the model fits.  We can extract these fits using the following code:
 
 ```{r}
-joineRmodels2 <- joineRfits2[c("joineRfit6", "joineRfit7", "joineRfit8", 
-                               "joineRfit9", "joineRfit10")]
-joineRmodels2SE <- joineRfits2[c("joineRfit6SE", "joineRfit7SE", "joineRfit8SE", 
-                                 "joineRfit9SE", "joineRfit10SE")]
+joineRmodels2 <- joineRfits2[c("joineRfit6", "joineRfit7", "joineRfit8")]
+joineRmodels2SE <- joineRfits2[c("joineRfit6SE", "joineRfit7SE", "joineRfit8SE")]
 ```
 The result of this code is that the model fits for each study in the `simdat2` data are held in the object `joineRmodels2`, and the bootstraps for these model fits are held in the object `joineRmodels2SE`. Each of these model fits has the same structure which can be viewed using the following code:
 
@@ -413,7 +411,8 @@ MAjoineRfits2 <- jointmeta2(fits = c(joineRmodels[1:3], joineRmodels2[1:2]),
                             SE = c(joineRmodelsSE[1:3],joineRmodels2SE[1:2]), 
                             longpar = c("time", "treat1"), survpar = "treat1", 
                             assoc = TRUE, 
-                            studynames = c("Study 1","Study 2", "Study 3"))
+                            studynames = c("Study 1","Study 2", "Study 3", 
+                                           "Study 4", "Study 5"))
 ```
 
 ### Pooling results from JM fits
@@ -446,7 +445,8 @@ As with the `joineR` model fits, the fits from the `JM` package will only be poo
 MAtest <- jointmeta2(fits = c(JMfits2[1:3], JMfits[1:2]), 
                      longpar = c("time", "treat1"), 
                      survpar = "treat1", assoc = TRUE, 
-                     studynames = c("Study 1","Study 2", "Study 3"))
+                     studynames = c("Study 1","Study 2", "Study 3", 
+                                    "Study 4", "Study 5"))
 ```
 
 The `jointmeta2` function will also throw errors if fits from both `joineR` and `JM` are supplied to be pooled:
@@ -456,7 +456,8 @@ The `jointmeta2` function will also throw errors if fits from both `joineR` and 
 MAtest <- jointmeta2(fits = c(JMfits2[1:3], joineRfits[1:2]), 
                      longpar = c("time", "treat1"), 
                      survpar = "treat1", assoc = TRUE, 
-                     studynames = c("Study 1","Study 2", "Study 3"))
+                     studynames = c("Study 1","Study 2", "Study 3", 
+                                    "Study 4", "Study 5"))
 ```
 
 # One stage methods

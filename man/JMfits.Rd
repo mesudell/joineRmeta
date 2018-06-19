@@ -4,28 +4,29 @@
 \name{JMfits}
 \alias{JMfits}
 \title{Study specific joint model fits using the JM package}
-\format{A list of 5 \code{jointModel} objects, the result of fitting a joint
-  model using the JM package to the data from each study in the \code{simDat}
-  dataset in turn.}
+\format{A list of 3 \code{jointModel} objects, the result of fitting a joint
+  model using the JM package to the data for the first three studies in the
+  \code{simdat2} dataset in turn.}
 \usage{
 JMfits
 }
 \description{
 A dataset containing a list of the model fits for joint models fitted to the
-data for each study in the \code{simdat} dataset using the JM package.
+data for each study in the \code{simdat2} dataset using the JM package.
 Further details of model fits supplied below.
 }
 \details{
 These are the results of fitting a joint model using the \code{JM}
-  package separately to the data from each study present in the \code{simdat}
-  dataset.  This data has three levels, namely the longitudinal measurements
-  at level 1, nested within individuals (level 2) who are themselves nested
-  within studies (level 3). The joint models fitted to each study's data had
-  the same format.  The longitudinal sub-model contained a fixed intercept,
-  time and treatment assignment term, and random intercept and slope.  The
-  survival sub-model contained a fixed treatment assignment term.  A current
-  value association structure was used to link the sub-models.  More
-  formally, the longitudinal sub-model had the following format:
+  package separately to the data the first three studies present in the
+  \code{simdat2} dataset.  This data has three levels, namely the longitudinal
+  measurements at level 1, nested within individuals (level 2) who are
+  themselves nested within studies (level 3). The joint models fitted to each
+  study's data had the same format.  The longitudinal sub-model contained a
+  fixed intercept, time and treatment assignment term, and random intercept
+  and slope.  The survival sub-model contained a fixed treatment assignment
+  term.  A current value association structure was used to link the
+  sub-models.  More formally, the longitudinal sub-model had the following
+  format:
 
   \deqn{Y_{kij} = \beta_{10} + \beta_{11}time + \beta_{12}treat +
   b^{(2)}_{0ki} + b^{(2)}_{1ki}time + \epsilon_{kij}}

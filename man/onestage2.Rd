@@ -18,7 +18,7 @@ bootstrapped standard errors.
 These are the results of using the \code{jointmeta1} function to fit
   a one stage joint meta model for multi-study data, and also the bootstrap
   results of applying the \code{jointmetaSE} function to the resulting model
-  fit. The data used is the \code{simdat} data available in the
+  fit. The data used is the \code{simdat2} data available in the
   \code{joineRmeta} package.  This data has three levels, namely the
   longitudinal measurements at level 1, nested within individuals (level 2)
   who are themselves nested within studies (level 3).

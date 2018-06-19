@@ -143,47 +143,37 @@
 #' Study specific joint model fits using the joineR package
 #'
 #' A dataset containing a list of the model fits for joint models fitted to the
-#' data for each study in the \code{simdat} dataset using the joineR package.
+#' data for each study in the \code{simdat2} dataset using the joineR package.
 #' Further details of model fits supplied below.
 #'
-#' @format A list of 10 objects: \describe{ \item{\code{joineRfit1}}{an object
+#' @format A list of 6 objects: \describe{ \item{\code{joineRfit1}}{an object
 #'   of class \code{joint}, the result of using the \code{joint} function to fit
-#'   a joint model to the data from the first study in the \code{simdat}
+#'   a joint model to the data from the first study in the \code{simdat2}
 #'   dataset.} \item{\code{joineRfit1SE}}{an object of class \code{data.frame},
 #'   the result of applying the function \code{jointSE} to the joint model fit
 #'   \code{joineRfit1}.} \item{\code{joineRfit2}}{ an object of class
 #'   \code{joint}, the result of using the \code{joint} function to fit a joint
-#'   model to the data from the second study in the \code{simdat} dataset.}
+#'   model to the data from the second study in the \code{simdat2} dataset.}
 #'   \item{\code{joineRfit2SE}}{an object of class \code{data.frame}, the result
 #'   of applying the function \code{jointSE} to the joint model fit
 #'   \code{joineRfit2}.} \item{\code{joineRfit3}}{an object of class
 #'   \code{joint}, the result of using the \code{joint} function to fit a joint
-#'   model to the data from the third study in the \code{simdat} dataset.}
+#'   model to the data from the third study in the \code{simdat2} dataset.}
 #'   \item{\code{joineRfit3SE}}{an object of class \code{data.frame}, the result
 #'   of applying the function \code{jointSE} to the joint model fit
-#'   \code{joineRfit3}.} \item{\code{joineRfit4}}{an object of class
-#'   \code{joint}, the result of using the \code{joint} function to fit a joint
-#'   model to the data from the fourth study in the \code{simdat} dataset.}
-#'   \item{\code{joineRfit4SE}}{an object of class \code{data.frame}, the result
-#'   of applying the function \code{jointSE} to the joint model fit
-#'   \code{joineRfit4}.} \item{\code{joineRfit5}}{an object of class
-#'   \code{joint}, the result of using the \code{joint} function to fit a joint
-#'   model to the data from the fifth study in the \code{simdat} dataset.}
-#'   \item{\code{joineRfit5SE}}{an object of class \code{data.frame}, the result
-#'   of applying the function \code{jointSE} to the joint model fit
-#'   \code{joineRfit5}.} }
+#'   \code{joineRfit3}.} }
 #'
 #' @details These are the results of fitting a joint model using the
-#'   \code{joineR} package separately to the data from each study present in the
-#'   \code{simdat} dataset.  This data has three levels, namely the longitudinal
-#'   measurements at level 1, nested within individuals (level 2) who are
-#'   themselves nested within studies (level 3). The joint models fitted to each
-#'   study's data had the same format.  The longitudinal sub-model contained a
-#'   fixed intercept, time and treatment assignment term, and random intercept
-#'   and slope.  The survival sub-model contained a fixed treatment assignment
-#'   term.  A proportional association structure was used to link the
-#'   sub-models.  More formally, the longitudinal sub-model had the following
-#'   format:
+#'   \code{joineR} package separately to the data from the first three studies
+#'   present in the \code{simdat2} dataset.  This data has three levels, namely
+#'   the longitudinal measurements at level 1, nested within individuals
+#'   (level 2) who are themselves nested within studies (level 3). The joint
+#'   models fitted to each study's data had the same format.  The longitudinal
+#'   sub-model contained a fixed intercept, time and treatment assignment term,
+#'   and random intercept and slope.  The survival sub-model contained a fixed
+#'   treatment assignment term.  A proportional association structure was used
+#'   to link the sub-models.  More formally, the longitudinal sub-model
+#'   had the following format:
 #'
 #'   \deqn{Y_{kij} = \beta_{10} + \beta_{11}time + \beta_{12}treat +
 #'   b^{(2)}_{0ki} + b^{(2)}_{1ki}time + \epsilon_{kij}}
@@ -228,46 +218,37 @@
 #' Study specific joint model fits using the joineR package
 #'
 #' A dataset containing a list of the model fits for joint models fitted to the
-#' data for each study in the \code{simdat} dataset using the joineR package.
+#' data for each study in the \code{simdat2} dataset using the joineR package.
 #' Further details of model fits supplied below.
 #'
-#' @format A list of 10 objects: \describe{ \item{\code{joineRfit6}}{an object
+#' @format A list of 6 objects: \describe{ \item{\code{joineRfit6}}{an object
 #'   of class \code{joint}, the result of using the \code{joint} function to fit
-#'   a joint model to the data from the first study in the \code{simdat}
+#'   a joint model to the data from the first study in the \code{simdat2}
 #'   dataset.} \item{\code{joineRfit6SE}}{an object of class \code{data.frame},
 #'   the result of applying the function \code{jointSE} to the joint model fit
 #'   \code{joineRfit6}.} \item{\code{joineRfit7}}{ an object of class
 #'   \code{joint}, the result of using the \code{joint} function to fit a joint
-#'   model to the data from the second study in the \code{simdat} dataset.}
+#'   model to the data from the second study in the \code{simdat2} dataset.}
 #'   \item{\code{joineRfit7SE}}{an object of class \code{data.frame}, the result
 #'   of applying the function \code{jointSE} to the joint model fit
 #'   \code{joineRfit7}.} \item{\code{joineRfit8}}{an object of class
 #'   \code{joint}, the result of using the \code{joint} function to fit a joint
-#'   model to the data from the third study in the \code{simdat} dataset.}
+#'   model to the data from the third study in the \code{simdat2} dataset.}
 #'   \item{\code{joineRfit8SE}}{an object of class \code{data.frame}, the result
 #'   of applying the function \code{jointSE} to the joint model fit
-#'   \code{joineRfit8}.} \item{\code{joineRfit9}}{an object of class
-#'   \code{joint}, the result of using the \code{joint} function to fit a joint
-#'   model to the data from the fourth study in the \code{simdat} dataset.}
-#'   \item{\code{joineRfit9SE}}{an object of class \code{data.frame}, the result
-#'   of applying the function \code{jointSE} to the joint model fit
-#'   \code{joineRfit9}.} \item{\code{joineRfit10}}{an object of class
-#'   \code{joint}, the result of using the \code{joint} function to fit a joint
-#'   model to the data from the fifth study in the \code{simdat} dataset.}
-#'   \item{\code{joineRfit10SE}}{an object of class \code{data.frame}, the
-#'   result of applying the function \code{jointSE} to the joint model fit
-#'   \code{joineRfit10}.} }
+#'   \code{joineRfit8}.} }
 #'
 #' @details These are the results of fitting a joint model using the
-#'   \code{joineR} package separately to the data from each study present in the
-#'   \code{simdat} dataset.  This data has three levels, namely the longitudinal
-#'   measurements at level 1, nested within individuals (level 2) who are
-#'   themselves nested within studies (level 3). The joint models fitted to each
-#'   study's data had the same format.  The longitudinal sub-model contained a
-#'   fixed intercept, time and treatment assignment term, and random intercept.
-#'   The survival sub-model contained a fixed treatment assignment term.  A
-#'   proportional association structure was used to link the sub-models.  More
-#'   formally, the longitudinal sub-model had the following format:
+#'   \code{joineR} package separately to the data from the first three studies
+#'   present in the \code{simdat2} dataset.  This data has three levels, namely
+#'   the longitudinal measurements at level 1, nested within individuals
+#'   (level 2) who are themselves nested within studies (level 3). The joint
+#'   models fitted to each study's data had the same format.  The longitudinal
+#'   sub-model contained a fixed intercept, time and treatment assignment term,
+#'   and random intercept. The survival sub-model contained a fixed treatment
+#'   assignment term.  A proportional association structure was used to link the
+#'   sub-models.  More formally, the longitudinal sub-model had the following
+#'   format:
 #'
 #'   \deqn{Y_{kij} = \beta_{10} + \beta_{11}time + \beta_{12}treat +
 #'   b^{(2)}_{0ki} + \epsilon_{kij}}
@@ -312,23 +293,24 @@
 #' Study specific joint model fits using the JM package
 #'
 #' A dataset containing a list of the model fits for joint models fitted to the
-#' data for each study in the \code{simdat} dataset using the JM package.
+#' data for each study in the \code{simdat2} dataset using the JM package.
 #' Further details of model fits supplied below.
 #'
-#' @format A list of 5 \code{jointModel} objects, the result of fitting a joint
-#'   model using the JM package to the data from each study in the \code{simDat}
-#'   dataset in turn.
+#' @format A list of 3 \code{jointModel} objects, the result of fitting a joint
+#'   model using the JM package to the data for the first three studies in the
+#'   \code{simdat2} dataset in turn.
 #'
 #' @details These are the results of fitting a joint model using the \code{JM}
-#'   package separately to the data from each study present in the \code{simdat}
-#'   dataset.  This data has three levels, namely the longitudinal measurements
-#'   at level 1, nested within individuals (level 2) who are themselves nested
-#'   within studies (level 3). The joint models fitted to each study's data had
-#'   the same format.  The longitudinal sub-model contained a fixed intercept,
-#'   time and treatment assignment term, and random intercept and slope.  The
-#'   survival sub-model contained a fixed treatment assignment term.  A current
-#'   value association structure was used to link the sub-models.  More
-#'   formally, the longitudinal sub-model had the following format:
+#'   package separately to the data the first three studies present in the
+#'   \code{simdat2} dataset.  This data has three levels, namely the longitudinal
+#'   measurements at level 1, nested within individuals (level 2) who are
+#'   themselves nested within studies (level 3). The joint models fitted to each
+#'   study's data had the same format.  The longitudinal sub-model contained a
+#'   fixed intercept, time and treatment assignment term, and random intercept
+#'   and slope.  The survival sub-model contained a fixed treatment assignment
+#'   term.  A current value association structure was used to link the
+#'   sub-models.  More formally, the longitudinal sub-model had the following
+#'   format:
 #'
 #'   \deqn{Y_{kij} = \beta_{10} + \beta_{11}time + \beta_{12}treat +
 #'   b^{(2)}_{0ki} + b^{(2)}_{1ki}time + \epsilon_{kij}}
@@ -373,25 +355,26 @@
 #' Study specific joint model fits using the JM package
 #'
 #' A dataset containing a list of the model fits for joint models fitted to the
-#' data for each study in the \code{simdat} dataset using the JM package.
-#' Further details of model fits supplied below.
+#' data the first three studies in the \code{simdat2} dataset using the JM
+#' package. Further details of model fits supplied below.
 #'
-#' @format A list of 5 \code{jointModel} objects, the result of fitting a joint
-#'   model using the JM package to the data from each study in the \code{simDat}
-#'   dataset in turn.
+#' @format A list of 3 \code{jointModel} objects, the result of fitting a joint
+#'   model using the JM package to the data from the first three studies in the
+#'   \code{simdat2} dataset in turn.
 #'
 #' @details These are the results of fitting a joint model using the \code{JM}
-#'   package separately to the data from each study present in the \code{simdat}
-#'   dataset.  This data has three levels, namely the longitudinal measurements
-#'   at level 1, nested within individuals (level 2) who are themselves nested
-#'   within studies (level 3). The joint models fitted to each study's data had
-#'   the same format.  The longitudinal sub-model contained a fixed intercept,
-#'   time and treatment assignment term, as well as a fixed time by treatment
-#'   assignment interaction term, and random intercept and slope.  The survival
-#'   sub-model contained a fixed treatment assignment term. The sub-models were
-#'   linked by inserting both the current value of the longitudinal trajectory
-#'   and its first derivative with respect to time into the survival sub-model.
-#'   More formally, the longitudinal sub-model had the following format:
+#'   package separately to the data from the first three studies present in the
+#'   \code{simdat2} dataset.  This data has three levels, namely the longitudinal
+#'   measurements at level 1, nested within individuals (level 2) who are
+#'   themselves nested within studies (level 3). The joint models fitted to each
+#'   study's data had the same format.  The longitudinal sub-model contained a
+#'   fixed intercept, time and treatment assignment term, as well as a fixed
+#'   time by treatment assignment interaction term, and random intercept and
+#'   slope.  The survival sub-model contained a fixed treatment assignment term.
+#'   The sub-models were linked by inserting both the current value of the
+#'   longitudinal trajectory and its first derivative with respect to time into
+#'   the survival sub-model. More formally, the longitudinal sub-model had the
+#'   following format:
 #'
 #'   \deqn{Y_{kij} = \beta_{10} + \beta_{11}time + \beta_{12}treat +
 #'   \beta_{13}time*treat+ b^{(2)}_{0ki} + b^{(2)}_{1ki}time + \epsilon_{kij}}
@@ -451,7 +434,7 @@
 #' @details These are the results of using the \code{jointmeta1} function to fit
 #'   a one stage joint meta model for multi-study data, and also the bootstrap
 #'   results of applying the \code{jointmetaSE} function to the resulting model
-#'   fit.  The data used is the \code{simdat} data available in the
+#'   fit.  The data used is the \code{simdat2} data available in the
 #'   \code{joineRmeta} package.  This data has three levels, namely the
 #'   longitudinal measurements at level 1, nested within individuals (level 2)
 #'   who are themselves nested within studies (level 3).
@@ -528,7 +511,7 @@
 #' @details These are the results of using the \code{jointmeta1} function to fit
 #'   a one stage joint meta model for multi-study data, and also the bootstrap
 #'   results of applying the \code{jointmetaSE} function to the resulting model
-#'   fit. The data used is the \code{simdat} data available in the
+#'   fit. The data used is the \code{simdat2} data available in the
 #'   \code{joineRmeta} package.  This data has three levels, namely the
 #'   longitudinal measurements at level 1, nested within individuals (level 2)
 #'   who are themselves nested within studies (level 3).
@@ -612,7 +595,7 @@
 #' @details These are the results of using the \code{jointmeta1} function to fit
 #'   a one stage joint meta model for multi-study data, and also the bootstrap
 #'   results of applying the \code{jointmetaSE} function to the resulting model
-#'   fit. The data used is the \code{simdat} data available in the
+#'   fit. The data used is the \code{simdat2} data available in the
 #'   \code{joineRmeta} package.  This data has three levels, namely the
 #'   longitudinal measurements at level 1, nested within individuals (level 2)
 #'   who are themselves nested within studies (level 3).
@@ -693,7 +676,7 @@
 #' @details These are the results of using the \code{jointmeta1} function to fit
 #'   a one stage joint meta model for multi-study data, and also the bootstrap
 #'   results of applying the \code{jointmetaSE} function to the resulting model
-#'   fit. The data used is the \code{simdat} data available in the
+#'   fit. The data used is the \code{simdat2} data available in the
 #'   \code{joineRmeta} package.  This data has three levels, namely the
 #'   longitudinal measurements at level 1, nested within individuals (level 2)
 #'   who are themselves nested within studies (level 3).
@@ -774,7 +757,7 @@
 #' @details These are the results of using the \code{jointmeta1} function to fit
 #'   a one stage joint meta model for multi-study data, and also the bootstrap
 #'   results of applying the \code{jointmetaSE} function to the resulting model
-#'   fit. The data used is the \code{simdat} data available in the
+#'   fit. The data used is the \code{simdat2} data available in the
 #'   \code{joineRmeta} package.  This data has three levels, namely the
 #'   longitudinal measurements at level 1, nested within individuals (level 2)
 #'   who are themselves nested within studies (level 3).

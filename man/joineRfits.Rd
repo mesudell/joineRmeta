@@ -4,52 +4,42 @@
 \name{joineRfits}
 \alias{joineRfits}
 \title{Study specific joint model fits using the joineR package}
-\format{A list of 10 objects: \describe{ \item{\code{joineRfit1}}{an object
+\format{A list of 6 objects: \describe{ \item{\code{joineRfit1}}{an object
   of class \code{joint}, the result of using the \code{joint} function to fit
-  a joint model to the data from the first study in the \code{simdat}
+  a joint model to the data from the first study in the \code{simdat2}
   dataset.} \item{\code{joineRfit1SE}}{an object of class \code{data.frame},
   the result of applying the function \code{jointSE} to the joint model fit
   \code{joineRfit1}.} \item{\code{joineRfit2}}{ an object of class
   \code{joint}, the result of using the \code{joint} function to fit a joint
-  model to the data from the second study in the \code{simdat} dataset.}
+  model to the data from the second study in the \code{simdat2} dataset.}
   \item{\code{joineRfit2SE}}{an object of class \code{data.frame}, the result
   of applying the function \code{jointSE} to the joint model fit
   \code{joineRfit2}.} \item{\code{joineRfit3}}{an object of class
   \code{joint}, the result of using the \code{joint} function to fit a joint
-  model to the data from the third study in the \code{simdat} dataset.}
+  model to the data from the third study in the \code{simdat2} dataset.}
   \item{\code{joineRfit3SE}}{an object of class \code{data.frame}, the result
   of applying the function \code{jointSE} to the joint model fit
-  \code{joineRfit3}.} \item{\code{joineRfit4}}{an object of class
-  \code{joint}, the result of using the \code{joint} function to fit a joint
-  model to the data from the fourth study in the \code{simdat} dataset.}
-  \item{\code{joineRfit4SE}}{an object of class \code{data.frame}, the result
-  of applying the function \code{jointSE} to the joint model fit
-  \code{joineRfit4}.} \item{\code{joineRfit5}}{an object of class
-  \code{joint}, the result of using the \code{joint} function to fit a joint
-  model to the data from the fifth study in the \code{simdat} dataset.}
-  \item{\code{joineRfit5SE}}{an object of class \code{data.frame}, the result
-  of applying the function \code{jointSE} to the joint model fit
-  \code{joineRfit5}.} }}
+  \code{joineRfit3}.} }}
 \usage{
 joineRfits
 }
 \description{
 A dataset containing a list of the model fits for joint models fitted to the
-data for each study in the \code{simdat} dataset using the joineR package.
+data for each study in the \code{simdat2} dataset using the joineR package.
 Further details of model fits supplied below.
 }
 \details{
 These are the results of fitting a joint model using the
-  \code{joineR} package separately to the data from each study present in the
-  \code{simdat} dataset.  This data has three levels, namely the longitudinal
-  measurements at level 1, nested within individuals (level 2) who are
-  themselves nested within studies (level 3). The joint models fitted to each
-  study's data had the same format.  The longitudinal sub-model contained a
-  fixed intercept, time and treatment assignment term, and random intercept
-  and slope.  The survival sub-model contained a fixed treatment assignment
-  term.  A proportional association structure was used to link the
-  sub-models.  More formally, the longitudinal sub-model had the following
-  format:
+  \code{joineR} package separately to the data from the first three studies
+  present in the \code{simdat2} dataset.  This data has three levels, namely
+  the longitudinal measurements at level 1, nested within individuals
+  (level 2) who are themselves nested within studies (level 3). The joint
+  models fitted to each study's data had the same format.  The longitudinal
+  sub-model contained a fixed intercept, time and treatment assignment term,
+  and random intercept and slope.  The survival sub-model contained a fixed
+  treatment assignment term.  A proportional association structure was used
+  to link the sub-models.  More formally, the longitudinal sub-model
+  had the following format:
 
   \deqn{Y_{kij} = \beta_{10} + \beta_{11}time + \beta_{12}treat +
   b^{(2)}_{0ki} + b^{(2)}_{1ki}time + \epsilon_{kij}}
