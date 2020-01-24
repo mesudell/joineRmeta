@@ -1,3 +1,3 @@
-# joineRmeta 0.1.1
+# joineRmeta 0.1.2
 
-* First package release on CRAN.
+* Second package release on CRAN.
