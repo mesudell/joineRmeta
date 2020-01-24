@@ -4,10 +4,31 @@
 \alias{EMalgRandprop}
 \title{EM algorithm function used in jointmeta1}
 \usage{
-EMalgRandprop(data, longdat, survdat, long.rand.ind, long.rand.stud = NULL,
-  id.name, study.name, gpt, max.it, tol, time.long, surv.formula, long.formula,
-  long.formula.orig, paraests, studies, p1, p2, strat, print.detail,
-  bootrun = FALSE, q, r = NULL)
+EMalgRandprop(
+  data,
+  longdat,
+  survdat,
+  long.rand.ind,
+  long.rand.stud = NULL,
+  id.name,
+  study.name,
+  gpt,
+  max.it,
+  tol,
+  time.long,
+  surv.formula,
+  long.formula,
+  long.formula.orig,
+  paraests,
+  studies,
+  p1,
+  p2,
+  strat,
+  print.detail,
+  bootrun = FALSE,
+  q,
+  r = NULL
+)
 }
 \arguments{
 \item{data}{the original \code{jointdata} as supplied to the

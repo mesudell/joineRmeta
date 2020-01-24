@@ -1,7 +1,7 @@
 Package: joineRmeta
 Type: Package
 Title: Joint Modelling for Meta-Analytic (Multi-Study) Data
-Version: 0.1.1
+Version: 0.1.2
 Authors@R: c(
     person("Maria", "Sudell", email = "mesudell@liverpool.ac.uk", 
     role = c("cre", "aut"),
@@ -37,12 +37,11 @@ Imports:
     MASS,
     meta,
     msm,
-    nlme,
     statmod,
     stats,
     Matrix,
     utils
-RoxygenNote: 6.0.1
+RoxygenNote: 7.0.2
 Suggests: 
     knitr,
     rmarkdown

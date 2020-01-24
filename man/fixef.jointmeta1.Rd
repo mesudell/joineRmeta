@@ -4,8 +4,7 @@
 \alias{fixef.jointmeta1}
 \title{Extract fixed effects}
 \usage{
-\method{fixef}{jointmeta1}(object, type = c("Longitudinal", "Survival",
-  "Latent"), ...)
+\method{fixef}{jointmeta1}(object, type = c("Longitudinal", "Survival", "Latent"), ...)
 }
 \arguments{
 \item{object}{A joint model fit from the function jointmeta1}
