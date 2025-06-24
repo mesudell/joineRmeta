@@ -4,8 +4,14 @@
 \alias{jointmeta2}
 \title{Function to pool joint model fits in two stage MA}
 \usage{
-jointmeta2(fits, SE = NULL, longpar = NULL, survpar = NULL,
-  assoc = TRUE, studynames = NULL)
+jointmeta2(
+  fits,
+  SE = NULL,
+  longpar = NULL,
+  survpar = NULL,
+  assoc = TRUE,
+  studynames = NULL
+)
 }
 \arguments{
 \item{fits}{a list of joint modelling fits.  These fits should all be of the

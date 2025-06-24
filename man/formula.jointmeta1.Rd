@@ -4,8 +4,7 @@
 \alias{formula.jointmeta1}
 \title{Extract formulae from joint model fit}
 \usage{
-\method{formula}{jointmeta1}(x, type = c("Longitudinal", "Survival",
-  "Rand_ind", "Rand_stud"), ...)
+\method{formula}{jointmeta1}(x, type = c("Longitudinal", "Survival", "Rand_ind", "Rand_stud"), ...)
 }
 \arguments{
 \item{x}{A \code{jointmeta1} object, the result of applying the

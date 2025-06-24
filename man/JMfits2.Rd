@@ -4,9 +4,11 @@
 \name{JMfits2}
 \alias{JMfits2}
 \title{Study specific joint model fits using the JM package}
-\format{A list of 3 \code{jointModel} objects, the result of fitting a joint
+\format{
+A list of 3 \code{jointModel} objects, the result of fitting a joint
   model using the JM package to the data from the first three studies in the
-  \code{simdat2} dataset in turn.}
+  \code{simdat2} dataset in turn.
+}
 \usage{
 JMfits2
 }

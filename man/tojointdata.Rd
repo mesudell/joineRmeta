@@ -4,9 +4,19 @@
 \alias{tojointdata}
 \title{Function to change multi-study data into jointdata format}
 \usage{
-tojointdata(dataset = NULL, longitudinal = NULL, survival = NULL,
-  baseline = NULL, id, longoutcome, timevarying = NULL, survtime, cens,
-  time = NULL, longtimes = NULL)
+tojointdata(
+  dataset = NULL,
+  longitudinal = NULL,
+  survival = NULL,
+  baseline = NULL,
+  id,
+  longoutcome,
+  timevarying = NULL,
+  survtime,
+  cens,
+  time = NULL,
+  longtimes = NULL
+)
 }
 \arguments{
 \item{dataset}{a dataset or list of datasets.  The datasets can be of either

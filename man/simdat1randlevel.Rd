@@ -5,9 +5,26 @@
 \title{Data simulation function for the case with only individual level random
 effects}
 \usage{
-simdat1randlevel(k, n, rand_ind, sepassoc, ntms, longmeasuretimes, beta1, beta2,
-  gamma, sigb_ind, vare, theta0, theta1, censoring, censlam, truncation,
-  trunctime, q)
+simdat1randlevel(
+  k,
+  n,
+  rand_ind,
+  sepassoc,
+  ntms,
+  longmeasuretimes,
+  beta1,
+  beta2,
+  gamma,
+  sigb_ind,
+  vare,
+  theta0,
+  theta1,
+  censoring,
+  censlam,
+  truncation,
+  trunctime,
+  q
+)
 }
 \arguments{
 \item{k}{the number of studies to be simulated}

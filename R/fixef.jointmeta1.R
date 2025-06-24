@@ -50,7 +50,7 @@ fixef.jointmeta1 <- function(object, type = c("Longitudinal", "Survival",
   }
   if (type == "Longitudinal") {
     fixef.long <- object$coefficients$fixed$longitudinal
-    fixef.long <- as.vector(fixef.long)[, 1]
+    fixef.long <- fixef.long[, 1]
     names(fixef.long) <- rownames(object$coefficients$fixed$longitudinal)
     return(fixef.long)
   } else if (type == "Survival") {

@@ -4,7 +4,8 @@
 \name{simdat}
 \alias{simdat}
 \title{Simulated joint longitudinal and survival dataset containing 5 studies}
-\format{A list of three objects: \describe{ \item{\code{longitudinal}}{A list
+\format{
+A list of three objects: \describe{ \item{\code{longitudinal}}{A list
   of long format longitudinal datasets one for each of the 5 studies included
   in the dataset.  Each of these datasets contains the following variables:
   \describe{ \item{\code{id}}{long version of the id variable for the data.
@@ -31,7 +32,8 @@
 
   \item{\code{percentevent}}{A list of the percentage of events experienced
   in each datasets.  The first element contains the percentage of events
-  observed for the first simulated study and so on.} }}
+  observed for the first simulated study and so on.} }
+}
 \usage{
 simdat
 }

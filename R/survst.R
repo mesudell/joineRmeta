@@ -1,4 +1,4 @@
-#' Function for survival starting values
+  #' Function for survival starting values
 #'
 #' Internal function to estimate the starting values for the EM algorithm for
 #' the survival sub-model

@@ -154,7 +154,7 @@ jointmetaplot <- function(dataset, study, longoutcome, longtime, survtime,
       datatemp[, which(names(datatemp) %in% dataset.bystudy[[u]]$longtime)] <- as.numeric(datatemp[,
                                                                                                    which(names(datatemp) %in% dataset.bystudy[[u]]$longtime)])
       facetformula <- as.formula(paste(". ~ ", cens, sep = ""))
-      p <- ggplot(data = datatemp, aes_string(y = longoutcome, x = longtime,
+      p <- ggplot(data = datatemp, aes(y = .data[[longoutcome]], x = .data[[longtime]],
                                               group = id)) + geom_line() + theme_bw() + theme(plot.title = element_text(hjust = 0.5)) +
         facet_grid(facetformula) + xlab(longtime) + ylab(longoutcome) +
         xlim(longtimemin, longtimemax) + ylim(longoutmin, longoutmax)
@@ -272,8 +272,8 @@ jointmetaplot <- function(dataset, study, longoutcome, longtime, survtime,
           p <- p + ggtitle(studynames[u])
         }
         if (eventconfint) {
-          p <- p + geom_line(aes(y = kmplotdata$upper), linetype = 2, na.rm = TRUE)
-          p <- p + geom_line(aes(y = kmplotdata$lower), linetype = 2, na.rm = TRUE)
+          p <- p + geom_line(aes(y = .data$upper), linetype = 2, na.rm = TRUE)
+          p <- p + geom_line(aes(y = .data$lower), linetype = 2, na.rm = TRUE)
         }
         p
       } else {
@@ -317,8 +317,8 @@ jointmetaplot <- function(dataset, study, longoutcome, longtime, survtime,
           p <- p + ggtitle(studynames[u])
         }
         if (eventconfint) {
-          p <- p + geom_line(aes(y = kmplotdata$upper), linetype = 2, na.rm = TRUE)
-          p <- p + geom_line(aes(y = kmplotdata$lower), linetype = 2, na.rm = TRUE)
+          p <- p + geom_line(aes(y = .data$upper), linetype = 2, na.rm = TRUE)
+          p <- p + geom_line(aes(y = .data$lower), linetype = 2, na.rm = TRUE)
         }
         p
       }

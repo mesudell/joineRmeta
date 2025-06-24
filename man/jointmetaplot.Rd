@@ -4,9 +4,20 @@
 \alias{jointmetaplot}
 \title{Produce plots of longitudinal and survival outcomes}
 \usage{
-jointmetaplot(dataset, study, longoutcome, longtime, survtime, cens, id,
-  smoother = FALSE, studynames = NULL, type = c("Longitudinal", "Event",
-  "Both"), eventby = NULL, eventconfint = FALSE)
+jointmetaplot(
+  dataset,
+  study,
+  longoutcome,
+  longtime,
+  survtime,
+  cens,
+  id,
+  smoother = FALSE,
+  studynames = NULL,
+  type = c("Longitudinal", "Event", "Both"),
+  eventby = NULL,
+  eventconfint = FALSE
+)
 }
 \arguments{
 \item{dataset}{a \code{jointdata} object}

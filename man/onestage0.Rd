@@ -4,9 +4,11 @@
 \name{onestage0}
 \alias{onestage0}
 \title{One stage jointmeta1 fit and bootstrapped standard errors}
-\format{A list of 2 objects: \describe{ \item{\code{onestagefit0}}{an object
+\format{
+A list of 2 objects: \describe{ \item{\code{onestagefit0}}{an object
   of class \code{jointmeta1}} \item{\code{onestagefit0SE}}{an object of class
-  \code{jointmeta1SE}} }}
+  \code{jointmeta1SE}} }
+}
 \usage{
 onestage0
 }

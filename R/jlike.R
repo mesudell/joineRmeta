@@ -195,7 +195,7 @@ jlike <- function(data, longdat, survdat, q, likeests, lgpt, studies, p1,
   })
   s1.2 <- rep(1:(q - 1), (q - 1):1)
   s2.2 <- sequence((q - 1):1) + rep(1:(q - 1), (q - 1):1)
-  Z2.form.surv <- as.formula(gsub(time.long, names(survdat)[2], Z2.form))
+  Z2.form.surv <- as.formula(paste(gsub(time.long, names(survdat)[2], Z2.form),collapse=""))
   survdat$survdatorder <- 1:nrow(survdat)
   tempsurv <- survdat[, which(!(names(survdat) %in% names(longdat)))]
   tempsurv <- cbind(survdat[, 1], tempsurv)
@@ -346,7 +346,7 @@ jlike <- function(data, longdat, survdat, q, likeests, lgpt, studies, p1,
     })
     s1.3 <- rep(1:(r - 1), (r - 1):1)
     s2.3 <- sequence((r - 1):1) + rep(1:(r - 1), (r - 1):1)
-    Z3.form.surv <- as.formula(gsub(time.long, names(survdat)[2], Z3.form))
+    Z3.form.surv <- as.formula(paste(gsub(time.long, names(survdat)[2], Z3.form),collapse=""))
     Z3.frame.surv <- model.frame(Z3.form.surv, data = tempdat)
     Z3.surv <- t(model.matrix(Z3.form.surv, Z3.frame.surv))
     Z3.surv.bystudy <- lapply(1:numstudies, function(u) {

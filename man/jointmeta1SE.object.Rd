@@ -4,7 +4,9 @@
 \name{jointmeta1SE.object}
 \alias{jointmeta1SE.object}
 \title{A \code{jointmeta1SE} object}
-\format{An object of class \code{NULL} of length 0.}
+\format{
+An object of class \code{NULL} of length 0.
+}
 \usage{
 jointmeta1SE.object
 }

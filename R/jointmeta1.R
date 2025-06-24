@@ -371,7 +371,7 @@ jointmeta1 <- function(data, long.formula, long.rand.ind, long.rand.stud = NULL,
         if (class(data$baseline[, which(colnames(data$baseline) ==
                                         long.rand.ind[count])]) == "factor") {
           formtemp <- as.formula(paste("~", colnames(data$baseline)[which(colnames(data$baseline) ==
-                                                                            long.rand.ind[count])]))
+                                                                            long.rand.ind[count])],collapse=""))
           matrixtemp <- model.matrix(formtemp, data$baseline)
           long.rand.ind[count] <- colnames(matrixtemp)[2:ncol(matrixtemp)]
         }
@@ -379,7 +379,7 @@ jointmeta1 <- function(data, long.formula, long.rand.ind, long.rand.stud = NULL,
         if (class(data$longitudinal[, which(colnames(data$longitudinal) ==
                                             long.rand.ind[count])]) == "factor") {
           formtemp <- as.formula(paste("~", colnames(data$longitudinal)[which(colnames(data$longitudinal) ==
-                                                                                long.rand.ind[count])]))
+                                                                                long.rand.ind[count])],collapse=""))
           matrixtemp <- model.matrix(formtemp, data$longitudinal)
           long.rand.ind[count] <- colnames(matrixtemp)[2:ncol(matrixtemp)]
         }
@@ -403,7 +403,7 @@ jointmeta1 <- function(data, long.formula, long.rand.ind, long.rand.stud = NULL,
             if (class(data$baseline[, which(colnames(data$baseline) ==
                                             long.rand.stud[count])]) == "factor") {
               formtemp <- as.formula(paste("~", colnames(data$baseline)[which(colnames(data$baseline) ==
-                                                                                long.rand.stud[count])]))
+                                                                                long.rand.stud[count])],collapse=""))
               matrixtemp <- model.matrix(formtemp, data$baseline)
               long.rand.stud[count] <- colnames(matrixtemp)[2:ncol(matrixtemp)]
             }
@@ -411,7 +411,7 @@ jointmeta1 <- function(data, long.formula, long.rand.ind, long.rand.stud = NULL,
             if (class(data$longitudinal[, which(colnames(data$longitudinal) ==
                                                 long.rand.stud[count])]) == "factor") {
               formtemp <- as.formula(paste("~", colnames(data$longitudinal)[which(colnames(data$longitudinal) ==
-                                                                                    long.rand.stud[count])]))
+                                                                                    long.rand.stud[count])],collapse=""))
               matrixtemp <- model.matrix(formtemp, data$longitudinal)
               long.rand.stud[count] <- colnames(matrixtemp)[2:ncol(matrixtemp)]
             }

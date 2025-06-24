@@ -785,8 +785,8 @@ EMalgRandprop <- function(data, longdat, survdat, long.rand.ind, long.rand.stud 
         }))
         sigma.e <- colSums((do.call(c, Y.bystudy) - ((do.call(rbind,
                                                               X1.bystudy) %*% beta1) + (out)))^2)/sum(N)
-        
-        
+
+
       }
     }
     diag(D) <- colMeans(do.call(rbind, EUU.2))[1:q]

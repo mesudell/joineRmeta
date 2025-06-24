@@ -216,7 +216,7 @@ jointmeta2 <-  function(fits,  SE = NULL, longpar=NULL, survpar=NULL,
         longpres[i, ] <-  as.numeric(as.character(longSE[, 4]))
         longMA <-  lapply(1:ncol(longest), function(u){
           metagen(TE = longest[, u], seTE = longpres[, u], studlab = studynames,
-                  sm = "MD", comb.fixed = TRUE, comb.random = TRUE)
+                  sm = "MD", common = TRUE, random = TRUE)
         })
         names(longMA) <-  longpar
         results$longMA <-  longMA
@@ -245,7 +245,7 @@ jointmeta2 <-  function(fits,  SE = NULL, longpar=NULL, survpar=NULL,
         survMA.direct <-  lapply(1:ncol(survest.direct), function(u){
           metagen(TE = survest.direct[, u],
                   seTE = survpres.direct[, u], studlab = studynames,
-                  sm = "MD", comb.fixed = TRUE, comb.random = TRUE)
+                  sm = "MD", common = TRUE, random = TRUE)
         })
         names(survMA.direct) <-  survpar
         results$survMA.direct <-  survMA.direct
@@ -258,7 +258,7 @@ jointmeta2 <-  function(fits,  SE = NULL, longpar=NULL, survpar=NULL,
         assocMA <-  lapply(1:ncol(assocest), function(u){
           metagen(TE = assocest[, u], seTE = assocpres[, u],
                   studlab = studynames,
-                  sm = "MD", comb.fixed = TRUE, comb.random = TRUE)
+                  sm = "MD", common = TRUE, random = TRUE)
         })
         names(assocMA) <-  names(assocest)
         results$assocMA <-  assocMA
@@ -468,7 +468,7 @@ jointmeta2 <-  function(fits,  SE = NULL, longpar=NULL, survpar=NULL,
                                                      "CoefTable-Long"[, 2]))]
         longMA <-  lapply(1:ncol(longest), function(u){
           metagen(TE = longest[, u], seTE = longpres[, u], studlab = studynames,
-                  sm = "MD", comb.fixed = TRUE, comb.random = TRUE)
+                  sm = "MD", common = TRUE, random = TRUE)
         })
         names(longMA) <-  longpar
         results$longMA <-  longMA
@@ -558,13 +558,13 @@ jointmeta2 <-  function(fits,  SE = NULL, longpar=NULL, survpar=NULL,
           survMA.direct <-  lapply(1:ncol(survest.direct), function(u){
             metagen(TE = survest.direct[, u], seTE = survpres.direct[, u],
                     studlab = studynames,
-                    sm = "MD", comb.fixed = TRUE, comb.random = TRUE)
+                    sm = "MD", common = TRUE, random = TRUE)
           })
           names(survMA.direct) <-  survpar
           survMA.overall <-  lapply(1:ncol(survest.overall), function(u){
             metagen(TE = survest.overall[, u], seTE = survpres.overall[, u],
                     studlab = studynames,
-                    sm = "MD", comb.fixed = TRUE, comb.random = TRUE)
+                    sm = "MD", common = TRUE, random = TRUE)
           })
           names(survMA.overall) <-  survpar
           results$survMA.direct <-  survMA.direct
@@ -601,13 +601,13 @@ jointmeta2 <-  function(fits,  SE = NULL, longpar=NULL, survpar=NULL,
           survMA.direct <-  lapply(1:ncol(survest.direct), function(u){
             metagen(TE = survest.direct[, u], seTE = survpres.direct[, u],
                     studlab = studynames,
-                    sm = "MD", comb.fixed = TRUE, comb.random = TRUE)
+                    sm = "MD", common = TRUE, random = TRUE)
           })
           names(survMA.direct) <-  survpar
           survMA.overall <-  lapply(1:ncol(survest.overall), function(u){
             metagen(TE = survest.overall[, u], seTE = survpres.overall[, u],
                     studlab = studynames,
-                    sm = "MD", comb.fixed = TRUE, comb.random = TRUE)
+                    sm = "MD", common = TRUE, random = TRUE)
           })
           names(survMA.overall) <-  survpar
           results$survMA.direct <-  survMA.direct
@@ -718,13 +718,13 @@ jointmeta2 <-  function(fits,  SE = NULL, longpar=NULL, survpar=NULL,
           survMA.direct <-  lapply(1:ncol(survest.direct), function(u){
             metagen(TE = survest.direct[, u],
                     seTE = survpres.direct[, u], studlab = studynames,
-                    sm = "MD", comb.fixed = TRUE, comb.random = TRUE)
+                    sm = "MD", common = TRUE, random = TRUE)
           })
           names(survMA.direct) <-  survpar
           survMA.overall <-  lapply(1:ncol(survest.overall), function(u){
             metagen(TE = survest.overall[, u],
                     seTE = survpres.overall[, u], studlab = studynames,
-                    sm = "MD", comb.fixed = TRUE, comb.random = TRUE)
+                    sm = "MD", common = TRUE, random = TRUE)
           })
           names(survMA.overall) <-  survpar
           results$survMA.direct <-  survMA.direct
@@ -738,7 +738,7 @@ jointmeta2 <-  function(fits,  SE = NULL, longpar=NULL, survpar=NULL,
     if(assoc){
       assocMA <-  lapply(1:ncol(assocest), function(u){
         metagen(TE = assocest[, u], seTE = assocpres[, u], studlab = studynames,
-                sm = "MD", comb.fixed = TRUE, comb.random = TRUE)
+                sm = "MD", common = TRUE, random = TRUE)
       })
       names(assocMA) <-  names(assocest)
       results$assocMA <-  assocMA

@@ -4,13 +4,28 @@
 \alias{simjointmeta}
 \title{Simulation of multi-study joint data}
 \usage{
-simjointmeta(k = 5, n = rep(500, 5), sepassoc = FALSE, ntms = 5,
-  longmeasuretimes = c(0, 1, 2, 3, 4), beta1 = c(1, 1, 1), beta2 = 1,
-  rand_ind = c("intslope", "int"), rand_stud = c("int", "inttreat", "treat",
-  NULL), gamma_ind = 1, gamma_stud = NULL, sigb_ind, sigb_stud = NULL,
-  vare = 0.01, theta0 = -3, theta1 = 1, censoring = TRUE,
-  censlam = exp(-3), truncation = FALSE,
-  trunctime = max(longmeasuretimes))
+simjointmeta(
+  k = 5,
+  n = rep(500, 5),
+  sepassoc = FALSE,
+  ntms = 5,
+  longmeasuretimes = c(0, 1, 2, 3, 4),
+  beta1 = c(1, 1, 1),
+  beta2 = 1,
+  rand_ind = c("intslope", "int"),
+  rand_stud = c("int", "inttreat", "treat", NULL),
+  gamma_ind = 1,
+  gamma_stud = NULL,
+  sigb_ind,
+  sigb_stud = NULL,
+  vare = 0.01,
+  theta0 = -3,
+  theta1 = 1,
+  censoring = TRUE,
+  censlam = exp(-3),
+  truncation = FALSE,
+  trunctime = max(longmeasuretimes)
+)
 }
 \arguments{
 \item{k}{the number of studies to be simulated}

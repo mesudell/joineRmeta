@@ -4,10 +4,24 @@
 \alias{jointmeta1}
 \title{One stage joint meta function}
 \usage{
-jointmeta1(data, long.formula, long.rand.ind, long.rand.stud = NULL,
+jointmeta1(
+  data,
+  long.formula,
+  long.rand.ind,
+  long.rand.stud = NULL,
   sharingstrct = c("randprop", "randsep", "value", "slope", "valandslope"),
-  surv.formula, gpt, lgpt, max.it, tol, study.name, strat = F, longsep = F,
-  survsep = F, bootrun = F, print.detail = F)
+  surv.formula,
+  gpt,
+  lgpt,
+  max.it,
+  tol,
+  study.name,
+  strat = F,
+  longsep = F,
+  survsep = F,
+  bootrun = F,
+  print.detail = F
+)
 }
 \arguments{
 \item{data}{an object of class jointdata containing the variables named in

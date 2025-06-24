@@ -4,8 +4,15 @@
 \alias{jointmetaSE}
 \title{Bootstrapping function to obtain standard errors for jointmeta1 fit}
 \usage{
-jointmetaSE(fitted, n.boot, gpt, max.it, tol, print.detail = FALSE,
-  overalleffects = NULL)
+jointmetaSE(
+  fitted,
+  n.boot,
+  gpt,
+  max.it,
+  tol,
+  print.detail = FALSE,
+  overalleffects = NULL
+)
 }
 \arguments{
 \item{fitted}{a \code{jointmeta1} object}

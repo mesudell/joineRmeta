@@ -4,7 +4,8 @@
 \name{joineRfits2}
 \alias{joineRfits2}
 \title{Study specific joint model fits using the joineR package}
-\format{A list of 6 objects: \describe{ \item{\code{joineRfit6}}{an object
+\format{
+A list of 6 objects: \describe{ \item{\code{joineRfit6}}{an object
   of class \code{joint}, the result of using the \code{joint} function to fit
   a joint model to the data from the first study in the \code{simdat2}
   dataset.} \item{\code{joineRfit6SE}}{an object of class \code{data.frame},
@@ -19,7 +20,8 @@
   model to the data from the third study in the \code{simdat2} dataset.}
   \item{\code{joineRfit8SE}}{an object of class \code{data.frame}, the result
   of applying the function \code{jointSE} to the joint model fit
-  \code{joineRfit8}.} }}
+  \code{joineRfit8}.} }
+}
 \usage{
 joineRfits2
 }

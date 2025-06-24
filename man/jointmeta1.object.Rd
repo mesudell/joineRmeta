@@ -4,7 +4,9 @@
 \name{jointmeta1.object}
 \alias{jointmeta1.object}
 \title{Fitted \code{jointmeta1} object}
-\format{An object of class \code{NULL} of length 0.}
+\format{
+An object of class \code{NULL} of length 0.
+}
 \usage{
 jointmeta1.object
 }

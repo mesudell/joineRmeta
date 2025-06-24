@@ -4,8 +4,13 @@
 \alias{jointmetaplotall}
 \title{Arrange study plots into a grid}
 \usage{
-jointmetaplotall(plotlist, ncol, nrow = NULL, top = NULL,
-  type = c("Longitudinal", "Event", "Both"))
+jointmetaplotall(
+  plotlist,
+  ncol,
+  nrow = NULL,
+  top = NULL,
+  type = c("Longitudinal", "Event", "Both")
+)
 }
 \arguments{
 \item{plotlist}{the output from running the \code{\link{jointmetaplot}}

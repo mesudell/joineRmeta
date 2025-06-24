@@ -4,8 +4,16 @@
 \alias{longst}
 \title{Function for longitudinal starting values}
 \usage{
-longst(longdat, long.formula.orig, long.rand.ind, long.rand.stud = NULL,
-  longdat2, id.name, study.name, studies)
+longst(
+  longdat,
+  long.formula.orig,
+  long.rand.ind,
+  long.rand.stud = NULL,
+  longdat2,
+  id.name,
+  study.name,
+  studies
+)
 }
 \arguments{
 \item{longdat}{the longitudinal data with factors and interaction terms
