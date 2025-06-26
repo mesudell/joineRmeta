@@ -14,7 +14,6 @@ knitr::opts_chunk$set(
 
 # joineRmeta
 
-[![Travis-CI Build Status](https://travis-ci.org/mesudell/joineRmeta.svg?branch=master)](https://travis-ci.org/mesudell/joineRmeta)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/mesudell/joineRmeta?branch=master&svg=true)](https://ci.appveyor.com/project/mesudell/joineRmeta)
 <!--[![License](https://img.shields.io/badge/License-GPL%20%28%3E=%203%29-brightgreen.svg)](http://www.gnu.org/licenses/gpl-3.0.html)-->
 
