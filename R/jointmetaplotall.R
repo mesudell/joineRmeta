@@ -65,11 +65,11 @@
 #'
 jointmetaplotall <- function(plotlist, ncol, nrow = NULL, top = NULL, type = c("Longitudinal",
                                                                                "Event", "Both")) {
-  if (class(plotlist) != "jointplots") {
+  if (!inherits(plotlist,"jointplots")) {
     stop("plotlist should be a list of plots as produced by jointmetaplot,
          of class jointplots")
   }
-  if (class(ncol) != "numeric") {
+  if (!inherits(ncol,"numeric")) {
     stop("ncol should be a numeric value")
   }
   if (!(floor(ncol) == ncol)) {
@@ -78,7 +78,7 @@ jointmetaplotall <- function(plotlist, ncol, nrow = NULL, top = NULL, type = c("
   if (is.null(top)) {
     top <- "All Studies"
   } else {
-    if (class(top) != "character") {
+    if (!inherits(top, "character")) {
       stop("If supplied, top should be a character string")
     }
   }
@@ -90,7 +90,7 @@ jointmetaplotall <- function(plotlist, ncol, nrow = NULL, top = NULL, type = c("
          \"Event\", \"Both\")")
   }
   if (is.null(nrow) == FALSE) {
-    if (class(nrow) != "numeric") {
+    if (!inherits(nrow,"numeric")) {
       stop("nrow should be a numeric value")
     }
     if (!(floor(nrow) == nrow)) {

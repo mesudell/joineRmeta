@@ -167,7 +167,7 @@ tojointdata <- function(dataset = NULL, longitudinal = NULL, survival = NULL,
       stop("More than one of dataset, and combination of \n
            longitudinal, survival and baseline datasets supplied")
     }
-    if (class(dataset) == "list") {
+    if (inherits(dataset,"list")) {
       dataset <- Reduce(function(x, y) merge(x, y, all = TRUE), dataset)
     }
     idcol <- which(names(dataset) %in% id)
@@ -323,11 +323,11 @@ tojointdata <- function(dataset = NULL, longitudinal = NULL, survival = NULL,
       if (is.null(longitudinal) || is.null(survival)) {
         stop("One of longitudinal or survival lists of datasets is missing")
       }
-      if (class(longitudinal) == "list") {
+      if (inherits(longitudinal,"list")) {
         longitudinal <- Reduce(function(x, y) merge(x, y, all = TRUE),
                                longitudinal)
       }
-      if (class(survival) == "list") {
+      if (inherits(survival,"list")) {
         survival <- Reduce(function(x, y) merge(x, y, all = TRUE),
                            survival)
       }
@@ -381,7 +381,7 @@ tojointdata <- function(dataset = NULL, longitudinal = NULL, survival = NULL,
                                                                      cens)))]
       baselinetemp <- merge(baselinetemp.long, baselinetemp.surv)
       if (is.null(baseline) == FALSE) {
-        if (class(baseline) == "list") {
+        if (inherits(baseline,"list")) {
           baseline <- Reduce(function(x, y) merge(x, y, all = TRUE),
                              baseline)
         }
@@ -397,13 +397,13 @@ tojointdata <- function(dataset = NULL, longitudinal = NULL, survival = NULL,
                                ]
   baselinetemp <- baselinetemp[which(baselinetemp[, 1] %in% commonid),
                                ]
-  if (any(sapply(baselinetemp, "class") == "factor")) {
+  if (any(sapply(baselinetemp, function(x) inherits(x=x,what="factor")))) {
     baselinetemp <- droplevels(baselinetemp)
   }
-  if (any(sapply(longtemp, "class") == "factor")) {
+  if (any(sapply(longtemp, function(x) inherits(x=x,what="factor")))) {
     longtemp <- droplevels(longtemp)
   }
-  if (any(sapply(survivaltemp, "class") == "factor")) {
+  if (any(sapply(survivaltemp, function(x) inherits(x=x,what="factor")))) {
     survivaltemp <- droplevels(survivaltemp)
   }
   longtemp <- longtemp[order(longtemp[, which(names(longtemp) %in% id)]),

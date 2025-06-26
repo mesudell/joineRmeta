@@ -58,7 +58,7 @@
 #'
 formula.jointmeta1 <- function(x, type = c("Longitudinal", "Survival",
                                            "Rand_ind", "Rand_stud"), ...) {
-  if (class(x) != "jointmeta1") {
+  if (!inherits(x, "jointmeta1")) {
     stop("Variable x should be of class jointmeta1")
   }
   if (missing(type) || !(type %in% c("Longitudinal", "Survival", "Rand_ind",

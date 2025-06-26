@@ -40,7 +40,7 @@
 #'     #request a summary of the fitted model, with standard errors printed
 #'     summary(onestagefit, variance = FALSE)
 summary.jointmeta1 <- function(object, variance = TRUE, ...) {
-  if (class(object) != "jointmeta1") {
+  if (!inherits(object,"jointmeta1")) {
     stop("Variable object should be of class jointmeta1")
   }
   cat("\nCall:\n", paste(deparse(object$Call), sep = "\n", collapse = "\n"),

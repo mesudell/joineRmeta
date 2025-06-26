@@ -64,5 +64,5 @@ supplied \code{jointmeta1} fit.
 }
 \seealso{
 \code{\link{jointmeta1}}, \code{\link{jointmeta1.object}},
-  \code{\link{fixef}}
+  \code{\link{fixef.jointmeta1}}
 }

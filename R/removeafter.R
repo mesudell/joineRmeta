@@ -62,22 +62,22 @@
 #'  }
 #'
 removeafter <- function(data, longitudinal, survival, id, time) {
-  if (class(data) != "jointdata") {
+  if (!inherits(data,"jointdata")) {
     stop("data should be supplied in jointdata format")
   }
-  if (class(survival) != "character") {
+  if (!inherits(survival,"character")) {
     stop("survival should be the character name
          of the time-to-event outcome of interest")
   }
-  if (class(longitudinal) != "character") {
+  if (!inherits(longitudinal,"character")) {
     stop("longitudinal should be the character name
          of the longitudinal outcome of interest")
   }
-  if (class(id) != "character") {
+  if (!inherits(id,"character")) {
     stop("id should be the character name
          of the id variable of the data")
   }
-  if (class(time) != "character") {
+  if (!inherits(time,"character")) {
     stop("time should be the character name
          of the longitudinal time variable of the data")
   }

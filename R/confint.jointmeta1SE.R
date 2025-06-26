@@ -55,10 +55,10 @@
 #'     }
 #'
 confint.jointmeta1SE <- function(object, parm = NULL, level = 0.95, ...) {
-  if (class(object) != "jointmeta1SE") {
+  if (!inherits(object,"jointmeta1SE")) {
     stop("fittedSE should be of class jointmeta1SE")
   }
-  if (class(level) != "numeric") {
+  if (!inherits(level,"numeric")) {
     stop("Please specify level as a numeric between 0 and 1")
   }
   if (level < 0 || level > 1) {
@@ -98,7 +98,7 @@ confint.jointmeta1SE <- function(object, parm = NULL, level = 0.95, ...) {
       }
     }
     out[, 1] <- component
-    if (class(parm) == "character") {
+    if (inherits(parm,"character")) {
       selection <- which(as.character(object$results[, 2]) %in% parm)
     } else if (class(parm) %in% c("numeric", "integer")) {
       selection <- parm

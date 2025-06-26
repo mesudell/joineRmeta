@@ -86,7 +86,7 @@
 #'
 jointmetaSE<-function (fitted, n.boot, gpt, max.it, tol, print.detail = FALSE,
                        overalleffects = NULL) {
-  if(class(fitted) ==  "jointmeta1") {
+  if(inherits(fitted,"jointmeta1")) {
     if("long.rand.stud" %in% names(fitted$Call)) {
       data <- fitted$data
       id <- fitted$data$subj.col

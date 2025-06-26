@@ -241,10 +241,10 @@ simjointmeta <- function(k = 5, n = rep(500, 5), sepassoc = FALSE, ntms = 5,
       stop("Missing argument: ntms")
     }
     samegamma <- TRUE
-    if (class(gamma_ind) == "list" && class(gamma_stud) == "list") {
+    if (inherits(gamma_ind, "list") && inherits(gamma_stud,"list")) {
       samegamma <- FALSE
-    } else if ((class(gamma_ind) == "list" && class(gamma_stud) != "list") ||
-               (class(gamma_ind) != "list" && class(gamma_stud) == "list")) {
+    } else if ((inherits(gamma_ind,"list") && !inherits(gamma_stud,"list")) ||
+               (!inherits(gamma_ind,"list") && inherits(gamma_stud,"list"))) {
       stop("one but not both of gamma_ind and gamma_stud supplied as
            varying between study - specify as both varying or both constant")
     }
@@ -387,7 +387,7 @@ simjointmeta <- function(k = 5, n = rep(500, 5), sepassoc = FALSE, ntms = 5,
           stop("Missing argument: sigb_ind")
         }
         samegamma <- TRUE
-        if (class(gamma_ind) == "list") {
+        if (inherits(gamma_ind,"list")) {
           samegamma <- FALSE
         }
         if (!(length(theta0) %in% c(1, k))) {

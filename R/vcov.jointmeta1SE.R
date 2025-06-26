@@ -46,7 +46,7 @@
 #'     }
 #'
 vcov.jointmeta1SE <- function(object, ...) {
-  if (class(object) != "jointmeta1SE") {
+  if (!inherits(object,"jointmeta1SE")) {
     stop("object should be of class jointmeta1SE")
   }
   object$covmat

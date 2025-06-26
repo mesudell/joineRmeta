@@ -35,7 +35,7 @@
 #'     print(onestagefit)
 #'
 print.jointmeta1 <- function(x, ...) {
-  if (class(x) != "jointmeta1") {
+  if (!inherits(x,"jointmeta1")) {
     stop("Variable x should be of class jointmeta1")
   }
   cat("\nCall:\n", paste(deparse(x$Call), sep = "\n", collapse = "\n"),

@@ -27,7 +27,7 @@
 #' @export
 #'
 #' @seealso \code{\link{jointmeta1}}, \code{\link{jointmeta1.object}},
-#'   \code{\link{fixef}}
+#'   \code{\link{fixef.jointmeta1}}
 #'
 #' @examples
 #'    #change example data to jointdata object
@@ -56,7 +56,7 @@
 #'     #extract the study level random effects covariance matrix
 #'     ranef(onestagefit, type = 'study')
 ranef.jointmeta1 <- function(object, type = c("individual", "study"), ...) {
-  if (class(object) != "jointmeta1") {
+  if (!inherits(object,"jointmeta1")) {
     stop("Variable object should be of class jointmeta1")
   }
   if (missing(type) || !(type %in% c("individual", "study"))) {

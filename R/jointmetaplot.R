@@ -82,7 +82,7 @@
 jointmetaplot <- function(dataset, study, longoutcome, longtime, survtime,
                           cens, id, smoother = FALSE, studynames = NULL, type = c("Longitudinal",
                                                                                   "Event", "Both"), eventby = NULL, eventconfint = FALSE) {
-  if (class(dataset) != "jointdata") {
+  if (!inherits(dataset,"jointdata")) {
     stop("Please run tojointdata function before attempting to plot data \n
          this will give data in jointdata format")
   }
@@ -100,7 +100,7 @@ jointmetaplot <- function(dataset, study, longoutcome, longtime, survtime,
     stop("No variable specified as holding the id variable")
   }
   if (is.null(studynames) == FALSE) {
-    if (class(studynames) != "character") {
+    if (!inherits(studynames, "character")) {
       stop("studynames should be supplied as a character string")
     }
     if (length(studynames) != length(unique(dataset$baseline[, studycol]))) {

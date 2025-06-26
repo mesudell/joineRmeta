@@ -101,17 +101,17 @@
 #'
 jointmeta2 <-  function(fits,  SE = NULL, longpar=NULL, survpar=NULL,
                         assoc = TRUE, studynames=NULL){
-  if(class(fits) !=  "list"){
+  if(!inherits(fits,"list")){
     stop("fits should be supplied a list of joint model fits")
   }
   if(is.null(longpar) ==  FALSE){
-    if(class(longpar) !=  "character"){
+    if(!inherits(longpar,"character")){
       stop("Please supply the longitudinal and survival
            parameters to meta-analyse as character strings")
     }
   }
   if(is.null(survpar) ==  FALSE){
-    if(class(survpar) !=  "character"){
+    if(!inherits(survpar,"character")){
       stop("Please supply the longitudinal and survival parameters
            to meta-analyse as character strings")
     }
@@ -122,7 +122,7 @@ jointmeta2 <-  function(fits,  SE = NULL, longpar=NULL, survpar=NULL,
          consider subgrouping")
   }
   if(is.null(studynames) ==  FALSE){
-    if(class(studynames) !=  "character"){
+    if(!inherits(studynames,"character")){
       stop("Studynames should be supplied as a character vector")
     }
   }else{

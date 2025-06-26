@@ -162,7 +162,7 @@ simdat2randlevels <- function(k, n, rand_ind, rand_stud, sepassoc, ntms,
     runif(n[u])
   })
   if (rand_ind == "int") {
-    if (class(gamma) == "list") {
+    if (inherits(gamma,"list")) {
       survtime <- lapply(1:k, function(u) {
         -log(uu[[u]])/exp(theta0[[u]] + beta2x[[u]] + (U_ind[[u]] *
                                                          gamma[[u]][1]) + colSums(Z3b3.surv[[u]] * gamma[[u]][(q +
@@ -176,7 +176,7 @@ simdat2randlevels <- function(k, n, rand_ind, rand_stud, sepassoc, ntms,
       })
     }
   } else {
-    if (class(gamma) == "list") {
+    if (inherits(gamma,"list")) {
       survtime <- lapply(1:k, function(u) {
         temp1 <- ((gamma[[u]][2] * U_ind[[u]][, 2]) + theta1[[u]])
         temp2 <- exp(theta0[[u]] + beta2x[[u]] + (gamma[[u]][1] *

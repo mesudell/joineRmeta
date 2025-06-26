@@ -50,7 +50,7 @@
 #'
 #'
 rancov<-function(fitted, type=c("individual", "study")) {
-  if(class(fitted) != "jointmeta1") {
+  if(!inherits(fitted,"jointmeta1")) {
     stop("Variable fitted should be of class jointmeta1")
   }
   if(missing(type) || !(type %in% c("individual", "study"))) {

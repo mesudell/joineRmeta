@@ -42,7 +42,7 @@
 
 fixef.jointmeta1 <- function(object, type = c("Longitudinal", "Survival",
                                               "Latent"), ...) {
-  if (class(object) != "jointmeta1") {
+  if (!inherits(object,"jointmeta1")) {
     stop("Variable object should be of class jointmeta1")
   }
   if (missing(type) || !(type %in% c("Longitudinal", "Survival", "Latent"))) {
