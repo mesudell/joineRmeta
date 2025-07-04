@@ -87,7 +87,13 @@
 jointmetaSE<-function (fitted, n.boot, gpt, max.it, tol, print.detail = FALSE,
                        overalleffects = NULL) {
   if(inherits(fitted,"jointmeta1")) {
-    if("long.rand.stud" %in% names(fitted$Call)) {
+    exists_long.rand.stud<-FALSE
+    if("long.rand.stud" %in% names(fitted$Call)){
+      if(!is.null(fitted$Call$long.rand.stud)){
+        exists_long.rand.stud<-TRUE
+      }
+    }
+    if(exists_long.rand.stud) {
       data <- fitted$data
       id <- fitted$data$subj.col
       time.long <- fitted$data$time.col
@@ -203,9 +209,11 @@ jointmetaSE<-function (fitted, n.boot, gpt, max.it, tol, print.detail = FALSE,
       }
       surv.formula<-fitted$Call$surv.formula
       study.name<-fitted$Call$study.name
-      if(as.character(fitted$Call$strat) == "T"||
-         as.character(fitted$Call$strat) == "TRUE") {
-        strat<-T
+      if(!is.null(fitted$Call$strat)){
+        if(as.character(fitted$Call$strat) == "T"||
+           as.character(fitted$Call$strat) == "TRUE") {
+          strat<-T
+        }else{strat<-F}
       }else{strat<-F}
       if("longsep" %in% names(fitted$Call)) {
         longsep<-as.logical(as.character(fitted$Call$longsep))
@@ -709,9 +717,11 @@ jointmetaSE<-function (fitted, n.boot, gpt, max.it, tol, print.detail = FALSE,
       if(sharingstrct != "randprop") {
         stop("Currently only the randprop sharing structure is supported")
       }
-      if(as.character(fitted$Call$strat) == "T"||
-         as.character(fitted$Call$strat) == "TRUE") {
-        strat<-T
+      if(!is.null(fitted$Call$strat)){
+        if(as.character(fitted$Call$strat) == "T"||
+           as.character(fitted$Call$strat) == "TRUE") {
+          strat<-T
+        }else{strat<-F}
       }else{strat<-F}
       if("longsep" %in% names(fitted$Call)) {
         longsep<-as.logical(as.character(fitted$Call$longsep))
