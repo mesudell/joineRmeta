@@ -434,8 +434,8 @@ jointmeta1 <- function(data, long.formula, long.rand.ind, long.rand.stud = NULL,
   surv.cov <- as.matrix(surv.cov[, -1])
   colnames(surv.cov) <- namestemp[-1]
   rss <- as.integer(row.names(surv.cov))
-  survdat <- cbind(data$survival[[id.name]][rss], srv[rss, 1], srv[rss,
-                                                                   2], data$baseline[[study.name]][rss], surv.cov)
+  survdat <- cbind(data$survival[[id.name]][row.names(data$survival)%in%as.character(rss)], srv[row.names(srv)%in%as.character(rss), 1], srv[row.names(srv)%in%as.character(rss),
+                                                                   2], data$baseline[[study.name]][row.names(data$baseline)%in%as.character(rss)], surv.cov)
   survdat <- as.data.frame(survdat)
   names(survdat) <- c(id.name, surv.formula[2][[1]][[2]], surv.formula[2][[1]][[3]],
                       study.name, colnames(surv.cov))
@@ -443,8 +443,8 @@ jointmeta1 <- function(data, long.formula, long.rand.ind, long.rand.stud = NULL,
     survdat[, 5:dim(survdat)[2]] <- scale(survdat[, 5:dim(survdat)[2]],
                                           scale = FALSE)
   }
-  survdat2 <- data.frame(data$survival[[id.name]][rss], srv[rss, 1],
-                         srv[rss, 2], data$baseline[[study.name]][rss], surv.frame[, -1])
+  survdat2 <- data.frame(data$survival[[id.name]][row.names(data$survival)%in%as.character(rss)], srv[row.names(srv)%in%as.character(rss), 1],
+                         srv[row.names(srv)%in%as.character(rss), 2], data$baseline[[study.name]][row.names(data$baseline)%in%as.character(rss)], surv.frame[, -1])
   if (ncol(survdat) > 4) {
     surv.formula <- as.formula(paste(as.character(surv.formula)[2],
                                      "~", paste(names(survdat)[5:ncol(survdat)], collapse = " + "),
